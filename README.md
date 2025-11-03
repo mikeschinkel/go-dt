@@ -79,6 +79,52 @@ Our **ultimate goal** — _said with a wink_ — is to see the Go team adopt som
 
 ---
 
+## Design Choice: Methods Over Package Functions
+
+If you're coming from the Go standard library, you might notice that `dt` frequently uses **methods on types** rather than package-level functions:
+
+```go
+// Standard library typically uses package functions
+var fp string
+...
+content, err := os.ReadFile(fp)
+dir := filepath.Dir(dp)
+
+// dt typically uses methods
+var fp dt.Filepath
+...
+content, err := fp.ReadFile()
+dir := fp.Dir()
+```
+
+**This is not a stylistic preference.** It's a pragmatic response to a technical limitation.
+
+Go's generics system _(as of Go 1.25)_ simply **cannot express the type relationships needed** to make package functions work ergonomically with domain types. Defaulting to package functions in `dt` would force constant type casting, defeating the impetutus behind `dt`, to provider greater type safety that `string` and other built-in types provide without having to constantly cast values from one derived type to another type dervied from the same base type:
+
+```go
+// A package function approach would require verbose casting
+var myPath dt.Filepath
+var myDir dt.DirPath
+...
+myDir = dt.DirPath(filepath.Dir(string(myPath))
+
+// Whereas a method approach is clean and type-safe
+var myPath dt.Filepath
+var myDir dt.DirPath
+...
+myDir = myPath.Dir()
+```
+
+The method-based approach provides:
+- **Type-casting rarely required** – operations are attached to the type for better ergonomics
+- **Better discoverability** – IDE autocompletes will shows all available operations
+- **Cleaner composition** – Chaining for those who prefer it, e.g.: `dir.Join(file).ReadFile()`
+- _And best of all:_ **Type safety** – The Go compiler prevents invalid type compositions
+
+For a detailed technical explanation of this decision, see **[ADR 2025-02-11: Methods Over Package Functions](adrs/2025-02-11-methods-over-package-functions.md)**.
+
+---
+
 ## Companion Packages
 
 | Package                    | Purpose                                                                                                                                                                                                                    |
