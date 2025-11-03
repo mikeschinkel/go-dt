@@ -4,13 +4,6 @@ import (
 	"io/fs"
 )
 
-func ValidFilepath(fp Filepath) bool {
-	return fs.ValidPath(string(fp))
-}
-func ValidRelPath(rf RelFilepath) bool {
-	return fs.ValidPath(string(rf))
-}
-
 func FSReadFile(fileSys fs.FS, fp Filepath) ([]byte, error) {
 	return fs.ReadFile(fileSys, string(fp))
 }

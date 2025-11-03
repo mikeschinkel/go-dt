@@ -1,0 +1,101 @@
+package dt
+
+import (
+	"errors"
+	"io/fs"
+	"os"
+	"path/filepath"
+)
+
+// EntryPath can be a Filepath or a DirPath
+type EntryPath string
+
+func (ep EntryPath) Dir() DirPath {
+	return DirPath(filepath.Dir(string(ep)))
+}
+
+func (ep EntryPath) Base() Filename {
+	return Filename(filepath.Base(string(ep)))
+}
+
+func (ep EntryPath) Stat(fileSys ...fs.FS) (fs.FileInfo, error) {
+	if len(fileSys) == 0 {
+		return os.Stat(string(ep))
+	}
+	return fs.Stat(fileSys[0], string(ep))
+}
+
+func (ep EntryPath) Lstat() (os.FileInfo, error) {
+	return os.Lstat(string(ep))
+}
+
+// Status classifies the filesystem entry referred to by fp.
+//
+// It returns IsMissingEntry when the entry does not exist (err == nil).
+// It returns IsEntryError for all other filesystem errors (err != nil).
+// By default it follows symlinks (like os.Stat). To inspect the entry
+// itself, pass FlagDontFollowSymlinks.
+//
+// On platforms that don't support certain kinds (e.g., sockets/devices on
+// Windows), those statuses will never be returned.
+func (ep EntryPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
+	var info os.FileInfo
+	var mode os.FileMode
+
+	switch {
+	case len(flags) == 0:
+		info, err = os.Stat(string(ep))
+	case flags[0]&DontFollowSymlinks != 0:
+		info, err = os.Lstat(string(ep))
+	default:
+		info, err = os.Stat(string(ep))
+	}
+
+	if errors.Is(err, fs.ErrNotExist) {
+		status = IsMissingEntry
+		err = nil
+		goto end
+	}
+	if err != nil {
+		status = IsEntryError
+		goto end
+	}
+
+	mode = info.Mode()
+	switch {
+	case mode.IsRegular():
+		status = IsFileEntry
+	case mode.IsDir():
+		status = IsDirEntry
+	case mode&fs.ModeSymlink != 0:
+		status = IsSymlinkEntry
+	case mode&fs.ModeSocket != 0:
+		status = IsSocketEntry
+	case mode&fs.ModeNamedPipe != 0:
+		status = IsPipeEntry
+	case mode&fs.ModeDevice != 0:
+		status = IsDeviceEntry
+	default:
+		status = IsUnclassifiedEntryStatus
+	}
+
+end:
+	return status, err
+}
+
+// Readlink returns the target of the symlink referred to by fp.
+//
+// It returns the resolved target as a EntryPath. If fp is not a symlink,
+// it returns an empty EntryPath and a non-nil error from os.Readlink.
+// On most systems the returned target is relative to the directory
+// containing fp, not an absolute path.
+func (ep EntryPath) Readlink() (target EntryPath, err error) {
+	var linkTarget string
+	linkTarget, err = os.Readlink(string(ep))
+	if err != nil {
+		goto end
+	}
+	target = EntryPath(linkTarget)
+end:
+	return target, err
+}
