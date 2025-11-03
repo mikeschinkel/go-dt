@@ -12,6 +12,13 @@ Excellent — that’s exactly the right philosophy for `dt`: **pragmatism over 
 Here’s a rewritten **Purpose** section that captures everything you just described — the “stake in the ground” idea, the analogy to the standard library, and the avoidance of the “most developers will agree” challenge tone:
 
 ---
+## Status
+
+This is **pre-alpha** and in development thus **subject to change**, although I am trying to bring to v1.0 as soon as I feel confident its architecture will not need to change. As of Novemeber 2025 I am actively working on it and using it in current projects.
+
+If you find value in this project and want to use it, please start a discuss to let me know. If you discuver any issues with it, please open an issue or submit a pull request.
+
+---
 
 ## Purpose
 
@@ -22,7 +29,6 @@ Software ecosystems thrive when developers can build on shared assumptions inste
 We’re not trying to design the ideal type for every situation. We’re trying to make it **easy to agree on something usable** so that code written by different teams and libraries can interoperate seamlessly.
 
 When you write Go code using the standard library, you don’t have to ask whether `string` or `os.FileInfo` will be available to the next developer; they simply are. The goal of `dt` is to bring that same confidence and low-friction usability to domain types that the standard library never standardized.
-
 
 ---
 
