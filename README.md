@@ -1,5 +1,27 @@
 # Domain Types for Go (`dt`)
 
+## Purpose
+
+`dt` provides a **stable, dependency-free foundation** of common domain types for Go—types that are “good enough” for everyone to use, even if not perfect for every use-case.
+
+Software ecosystems thrive when developers can build on shared assumptions instead of constantly reinventing them. `dt` aims to be that shared foundation: a **stake in the ground** for how common types like file paths, identifiers, and URLs that can be used in your packages with the knowledge that other packages can have access to those same types.
+
+We’re not trying to design the ideal type for every situation. We’re trying to make it **easy to agree on something usable** so that code written by different teams and libraries can interoperate seamlessly.
+
+When you write Go code using the standard library, you don’t have to ask whether `string` or `os.FileInfo` will be available to the next developer; they simply are. The goal of `dt` is to bring that same confidence and low-friction usability to domain types that the standard library never standardized.
+
+--- 
+
+## Status
+
+This is **pre-alpha** and in development thus **subject to change**, although I am trying to bring to v1.0 as soon as I feel confident its architecture will not need to change. As of Novemeber 2025 I am actively working on it and using it in current projects.
+
+If you find value in this project and want to use it, please start a discuss to let me know. If you discuver any issues with it, please open an issue or submit a pull request.
+
+---
+
+## Rationale
+
 Many Go developers recognize that custom domain types can improve correctness and readability. Yet few actually use them, because in today’s ecosystem doing so requires too much effort.
 
 The barrier is friction. Even simple types like Filename or `DirPath` often demand re-implementing helper methods, sacrificing interoperability with third-party libraries, and working around the standard library’s limited type flexibility.
@@ -10,25 +32,6 @@ The barrier is friction. Even simple types like Filename or `DirPath` often dema
 Excellent — that’s exactly the right philosophy for `dt`: **pragmatism over perfection** and **interoperability over endless debate.**
 
 Here’s a rewritten **Purpose** section that captures everything you just described — the “stake in the ground” idea, the analogy to the standard library, and the avoidance of the “most developers will agree” challenge tone:
-
----
-## Status
-
-This is **pre-alpha** and in development thus **subject to change**, although I am trying to bring to v1.0 as soon as I feel confident its architecture will not need to change. As of Novemeber 2025 I am actively working on it and using it in current projects.
-
-If you find value in this project and want to use it, please start a discuss to let me know. If you discuver any issues with it, please open an issue or submit a pull request.
-
----
-
-## Purpose
-
-`dt` provides a **stable, dependency-free foundation** of common domain types for Go—types that are “good enough” for everyone to use, even if not perfect for every use-case.
-
-Software ecosystems thrive when developers can build on shared assumptions instead of constantly reinventing them. `dt` aims to be that shared foundation: a **stake in the ground** for how common types like file paths, identifiers, and URLs that can be used in your packages with the knowledge that other packages can have access to those same types.
-
-We’re not trying to design the ideal type for every situation. We’re trying to make it **easy to agree on something usable** so that code written by different teams and libraries can interoperate seamlessly.
-
-When you write Go code using the standard library, you don’t have to ask whether `string` or `os.FileInfo` will be available to the next developer; they simply are. The goal of `dt` is to bring that same confidence and low-friction usability to domain types that the standard library never standardized.
 
 ---
 
