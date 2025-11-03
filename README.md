@@ -135,7 +135,7 @@ For a detailed technical explanation of this decision, see **[ADR 2025-02-11: Me
 
 ## Governance & Community
 
-`dt` is open to collaboration. Our intention is to recruit enough active contributors emergesthat governance can move to a dedicated GitHub organization. The aim is a community-led standard that remains practical, stable, and inclusive.
+`dt` is **very** open to collaboration; we are actively seeking it. Our intention is to recruit enough active contributors that governance can eventually move to a dedicated GitHub organization. The aim is a community-led defacto-standard that remains practical, stable, and inclusive.
 
 If you share this vision — whether as a library author, contributor, or just a developer who’s tired of having to use a `string` type instead of a bespoke domain type becausthe friction is just too great — start or join a discussion and/or submit a pull requestto help drive what `dt` can become.
 
