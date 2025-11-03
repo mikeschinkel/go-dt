@@ -29,11 +29,6 @@ The barrier is friction. Even simple types like Filename or `DirPath` often dema
 `dt` envisions a future where that friction is greatly reduced.
 
 ---
-Excellent — that’s exactly the right philosophy for `dt`: **pragmatism over perfection** and **interoperability over endless debate.**
-
-Here’s a rewritten **Purpose** section that captures everything you just described — the “stake in the ground” idea, the analogy to the standard library, and the avoidance of the “most developers will agree” challenge tone:
-
----
 
 ## Why It Exists
 
