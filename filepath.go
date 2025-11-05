@@ -40,6 +40,10 @@ func (fp Filepath) ReadFile(fileSys ...fs.FS) ([]byte, error) {
 	return fs.ReadFile(fileSys[0], string(fp))
 }
 
+func (fp Filepath) WriteFile(data []byte, mode os.FileMode) error {
+	return os.WriteFile(string(fp), data, mode)
+}
+
 func (fp Filepath) Rel(baseDir DirPath) (PathSegments, error) {
 	ps, err := filepath.Rel(string(baseDir), string(fp))
 	return PathSegments(ps), err
