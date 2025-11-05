@@ -4,6 +4,8 @@ import (
 	"github.com/mikeschinkel/go-dt"
 )
 
+// TODO: Need to add comments to explain what each of these do
+
 type AppInfo interface {
 	AppName() string
 	AppDescr() string
