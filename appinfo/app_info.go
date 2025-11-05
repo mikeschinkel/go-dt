@@ -11,7 +11,7 @@ type AppInfo interface {
 	AppDescr() string
 	AppVer() dt.Version
 	AppSlug() dt.PathSegment
-	ConfigSlug() dt.PathSegments
+	ConfigSlug() dt.PathSegment
 	ConfigFile() dt.RelFilepath
 	ExeName() dt.Filename
 	LogFile() dt.Filename
@@ -26,7 +26,7 @@ type appInfo struct {
 	appDescr   string
 	appVer     dt.Version
 	appSlug    dt.PathSegment
-	configSlug dt.PathSegments
+	configSlug dt.PathSegment
 	configFile dt.RelFilepath
 	exeName    dt.Filename
 	logFile    dt.Filename
@@ -39,7 +39,7 @@ type Args struct {
 	AppDescr   string
 	AppVer     dt.Version
 	AppSlug    dt.PathSegment
-	ConfigSlug dt.PathSegments
+	ConfigSlug dt.PathSegment
 	ConfigFile dt.RelFilepath
 	ExeName    dt.Filename
 	LogFile    dt.Filename
@@ -83,7 +83,7 @@ func (ai *appInfo) ExtraInfo() map[string]any {
 func (ai *appInfo) AppSlug() dt.PathSegment {
 	return ai.appSlug
 }
-func (ai *appInfo) ConfigSlug() dt.PathSegments {
+func (ai *appInfo) ConfigSlug() dt.PathSegment {
 	return ai.configSlug
 }
 func (ai *appInfo) ConfigFile() dt.RelFilepath {
