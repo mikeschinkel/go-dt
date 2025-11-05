@@ -9,7 +9,7 @@ type AppInfo interface {
 	AppDescr() string
 	AppVer() dt.Version
 	AppSlug() dt.PathSegment
-	//ConfigPath() dt.PathSegments
+	ConfigSlug() dt.PathSegments
 	ConfigFile() dt.RelFilepath
 	ExeName() dt.Filename
 	LogFile() dt.Filename
@@ -20,11 +20,11 @@ type AppInfo interface {
 var _ AppInfo = (*appInfo)(nil)
 
 type appInfo struct {
-	appName  string
-	appDescr string
-	appVer   dt.Version
-	appSlug  dt.PathSegment
-	//configPath dt.PathSegments
+	appName    string
+	appDescr   string
+	appVer     dt.Version
+	appSlug    dt.PathSegment
+	configSlug dt.PathSegments
 	configFile dt.RelFilepath
 	exeName    dt.Filename
 	logFile    dt.Filename
@@ -33,11 +33,11 @@ type appInfo struct {
 }
 
 type Args struct {
-	AppName  string
-	AppDescr string
-	AppVer   dt.Version
-	AppSlug  dt.PathSegment
-	//ConfigPath dt.PathSegments
+	AppName    string
+	AppDescr   string
+	AppVer     dt.Version
+	AppSlug    dt.PathSegment
+	ConfigSlug dt.PathSegments
 	ConfigFile dt.RelFilepath
 	ExeName    dt.Filename
 	LogFile    dt.Filename
@@ -50,11 +50,11 @@ func New(args Args) AppInfo {
 		args.ExtraInfo = make(map[string]any)
 	}
 	return &appInfo{
-		appName:  args.AppName,
-		appDescr: args.AppDescr,
-		appVer:   args.AppVer,
-		appSlug:  args.AppSlug,
-		//configPath: args.ConfigPath,
+		appName:    args.AppName,
+		appDescr:   args.AppDescr,
+		appVer:     args.AppVer,
+		appSlug:    args.AppSlug,
+		configSlug: args.ConfigSlug,
 		configFile: args.ConfigFile,
 		exeName:    args.ExeName,
 		logFile:    args.LogFile,
@@ -81,10 +81,9 @@ func (ai *appInfo) ExtraInfo() map[string]any {
 func (ai *appInfo) AppSlug() dt.PathSegment {
 	return ai.appSlug
 }
-
-//	func (ai *appInfo) ConfigPath() dt.PathSegments {
-//		return ai.configPath
-//	}
+func (ai *appInfo) ConfigSlug() dt.PathSegments {
+	return ai.configSlug
+}
 func (ai *appInfo) ConfigFile() dt.RelFilepath {
 	return ai.configFile
 }
