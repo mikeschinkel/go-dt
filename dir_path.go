@@ -7,8 +7,6 @@ import (
 	"path/filepath"
 )
 
-const IsMissingDir = IsMissingEntry
-
 var _ fmt.Stringer = (*DirPath)(nil)
 
 // DirPath represents an absolute or relative filesystem directory path.
