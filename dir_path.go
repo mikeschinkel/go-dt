@@ -76,3 +76,25 @@ func (dp DirPath) Rel(baseDir DirPath) (PathSegments, error) {
 	ps, err := filepath.Rel(string(baseDir), string(dp))
 	return PathSegments(ps), err
 }
+
+func ParseDirPath(s string) (dp DirPath, err error) {
+	// TODO Add some validation here
+	dp = DirPath(s)
+	return dp, err
+}
+
+func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
+	var errs []error
+	var dp DirPath
+
+	dps = make([]DirPath, 0, len(dirs))
+	for _, dir := range dirs {
+		dp, err = ParseDirPath(dir)
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		dps = append(dps, dp)
+	}
+	return dps, CombineErrs(errs)
+}

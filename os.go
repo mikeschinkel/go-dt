@@ -44,6 +44,11 @@ func UserConfigDir() (DirPath, error) {
 	return DirPath(cd), err
 }
 
+func UserCacheDir() (DirPath, error) {
+	cd, err := os.UserCacheDir()
+	return DirPath(cd), err
+}
+
 func Getwd() (DirPath, error) {
 	wd, err := os.Getwd()
 	return DirPath(wd), err
