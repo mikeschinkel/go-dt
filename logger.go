@@ -1,4 +1,4 @@
-package dtx
+package dt
 
 import (
 	"log/slog"

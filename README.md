@@ -119,7 +119,7 @@ The method-based approach provides:
 - **Cleaner composition** – Chaining for those who prefer it, e.g.: `dir.Join(file).ReadFile()`
 - _And best of all:_ **Type safety** – The Go compiler prevents invalid type compositions
 
-For a detailed technical explanation of this decision, see **[ADR 2025-02-11: Methods Over Package Functions](adrs/2025-02-11-methods-over-package-functions.md)**.
+For a detailed technical explanation of this decision, see **[ADR 2025-02-11: Methods Over Package Functions](adrs/adr-2025-11-02-methods-over-package-functions.md)**.
 
 ---
 

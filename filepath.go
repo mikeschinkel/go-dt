@@ -4,9 +4,8 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 )
-
-const MissingFile = IsMissingEntry
 
 // Filepath is an absolute or relativate filepath with filename including extension if applicable
 type Filepath string
@@ -33,6 +32,14 @@ func (fp Filepath) Lstat() (os.FileInfo, error) {
 	return os.Lstat(string(fp))
 }
 
+func (fp Filepath) Create() (*os.File, error) {
+	return os.Create(string(fp))
+}
+
+func (fp Filepath) OpenFile(flag int, mode os.FileMode) (*os.File, error) {
+	return os.OpenFile(string(fp), flag, mode)
+}
+
 func (fp Filepath) ReadFile(fileSys ...fs.FS) ([]byte, error) {
 	if len(fileSys) == 0 {
 		return os.ReadFile(string(fp))
@@ -44,9 +51,9 @@ func (fp Filepath) WriteFile(data []byte, mode os.FileMode) error {
 	return os.WriteFile(string(fp), data, mode)
 }
 
-func (fp Filepath) Rel(baseDir DirPath) (PathSegments, error) {
+func (fp Filepath) Rel(baseDir DirPath) (RelFilepath, error) {
 	ps, err := filepath.Rel(string(baseDir), string(fp))
-	return PathSegments(ps), err
+	return RelFilepath(ps), err
 }
 
 func (fp Filepath) Remove() error {
@@ -55,6 +62,18 @@ func (fp Filepath) Remove() error {
 
 func (fp Filepath) ValidPath() bool {
 	return fs.ValidPath(string(fp))
+}
+
+func (fp Filepath) HasPrefix(prefix DirPath) bool {
+	return strings.HasPrefix(string(fp), string(prefix))
+}
+
+func (fp Filepath) HasSuffix(suffix DirPath) bool {
+	return strings.HasSuffix(string(fp), string(suffix))
+}
+
+func (fp Filepath) Open() (*os.File, error) {
+	return os.Open(string(fp))
 }
 
 // EntryStatusFlags controls optional classification behavior.
@@ -103,4 +122,75 @@ func ParseFilepath(s string) (fp Filepath, err error) {
 	// TODO Add some validation here
 	fp = Filepath(s)
 	return fp, err
+}
+
+// CopyTo copies the file to the destination path with optional permission control
+func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
+	var srcFile *os.File
+	var destFile *os.File
+	var srcInfo os.FileInfo
+	var destMode os.FileMode
+	var destExists bool
+
+	// Normalize opts
+	if opts == nil {
+		opts = new(CopyOptions)
+	}
+
+	// Read source file info
+	srcInfo, err = fp.Stat()
+	if err != nil {
+		goto end
+	}
+
+	// Check if destination exists
+	_, err = dest.Stat()
+	destExists = (err == nil)
+
+	// If dest exists and Force is false, error
+	if destExists && !opts.Force {
+		err = os.ErrExist
+		goto end
+	}
+
+	// Determine destination permissions
+	if opts.DestModeFunc != nil {
+		destMode = opts.DestModeFunc(EntryPath(dest))
+		if destMode == 0 {
+			// 0 means preserve source permissions
+			destMode = srcInfo.Mode()
+		}
+	} else {
+		// No callback, preserve source permissions
+		destMode = srcInfo.Mode()
+	}
+
+	// Create parent directory if needed
+	err = dest.Dir().MkdirAll(0755)
+	if err != nil {
+		goto end
+	}
+
+	// Open source file
+	srcFile, err = fp.Open()
+	if err != nil {
+		goto end
+	}
+	defer srcFile.Close()
+
+	// Create destination file
+	destFile, err = dest.OpenFile(os.O_WRONLY|os.O_CREATE|os.O_TRUNC, destMode)
+	if err != nil {
+		goto end
+	}
+	defer destFile.Close()
+
+	// Copy contents
+	_, err = srcFile.WriteTo(destFile)
+	if err != nil {
+		goto end
+	}
+
+end:
+	return err
 }

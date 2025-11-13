@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // EntryPath can be a Filepath or a DirPath
@@ -98,4 +99,62 @@ func (ep EntryPath) Readlink() (target EntryPath, err error) {
 	target = EntryPath(linkTarget)
 end:
 	return target, err
+}
+
+func (ep EntryPath) HasSuffix(suffix DirPath) bool {
+	return strings.HasSuffix(string(ep), string(suffix))
+}
+
+// Contains checks if ep contains the given substring.
+// Accepts: string, DirPath, Filepath, EntryPath, PathSegment, or fmt.Stringer
+// Panics on unsupported types.
+func (ep EntryPath) Contains(substr any) bool {
+	var s string
+
+	switch v := substr.(type) {
+	case string:
+		s = v
+	case DirPath:
+		s = string(v)
+	case Filepath:
+		s = string(v)
+	case EntryPath:
+		s = string(v)
+	case PathSegment:
+		s = string(v)
+	case interface{ String() string }:
+		s = v.String()
+	default:
+		panic("EntryPath.Contains: unsupported type")
+	}
+
+	return strings.Contains(string(ep), s)
+}
+
+func (ep EntryPath) VolumeName() VolumeName {
+	return VolumeName(filepath.VolumeName(string(ep)))
+}
+
+// EnsureTrailSep returns ep with exactly one trailing path separator
+// when appropriate for the platform. It does not modify an empty string.
+func (ep EntryPath) EnsureTrailSep() EntryPath {
+	if ep == "" {
+		goto end
+	}
+
+	// Already has a trailing native separator?
+	if ep[len(ep)-1] == os.PathSeparator {
+		goto end
+	}
+
+	// On Windows, also consider '/' as a valid existing trailing separator.
+	if os.PathSeparator == '\\' && ep[len(ep)-1] == '/' {
+		//goland:noinspection GoAssignmentToReceiver
+		ep = ep[:len(ep)-1] + `\`
+		goto end
+	}
+
+	ep += EntryPath(os.PathSeparator)
+end:
+	return ep
 }

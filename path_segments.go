@@ -8,7 +8,6 @@ import (
 
 // PathSegments is one or more path segments for a filepath, dir path, or URL
 type PathSegments string
-type PathSegment string
 
 func (pss PathSegments) Segments() (out []PathSegment) {
 	out = make([]PathSegment, strings.Count(string(pss), "/"))
@@ -16,6 +15,12 @@ func (pss PathSegments) Segments() (out []PathSegment) {
 		out[i] = PathSegment(ps)
 	}
 	return out
+}
+
+type PathSegment string
+
+func (ps PathSegment) Contains(part any) bool {
+	return EntryPath(ps).Contains(part)
 }
 
 func ParsePathSegment(s string) (ps PathSegment, err error) {

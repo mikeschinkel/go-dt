@@ -1,4 +1,4 @@
-# ADR 2025-02-11: Methods Over Package Functions
+# ADR 2025-11-02: Methods Over Package Functions
 
 ## Status
 

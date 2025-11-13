@@ -23,6 +23,9 @@ func DirPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) DirP
 func FilepathJoin[T1, T2 ~string](a T1, b T2) Filepath {
 	return Filepath(filepath.Join(string(a), string(b)))
 }
+func FilepathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) Filepath {
+	return Filepath(filepath.Join(string(a), string(b), string(c)))
+}
 
 func RelFilepathJoin[T1, T2 ~string](a T1, b T2) RelFilepath {
 	return RelFilepath(filepath.Join(string(a), string(b)))

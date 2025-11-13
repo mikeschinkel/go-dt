@@ -10,10 +10,6 @@ type (
 	// Identifier has a letter or underscore, then letters, digits, or underscores.
 	Identifier string
 
-	// URL is a string that contains a syntactically valid Uniform Resource Locator
-	// A valid URL would be parsed without error by net/url.URL.Parse().
-	URL string
-
 	// Version is a string uses for a software version. It is mainly without
 	// constraint as people have defined versions in many different ways over time.
 	Version string

@@ -3,6 +3,7 @@ package dt
 import (
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 )
@@ -42,8 +43,20 @@ end:
 	return err
 }
 
-func (dp DirPath) Base() PathSegments {
-	return PathSegments(filepath.Base(string(dp)))
+func (dp DirPath) DirFS() fs.FS {
+	return os.DirFS(string(dp))
+}
+
+func (dp DirPath) Dir() DirPath {
+	return DirPath(filepath.Dir(string(dp)))
+}
+
+func (dp DirPath) Base() PathSegment {
+	return PathSegment(filepath.Base(string(dp)))
+}
+
+func (dp DirPath) Contains(part any) bool {
+	return EntryPath(dp).Contains(part)
 }
 
 func (dp DirPath) Join() PathSegments {
@@ -73,6 +86,18 @@ func (dp DirPath) Chmod(mode os.FileMode) error {
 func (dp DirPath) Rel(baseDir DirPath) (PathSegments, error) {
 	ps, err := filepath.Rel(string(baseDir), string(dp))
 	return PathSegments(ps), err
+}
+
+func (dp DirPath) ReadDir() ([]os.DirEntry, error) {
+	return os.ReadDir(string(dp))
+}
+
+func (dp DirPath) EnsureTrailSep() DirPath {
+	return DirPath(EntryPath(dp).EnsureTrailSep())
+}
+
+func (dp DirPath) Stat(fileSys ...fs.FS) (os.FileInfo, error) {
+	return EntryPath(dp).Stat(fileSys...)
 }
 
 func ParseDirPath(s string) (dp DirPath, err error) {
