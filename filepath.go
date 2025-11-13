@@ -176,14 +176,14 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 	if err != nil {
 		goto end
 	}
-	defer srcFile.Close()
+	defer CloseOrLog(srcFile)
 
 	// Create destination file
 	destFile, err = dest.OpenFile(os.O_WRONLY|os.O_CREATE|os.O_TRUNC, destMode)
 	if err != nil {
 		goto end
 	}
-	defer destFile.Close()
+	defer CloseOrLog(destFile)
 
 	// Copy contents
 	_, err = srcFile.WriteTo(destFile)
