@@ -15,6 +15,7 @@ type AppInfo interface {
 	ConfigFile() dt.RelFilepath
 	ExeName() dt.Filename
 	LogFile() dt.Filename
+	LogPath() dt.PathSegments
 	InfoURL() dt.URL
 	ExtraInfo() map[string]any
 }
@@ -30,6 +31,7 @@ type appInfo struct {
 	configFile dt.RelFilepath
 	exeName    dt.Filename
 	logFile    dt.Filename
+	logPath    dt.PathSegments
 	infoURL    dt.URL
 	extraInfo  map[string]any
 }
@@ -43,6 +45,7 @@ type Args struct {
 	ConfigFile dt.RelFilepath
 	ExeName    dt.Filename
 	LogFile    dt.Filename
+	LogPath    dt.PathSegments
 	InfoURL    dt.URL
 	ExtraInfo  map[string]any
 }
@@ -60,6 +63,7 @@ func New(args Args) AppInfo {
 		configFile: args.ConfigFile,
 		exeName:    args.ExeName,
 		logFile:    args.LogFile,
+		logPath:    args.LogPath,
 		infoURL:    args.InfoURL,
 		extraInfo:  args.ExtraInfo,
 	}
@@ -94,4 +98,7 @@ func (ai *appInfo) ExeName() dt.Filename {
 }
 func (ai *appInfo) LogFile() dt.Filename {
 	return ai.logFile
+}
+func (ai *appInfo) LogPath() dt.PathSegments {
+	return ai.logPath
 }
