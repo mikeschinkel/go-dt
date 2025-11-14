@@ -7,9 +7,9 @@ import (
 // TODO: Need to add comments to explain what each of these do
 
 type AppInfo interface {
-	AppName() string
-	AppDescr() string
-	AppVer() dt.Version
+	Name() string
+	Description() string
+	Version() dt.Version
 	AppSlug() dt.PathSegment
 	ConfigSlug() dt.PathSegment
 	ConfigFile() dt.RelFilepath
@@ -23,9 +23,9 @@ type AppInfo interface {
 var _ AppInfo = (*appInfo)(nil)
 
 type appInfo struct {
-	appName    string
-	appDescr   string
-	appVer     dt.Version
+	name       string
+	descr      string
+	version    dt.Version
 	appSlug    dt.PathSegment
 	configSlug dt.PathSegment
 	configFile dt.RelFilepath
@@ -37,17 +37,17 @@ type appInfo struct {
 }
 
 type Args struct {
-	AppName    string
-	AppDescr   string
-	AppVer     dt.Version
-	AppSlug    dt.PathSegment
-	ConfigSlug dt.PathSegment
-	ConfigFile dt.RelFilepath
-	ExeName    dt.Filename
-	LogFile    dt.Filename
-	LogPath    dt.PathSegments
-	InfoURL    dt.URL
-	ExtraInfo  map[string]any
+	Name        string
+	Description string
+	Version     dt.Version
+	AppSlug     dt.PathSegment
+	ConfigSlug  dt.PathSegment
+	ConfigFile  dt.RelFilepath
+	ExeName     dt.Filename
+	LogFile     dt.Filename
+	LogPath     dt.PathSegments
+	InfoURL     dt.URL
+	ExtraInfo   map[string]any
 }
 
 func New(args Args) AppInfo {
@@ -55,9 +55,9 @@ func New(args Args) AppInfo {
 		args.ExtraInfo = make(map[string]any)
 	}
 	return &appInfo{
-		appName:    args.AppName,
-		appDescr:   args.AppDescr,
-		appVer:     args.AppVer,
+		name:       args.Name,
+		descr:      args.Description,
+		version:    args.Version,
 		appSlug:    args.AppSlug,
 		configSlug: args.ConfigSlug,
 		configFile: args.ConfigFile,
@@ -69,14 +69,14 @@ func New(args Args) AppInfo {
 	}
 }
 
-func (ai *appInfo) AppName() string {
-	return ai.appName
+func (ai *appInfo) Name() string {
+	return ai.name
 }
-func (ai *appInfo) AppDescr() string {
-	return ai.appDescr
+func (ai *appInfo) Description() string {
+	return ai.descr
 }
-func (ai *appInfo) AppVer() dt.Version {
-	return ai.appVer
+func (ai *appInfo) Version() dt.Version {
+	return ai.version
 }
 func (ai *appInfo) InfoURL() dt.URL {
 	return ai.infoURL
