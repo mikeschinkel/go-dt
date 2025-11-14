@@ -92,6 +92,10 @@ func (dp DirPath) ReadDir() ([]os.DirEntry, error) {
 	return os.ReadDir(string(dp))
 }
 
+func (dp DirPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
+	return EntryPath(dp).Status(flags...)
+}
+
 func (dp DirPath) EnsureTrailSep() DirPath {
 	return DirPath(EntryPath(dp).EnsureTrailSep())
 }
