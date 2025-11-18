@@ -31,7 +31,7 @@ func ParsePathSegment(s string) (ps PathSegment, err error) {
 	if s == "" {
 		err = NewErr(
 			ErrInvalidPathSegment,
-			de.ErrEmpty,
+			dt.ErrEmpty,
 		)
 		goto end
 	}

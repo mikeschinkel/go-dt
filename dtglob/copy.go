@@ -65,7 +65,7 @@ func (grs *GlobRules) collectDestDirs(installDir dt.DirPath) (dirs map[dt.DirPat
 				destDir = dt.DirPath(destPath)
 			default:
 				err = dt.NewErr(
-					de.ErrNotFileOrDirectory,
+					dt.ErrNotFileOrDirectory,
 					"entry_status", status,
 				)
 			}
@@ -136,7 +136,7 @@ func (rule *GlobRule) copyTo(baseDir, installDir dt.DirPath, opts *dt.CopyOption
 		err = sourcePath.CopyTo(destPath, opts)
 		if err != nil {
 			err = dt.WithErr(err,
-				de.ErrFailedToCopyFile,
+				dt.ErrFailedToCopyFile,
 				"source", match,
 				"destination", destPath,
 			)

@@ -29,7 +29,7 @@ func CanWrite(path EntryPath) (canWrite bool, err error) {
 		// Some other error (e.g., permission issue just to stat).
 		//goland:noinspection GoDfaErrorMayBeNotNil
 		err = WithErr(
-			de.ErrNotFileOrDirectory,
+			dt.ErrNotFileOrDirectory,
 			"entry_type", status.String(),
 		)
 		goto end

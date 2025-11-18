@@ -23,19 +23,19 @@ func AssertType[T any](value any) (t T, err error) {
 	var ok bool
 
 	if value == nil {
-		err = dt.NewErr(de.ErrValueIsNil)
+		err = dt.NewErr(dt.ErrValueIsNil)
 		goto end
 	}
 
 	t, ok = value.(T)
 	if !ok {
-		err = dt.NewErr(de.ErrFailedTypeAssertion)
+		err = dt.NewErr(dt.ErrFailedTypeAssertion)
 		goto end
 	}
 
 	// Enforce: if T is nilable, don't allow a typed-nil result on success.
 	if IsNil(t) {
-		err = dt.NewErr(de.ErrInterfaceValueIsNil)
+		err = dt.NewErr(dt.ErrInterfaceValueIsNil)
 		goto end
 	}
 

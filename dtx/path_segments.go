@@ -45,23 +45,23 @@ func (s URLPathSegment) String() string { return string(s) }
 // (conservative)
 func ParseURLPathSegment(s string) (ps URLPathSegment, err error) {
 	if s == "" {
-		err = dt.NewErr(de.ErrEmpty)
+		err = dt.NewErr(dt.ErrEmpty)
 		goto end
 	}
 	if strings.Contains(s, "/") {
-		err = dt.NewErr(de.ErrContainsSlash)
+		err = dt.NewErr(dt.ErrContainsSlash)
 		goto end
 	}
 	_, err = url.PathUnescape(s)
 	if err != nil {
-		err = dt.NewErr(de.ErrInvalidPercentEncoding)
+		err = dt.NewErr(dt.ErrInvalidPercentEncoding)
 		goto end
 	}
 	{
 		n := utf8.RuneCountInString(s)
 		if n > 255 {
 			err = dt.NewErr(
-				de.ErrTooLong,
+				dt.ErrTooLong,
 				"length", n,
 			)
 			goto end
@@ -120,30 +120,30 @@ func (s WindowsPathSegment) String() string { return string(s) }
 // - length ≤ 255 runes (conservative)
 func ParseWindowsPathSegment(s string) (ps WindowsPathSegment, err error) {
 	if s == "" {
-		err = dt.NewErr(de.ErrEmpty)
+		err = dt.NewErr(dt.ErrEmpty)
 		goto end
 	}
 	for _, r := range s {
 		if r < 0x20 {
 			err = dt.NewErr(
-				de.ErrControlCharacter,
+				dt.ErrControlCharacter,
 				"ascii_value", int(r),
 			)
 			goto end
 		}
 		if strings.ContainsRune(`<>:"/\|?*`, r) {
 			err = dt.NewErr(
-				de.ErrInvalidCharacter,
+				dt.ErrInvalidCharacter,
 				"character", string(r),
 			)
 			goto end
 		}
 	}
 	if strings.HasSuffix(s, " ") {
-		err = dt.NewErr(de.ErrTrailingSpace)
+		err = dt.NewErr(dt.ErrTrailingSpace)
 	}
 	if strings.HasSuffix(s, ".") {
-		err = dt.NewErr(de.ErrTrailingPeriod)
+		err = dt.NewErr(dt.ErrTrailingPeriod)
 	}
 	{
 		base := s
@@ -155,7 +155,7 @@ func ParseWindowsPathSegment(s string) (ps WindowsPathSegment, err error) {
 			"COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
 			"LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9":
 			err = dt.NewErr(
-				de.ErrReservedDeviceName,
+				dt.ErrReservedDeviceName,
 				"device_name", base,
 			)
 			goto end
@@ -165,7 +165,7 @@ func ParseWindowsPathSegment(s string) (ps WindowsPathSegment, err error) {
 		n := utf8.RuneCountInString(s)
 		if n > 255 {
 			err = dt.NewErr(
-				de.ErrTooLong,
+				dt.ErrTooLong,
 				"length", n,
 			)
 			goto end

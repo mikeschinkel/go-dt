@@ -158,13 +158,13 @@ func (fp Filepath) CopyToDir(dest DirPath, opts *CopyOptions) (err error) {
 	}
 	switch status {
 	case IsFileEntry:
-		err = NewErr(de.ErrIsADirectory)
+		err = NewErr(dt.ErrIsADirectory)
 	case IsDirEntry:
 		destFP := FilepathJoin(dir, fp.Base())
 		err = fp.CopyTo(destFP, opts)
 	default:
 		err = NewErr(
-			de.ErrNotADirectory,
+			dt.ErrNotADirectory,
 			"entry_status", status,
 		)
 	}
@@ -193,7 +193,7 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 	}
 
 	if srcInfo.IsDir() {
-		err = NewErr(de.ErrIsADirectory)
+		err = NewErr(dt.ErrIsADirectory)
 		goto end
 	}
 
