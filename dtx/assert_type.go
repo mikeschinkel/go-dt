@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"github.com/mikeschinkel/go-dt"
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 var ErrAssertTypeFailed = errors.New("assert type failed")

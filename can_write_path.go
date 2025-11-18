@@ -2,8 +2,6 @@ package dt
 
 import (
 	"os"
-
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 func CanWrite(path EntryPath) (canWrite bool, err error) {
@@ -29,7 +27,7 @@ func CanWrite(path EntryPath) (canWrite bool, err error) {
 		// Some other error (e.g., permission issue just to stat).
 		//goland:noinspection GoDfaErrorMayBeNotNil
 		err = WithErr(
-			dt.ErrNotFileOrDirectory,
+			ErrNotFileOrDirectory,
 			"entry_type", status.String(),
 		)
 		goto end

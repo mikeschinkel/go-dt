@@ -6,7 +6,6 @@ import (
 
 	"github.com/bmatcuk/doublestar/v4"
 	"github.com/mikeschinkel/go-dt"
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 // CopyTo applies all rules to copy files to the installation directory

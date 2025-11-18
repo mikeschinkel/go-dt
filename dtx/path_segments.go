@@ -8,7 +8,6 @@ import (
 	"unicode/utf8"
 
 	"github.com/mikeschinkel/go-dt"
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 // ParseOSPathSegment parses a string to returns an OS-specific Windows file system path segment

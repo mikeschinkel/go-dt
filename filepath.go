@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 func ParseFilepath(s string) (fp Filepath, err error) {
@@ -158,13 +156,13 @@ func (fp Filepath) CopyToDir(dest DirPath, opts *CopyOptions) (err error) {
 	}
 	switch status {
 	case IsFileEntry:
-		err = NewErr(dt.ErrIsADirectory)
+		err = NewErr(ErrIsADirectory)
 	case IsDirEntry:
 		destFP := FilepathJoin(dir, fp.Base())
 		err = fp.CopyTo(destFP, opts)
 	default:
 		err = NewErr(
-			dt.ErrNotADirectory,
+			ErrNotADirectory,
 			"entry_status", status,
 		)
 	}
@@ -193,7 +191,7 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 	}
 
 	if srcInfo.IsDir() {
-		err = NewErr(dt.ErrIsADirectory)
+		err = NewErr(ErrIsADirectory)
 		goto end
 	}
 

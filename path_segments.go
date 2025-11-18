@@ -2,8 +2,6 @@ package dt
 
 import (
 	"strings"
-
-	"github.com/mikeschinkel/go-dt/de"
 )
 
 // PathSegments is one or more path segments for a filepath, dir path, or URL
@@ -31,7 +29,7 @@ func ParsePathSegment(s string) (ps PathSegment, err error) {
 	if s == "" {
 		err = NewErr(
 			ErrInvalidPathSegment,
-			dt.ErrEmpty,
+			ErrEmpty,
 		)
 		goto end
 	}
