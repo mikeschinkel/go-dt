@@ -9,6 +9,12 @@ import (
 	"github.com/mikeschinkel/go-dt/de"
 )
 
+func ParseFilepath(s string) (fp Filepath, err error) {
+	// TODO Add some validation here
+	fp = Filepath(s)
+	return fp, err
+}
+
 // Filepath is an absolute or relativate filepath with filename including extension if applicable
 type Filepath string
 
@@ -134,13 +140,11 @@ func (fp Filepath) Readlink() (target Filepath, err error) {
 	return Filepath(ep), err
 }
 
-//
-
-func ParseFilepath(s string) (fp Filepath, err error) {
-	// TODO Add some validation here
-	fp = Filepath(s)
-	return fp, err
+func (fp Filepath) Join(elems ...any) Filepath {
+	return Filepath(EntryPath(fp).Join(elems...))
 }
+
+//
 
 // CopyToDir copies the file to the destination directory path with optional
 // permission control

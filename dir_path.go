@@ -81,8 +81,8 @@ func (dp DirPath) Contains(part any) bool {
 	return EntryPath(dp).Contains(part)
 }
 
-func (dp DirPath) Join() PathSegments {
-	return PathSegments(filepath.Base(string(dp)))
+func (dp DirPath) Join(elems ...any) DirPath {
+	return DirPath(EntryPath(dp).Join(elems...))
 }
 
 func (dp DirPath) Clean() DirPath {

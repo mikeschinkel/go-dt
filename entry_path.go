@@ -2,6 +2,7 @@ package dt
 
 import (
 	"errors"
+	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -138,6 +139,31 @@ func (ep EntryPath) VolumeName() VolumeName {
 func (ep EntryPath) Abs() (EntryPath, error) {
 	entry, err := filepath.Abs(string(ep))
 	return EntryPath(entry), err
+}
+
+func (dp EntryPath) Join(elems ...any) EntryPath {
+	ss := make([]string, len(elems))
+	for i, part := range elems {
+		switch s := part.(type) {
+		case string:
+			ss[i] = s
+		case EntryPath:
+			ss[i] = string(s)
+		case DirPath:
+			ss[i] = string(s)
+		case Filepath:
+			ss[i] = string(s)
+		case RelFilepath:
+			ss[i] = string(s)
+		case PathSegment:
+			ss[i] = string(s)
+		case PathSegments:
+			ss[i] = string(s)
+		default:
+			ss[i] = fmt.Sprintf("%s", part)
+		}
+	}
+	return EntryPath(filepath.Join(ss...))
 }
 
 //====Extensions

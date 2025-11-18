@@ -27,4 +27,6 @@ var (
 	ErrNotADirectory              = errors.New("not a directory")
 	ErrIsAFile                    = errors.New("is a file")
 	ErrIsADirectory               = errors.New("is a directory")
+	ErrValueIsNil                 = errors.New("value is nil")
+	ErrInterfaceValueIsNil        = errors.New("interface value is nil")
 )
