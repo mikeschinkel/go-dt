@@ -135,6 +135,13 @@ func (ep EntryPath) VolumeName() VolumeName {
 	return VolumeName(filepath.VolumeName(string(ep)))
 }
 
+func (ep EntryPath) Abs() (EntryPath, error) {
+	entry, err := filepath.Abs(string(ep))
+	return EntryPath(entry), err
+}
+
+//====Extensions
+
 // EnsureTrailSep returns ep with exactly one trailing path separator
 // when appropriate for the platform. It does not modify an empty string.
 func (ep EntryPath) EnsureTrailSep() EntryPath {

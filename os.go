@@ -31,6 +31,10 @@ func CreateFile(fp Filepath) (*os.File, error) {
 	return os.Create(string(fp))
 }
 
+func CreateTemp(dp DirPath, pattern string) (*os.File, error) {
+	return os.CreateTemp(string(dp), pattern)
+}
+
 func ReadFile(fp Filepath) ([]byte, error) {
 	return os.ReadFile(string(fp))
 }

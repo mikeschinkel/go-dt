@@ -2,31 +2,20 @@ package dtglob
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/bmatcuk/doublestar/v4"
 	"github.com/mikeschinkel/go-dt"
+	"github.com/mikeschinkel/go-dt/de"
 )
 
 // CopyTo applies all rules to copy files to the installation directory
 func (grs *GlobRules) CopyTo(installDir dt.DirPath, opts *dt.CopyOptions) (err error) {
 	var errs []error
-	var dirs map[dt.DirPath]bool
-	var dir dt.DirPath
 
 	// Normalize opts
 	if opts == nil {
 		opts = new(dt.CopyOptions)
-	}
-
-	// 1. Collect all unique destination directories
-	dirs = grs.collectDestDirs(installDir)
-
-	// 2. Create all directories once
-	for dir = range dirs {
-		err = dir.MkdirAll(0755)
-		errs = dt.AppendErr(errs, err)
 	}
 
 	// 3. Copy all files (no MkdirAll per file)
@@ -38,31 +27,53 @@ func (grs *GlobRules) CopyTo(installDir dt.DirPath, opts *dt.CopyOptions) (err e
 	}
 
 	err = dt.CombineErrs(errs)
+	//end:
 	return err
 }
 
 // collectDestDirs gathers all unique destination directories from all rules
-func (grs *GlobRules) collectDestDirs(installDir dt.DirPath) (dirs map[dt.DirPath]bool) {
+func (grs *GlobRules) collectDestDirs(installDir dt.DirPath) (dirs map[dt.DirPath]struct{}, err error) {
 	var rule GlobRule
 	var matches []string
 	var match string
 	var destPath dt.Filepath
 	var destDir dt.DirPath
+	var errs []error
 
-	dirs = make(map[dt.DirPath]bool)
+	dirs = make(map[dt.DirPath]struct{})
 
 	for _, rule = range grs.Rules {
 		// Match files for this rule
 		matches, _ = doublestar.Glob(grs.BaseDir.DirFS(), string(rule.From))
 
 		for _, match = range matches {
-			destPath, _ = rule.computeDestPath(dt.Filepath(match), installDir)
-			destDir = destPath.Dir()
-			dirs[destDir] = true
+			var status dt.EntryStatus
+			destPath, err = rule.computeDestPath(dt.Filepath(match), installDir)
+			if err != nil {
+				errs = append(errs, err)
+				continue
+			}
+			status, err = destPath.Status()
+			if err != nil {
+				errs = append(errs, err)
+				continue
+			}
+			switch status {
+			case dt.IsFileEntry:
+				destDir = destPath.Dir()
+			case dt.IsDirEntry, dt.IsMissingEntry:
+				destDir = dt.DirPath(destPath)
+			default:
+				err = dt.NewErr(
+					de.ErrNotFileOrDirectory,
+					"entry_status", status,
+				)
+			}
+			dirs[destDir] = struct{}{}
 		}
 	}
-
-	return dirs
+	err = dt.CombineErrs(errs)
+	return dirs, err
 }
 
 // copyTo processes a single rule
@@ -70,7 +81,6 @@ func (rule *GlobRule) copyTo(baseDir, installDir dt.DirPath, opts *dt.CopyOption
 	var matches []string
 	var match string
 	var sourcePath dt.Filepath
-	var info os.FileInfo
 	var destPath dt.Filepath
 	var errs []error
 
@@ -93,13 +103,14 @@ func (rule *GlobRule) copyTo(baseDir, installDir dt.DirPath, opts *dt.CopyOption
 	for _, match = range matches {
 		sourcePath = dt.FilepathJoin(baseDir, match)
 
-		// Skip directories - we only copy files
-		info, err = sourcePath.Stat()
+		var status dt.EntryStatus
+		status, err = sourcePath.Status()
 		if err != nil {
 			errs = dt.AppendErr(errs, err)
 			continue
 		}
-		if info.IsDir() {
+		if status == dt.IsDirEntry {
+			// Skip directories - we only copy files
 			continue
 		}
 
@@ -109,11 +120,26 @@ func (rule *GlobRule) copyTo(baseDir, installDir dt.DirPath, opts *dt.CopyOption
 			errs = dt.AppendErr(errs, err)
 			continue
 		}
-
-		// Perform the copy
+		var exists bool
+		exists, err = destPath.Dir().Exists()
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		if !exists {
+			err = destPath.Dir().MkdirAll(0755)
+			if err != nil {
+				errs = append(errs, err)
+				continue
+			}
+		}
 		err = sourcePath.CopyTo(destPath, opts)
 		if err != nil {
-			err = fmt.Errorf("failed to copy %s to %s: %w", match, destPath, err)
+			err = dt.WithErr(err,
+				de.ErrFailedToCopyFile,
+				"source", match,
+				"destination", destPath,
+			)
 			errs = dt.AppendErr(errs, err)
 			continue
 		}
@@ -143,8 +169,8 @@ func (rule *GlobRule) computeDestPath(matchedPath dt.Filepath, destDir dt.DirPat
 			goto end
 		}
 
-		// If To ends with /, append the relative path
-		if rule.To.HasSuffix("/") {
+		// If To is "." or ends with /, append the relative path
+		if rule.To == "." || rule.To.HasSuffix("/") {
 			destPath = dt.FilepathJoin3(destDir, rule.To, relativePath)
 			goto end
 		}

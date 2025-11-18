@@ -8,6 +8,28 @@ import (
 	"path/filepath"
 )
 
+func ParseDirPath(s string) (dp DirPath, err error) {
+	// TODO Add some validation here
+	dp = DirPath(s)
+	return dp, err
+}
+
+func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
+	var errs []error
+	var dp DirPath
+
+	dps = make([]DirPath, 0, len(dirs))
+	for _, dir := range dirs {
+		dp, err = ParseDirPath(dir)
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		dps = append(dps, dp)
+	}
+	return dps, CombineErrs(errs)
+}
+
 var _ fmt.Stringer = (*DirPath)(nil)
 
 // DirPath represents an absolute or relative filesystem directory path.
@@ -92,6 +114,21 @@ func (dp DirPath) ReadDir() ([]os.DirEntry, error) {
 	return os.ReadDir(string(dp))
 }
 
+func (dp DirPath) Stat(fileSys ...fs.FS) (os.FileInfo, error) {
+	return EntryPath(dp).Stat(fileSys...)
+}
+
+func (dp DirPath) IsAbs() bool {
+	return filepath.IsAbs(string(dp))
+}
+
+func (dp DirPath) Abs() (DirPath, error) {
+	dir, err := filepath.Abs(string(dp))
+	return DirPath(dir), err
+}
+
+// ===[Enhancements]===
+
 func (dp DirPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
 	return EntryPath(dp).Status(flags...)
 }
@@ -100,28 +137,17 @@ func (dp DirPath) EnsureTrailSep() DirPath {
 	return DirPath(EntryPath(dp).EnsureTrailSep())
 }
 
-func (dp DirPath) Stat(fileSys ...fs.FS) (os.FileInfo, error) {
-	return EntryPath(dp).Stat(fileSys...)
+func (dp DirPath) CanWrite() (bool, error) {
+	return CanWrite(EntryPath(dp))
 }
 
-func ParseDirPath(s string) (dp DirPath, err error) {
-	// TODO Add some validation here
-	dp = DirPath(s)
-	return dp, err
-}
-
-func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
-	var errs []error
-	var dp DirPath
-
-	dps = make([]DirPath, 0, len(dirs))
-	for _, dir := range dirs {
-		dp, err = ParseDirPath(dir)
-		if err != nil {
-			errs = append(errs, err)
-			continue
-		}
-		dps = append(dps, dp)
+func (dp DirPath) Exists() (exists bool, err error) {
+	var status EntryStatus
+	status, err = dp.Status()
+	if err != nil {
+		goto end
 	}
-	return dps, CombineErrs(errs)
+	exists = status == IsDirEntry
+end:
+	return exists, err
 }

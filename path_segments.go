@@ -17,6 +17,10 @@ func (pss PathSegments) Segments() (out []PathSegment) {
 	return out
 }
 
+func (pss PathSegments) CanWrite() (bool, error) {
+	return CanWrite(EntryPath(pss))
+}
+
 type PathSegment string
 
 func (ps PathSegment) Contains(part any) bool {

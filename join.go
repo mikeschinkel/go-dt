@@ -26,6 +26,12 @@ func FilepathJoin[T1, T2 ~string](a T1, b T2) Filepath {
 func FilepathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) Filepath {
 	return Filepath(filepath.Join(string(a), string(b), string(c)))
 }
+func FilepathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) Filepath {
+	return Filepath(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+func FilepathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) Filepath {
+	return Filepath(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
 
 func RelFilepathJoin[T1, T2 ~string](a T1, b T2) RelFilepath {
 	return RelFilepath(filepath.Join(string(a), string(b)))
@@ -41,4 +47,20 @@ func RelFilepathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) RelFilepat
 
 func RelFilepathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) RelFilepath {
 	return RelFilepath(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
+
+func EntryPathJoin[T1, T2 ~string](a T1, b T2) EntryPath {
+	return EntryPath(filepath.Join(string(a), string(b)))
+}
+
+func EntryPathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) EntryPath {
+	return EntryPath(filepath.Join(string(a), string(b), string(c)))
+}
+
+func EntryPathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) EntryPath {
+	return EntryPath(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+
+func EntryPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) EntryPath {
+	return EntryPath(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
 }

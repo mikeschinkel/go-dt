@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/mikeschinkel/go-dt/de"
 )
 
 // Filepath is an absolute or relativate filepath with filename including extension if applicable
@@ -56,6 +58,11 @@ func (fp Filepath) Rel(baseDir DirPath) (RelFilepath, error) {
 	return RelFilepath(ps), err
 }
 
+func (fp Filepath) Abs() (Filepath, error) {
+	ps, err := filepath.Abs(string(fp))
+	return Filepath(ps), err
+}
+
 func (fp Filepath) Remove() error {
 	return os.Remove(string(fp))
 }
@@ -74,6 +81,17 @@ func (fp Filepath) HasSuffix(suffix DirPath) bool {
 
 func (fp Filepath) Open() (*os.File, error) {
 	return os.Open(string(fp))
+}
+
+func (fp Filepath) Exists() (exists bool, err error) {
+	var status EntryStatus
+	status, err = fp.Status()
+	if err != nil {
+		goto end
+	}
+	exists = status == IsFileEntry
+end:
+	return exists, err
 }
 
 // EntryStatusFlags controls optional classification behavior.
@@ -124,7 +142,34 @@ func ParseFilepath(s string) (fp Filepath, err error) {
 	return fp, err
 }
 
-// CopyTo copies the file to the destination path with optional permission control
+// CopyToDir copies the file to the destination directory path with optional
+// permission control
+func (fp Filepath) CopyToDir(dest DirPath, opts *CopyOptions) (err error) {
+	var status EntryStatus
+
+	dir := dest
+	status, err = fp.Status()
+	if err != nil {
+		goto end
+	}
+	switch status {
+	case IsFileEntry:
+		err = NewErr(de.ErrIsADirectory)
+	case IsDirEntry:
+		destFP := FilepathJoin(dir, fp.Base())
+		err = fp.CopyTo(destFP, opts)
+	default:
+		err = NewErr(
+			de.ErrNotADirectory,
+			"entry_status", status,
+		)
+	}
+end:
+	return err
+}
+
+// CopyTo copies the file to the destination filepath with optional permission
+// control
 func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 	var srcFile *os.File
 	var destFile *os.File
@@ -143,9 +188,14 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 		goto end
 	}
 
+	if srcInfo.IsDir() {
+		err = NewErr(de.ErrIsADirectory)
+		goto end
+	}
+
 	// Check if destination exists
 	_, err = dest.Stat()
-	destExists = (err == nil)
+	destExists = err == nil
 
 	// If dest exists and Force is false, error
 	if destExists && !opts.Force {
