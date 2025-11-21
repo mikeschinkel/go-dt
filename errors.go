@@ -25,7 +25,7 @@ var (
 	ErrFailedReadingSymlink       = errors.New("failed reading symlink")
 	ErrFailedToLoadFile           = errors.New("failed to load file")
 	ErrFailedToCopyFile           = errors.New("failed to copy file")
-	ErrFailedCreatingDirectory    = errors.New("failed to create directory")
+	ErrFailedToMakeDirectory      = errors.New("failed to make directory")
 	ErrContainsBackslash          = errors.New("contains slash ('\\')")
 	ErrContainsSlash              = errors.New("contains slash ('/')")
 	ErrEmpty                      = errors.New("empty")
@@ -45,4 +45,17 @@ var (
 	ErrIsADirectory               = errors.New("is a directory")
 	ErrValueIsNil                 = errors.New("value is nil")
 	ErrInterfaceValueIsNil        = errors.New("interface value is nil")
+)
+var (
+	ErrConnectFailed          = errors.New("failed to connect to database")
+	ErrInvalidConnectString   = errors.New("invalid connection string")
+	ErrFailedToPingDatabase   = errors.New("failed to ping database")
+	ErrFailedToOpenDatabase   = errors.New("failed to open database")
+	ErrFailedToExecuteQueries = errors.New("failed to execute query(s)")
+)
+
+// Deprecated Error Sentinel Values
+
+var (
+	ErrFailedCreatingDirectory = ErrFailedToMakeDirectory
 )
