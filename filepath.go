@@ -142,7 +142,7 @@ func (fp Filepath) Join(elems ...any) Filepath {
 	return Filepath(EntryPath(fp).Join(elems...))
 }
 
-//
+// ===[Enhancements]===
 
 // CopyToDir copies the file to the destination directory path with optional
 // permission control
@@ -245,4 +245,8 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 
 end:
 	return err
+}
+
+func (fp Filepath) HasDotDotPrefix() bool {
+	return EntryPath(fp).HasDotDotPrefix()
 }

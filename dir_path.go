@@ -151,3 +151,7 @@ func (dp DirPath) Exists() (exists bool, err error) {
 end:
 	return exists, err
 }
+
+func (dp DirPath) HasDotDotPrefix() bool {
+	return EntryPath(dp).HasDotDotPrefix()
+}

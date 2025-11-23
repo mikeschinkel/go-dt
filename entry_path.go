@@ -141,7 +141,7 @@ func (ep EntryPath) Abs() (EntryPath, error) {
 	return EntryPath(entry), err
 }
 
-func (dp EntryPath) Join(elems ...any) EntryPath {
+func (ep EntryPath) Join(elems ...any) EntryPath {
 	ss := make([]string, len(elems))
 	for i, part := range elems {
 		switch s := part.(type) {
@@ -190,4 +190,11 @@ func (ep EntryPath) EnsureTrailSep() EntryPath {
 	ep += EntryPath(os.PathSeparator)
 end:
 	return ep
+}
+
+// HasDotDotPrefix reports whether p, interpreted as a relative path,
+// starts with a ".." segment (e.g. ".." or "../foo" or "..\foo").
+// It does NOT treat names like "..foo" as having a dot-dot prefix.
+func (ep EntryPath) HasDotDotPrefix() bool {
+	return ep == ".." || strings.HasPrefix(string(ep), ".."+string(os.PathSeparator))
 }

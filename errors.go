@@ -26,6 +26,8 @@ var (
 	ErrFailedToLoadFile           = errors.New("failed to load file")
 	ErrFailedToCopyFile           = errors.New("failed to copy file")
 	ErrFailedToMakeDirectory      = errors.New("failed to make directory")
+	ErrFailedtoCreateTempFile     = errors.New("failed to create temp file")
+	ErrFailedtoCreateFile         = errors.New("failed to create file")
 	ErrContainsBackslash          = errors.New("contains slash ('\\')")
 	ErrContainsSlash              = errors.New("contains slash ('/')")
 	ErrEmpty                      = errors.New("empty")
@@ -54,8 +56,4 @@ var (
 	ErrFailedToExecuteQueries = errors.New("failed to execute query(s)")
 )
 
-// Deprecated Error Sentinel Values
-
-var (
-	ErrFailedCreatingDirectory = ErrFailedToMakeDirectory
-)
+var ErrCannotDetermineWorkingDirectory = errors.New("cannot determine working directory")

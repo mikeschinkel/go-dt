@@ -57,3 +57,7 @@ func Getwd() (DirPath, error) {
 	wd, err := os.Getwd()
 	return DirPath(wd), err
 }
+
+func TempDir() DirPath {
+	return DirPath(os.TempDir())
+}
