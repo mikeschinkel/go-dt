@@ -21,7 +21,6 @@ var (
 	ErrInvalidForOpen = errors.New("invalid for open")
 )
 var (
-	ErrFailedTypeAssertion             = errors.New("failed type assertion")
 	ErrFailedReadingSymlink            = errors.New("failed reading symlink")
 	ErrFailedToLoadFile                = errors.New("failed to load file")
 	ErrFailedToCopyFile                = errors.New("failed to copy file")
