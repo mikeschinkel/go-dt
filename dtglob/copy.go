@@ -30,51 +30,6 @@ func (grs *GlobRules) CopyTo(installDir dt.DirPath, opts *dt.CopyOptions) (err e
 	return err
 }
 
-// collectDestDirs gathers all unique destination directories from all rules
-func (grs *GlobRules) collectDestDirs(installDir dt.DirPath) (dirs map[dt.DirPath]struct{}, err error) {
-	var rule GlobRule
-	var matches []string
-	var match string
-	var destPath dt.Filepath
-	var destDir dt.DirPath
-	var errs []error
-
-	dirs = make(map[dt.DirPath]struct{})
-
-	for _, rule = range grs.Rules {
-		// Match files for this rule
-		matches, _ = doublestar.Glob(grs.BaseDir.DirFS(), string(rule.From))
-
-		for _, match = range matches {
-			var status dt.EntryStatus
-			destPath, err = rule.computeDestPath(dt.Filepath(match), installDir)
-			if err != nil {
-				errs = append(errs, err)
-				continue
-			}
-			status, err = destPath.Status()
-			if err != nil {
-				errs = append(errs, err)
-				continue
-			}
-			switch status {
-			case dt.IsFileEntry:
-				destDir = destPath.Dir()
-			case dt.IsDirEntry, dt.IsMissingEntry:
-				destDir = dt.DirPath(destPath)
-			default:
-				err = dt.NewErr(
-					dt.ErrNotFileOrDirectory,
-					"entry_status", status,
-				)
-			}
-			dirs[destDir] = struct{}{}
-		}
-	}
-	err = dt.CombineErrs(errs)
-	return dirs, err
-}
-
 // copyTo processes a single rule
 func (rule *GlobRule) copyTo(baseDir, installDir dt.DirPath, opts *dt.CopyOptions) (err error) {
 	var matches []string

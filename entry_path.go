@@ -142,25 +142,26 @@ func (ep EntryPath) Abs() (EntryPath, error) {
 }
 
 func (ep EntryPath) Join(elems ...any) EntryPath {
-	ss := make([]string, len(elems))
-	for i, part := range elems {
+	ss := make([]string, 0, len(elems)+1)
+	ss = append(ss, string(ep))
+	for _, part := range elems {
 		switch s := part.(type) {
 		case string:
-			ss[i] = s
+			ss = append(ss, s)
 		case EntryPath:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		case DirPath:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		case Filepath:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		case RelFilepath:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		case PathSegment:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		case PathSegments:
-			ss[i] = string(s)
+			ss = append(ss, string(s))
 		default:
-			ss[i] = fmt.Sprintf("%s", part)
+			ss = append(ss, fmt.Sprintf("%s", part))
 		}
 	}
 	return EntryPath(filepath.Join(ss...))
