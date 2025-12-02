@@ -10,7 +10,7 @@ type EntryModeFunc func(ep EntryPath) os.FileMode
 
 // CopyOptions contains options for the copy operation
 type CopyOptions struct {
-	Force        bool          // Overwrite existing files
+	Overwrite    bool          // Overwrite existing files
 	DestModeFunc EntryModeFunc // Permission callback (nil = preserve source permissions)
 }
 

@@ -199,8 +199,8 @@ func (fp Filepath) CopyTo(dest Filepath, opts *CopyOptions) (err error) {
 	_, err = dest.Stat()
 	destExists = err == nil
 
-	// If dest exists and Force is false, error
-	if destExists && !opts.Force {
+	// If dest exists and Overwrite is false, error
+	if destExists && !opts.Overwrite {
 		err = os.ErrExist
 		goto end
 	}
