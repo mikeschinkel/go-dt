@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+type FilepathGetter interface {
+	Filepath() Filepath
+}
+
 func ParseFilepath(s string) (fp Filepath, err error) {
 	// TODO Add some validation here
 	fp = Filepath(s)
