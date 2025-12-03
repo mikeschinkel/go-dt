@@ -64,3 +64,6 @@ var (
 	ErrInvalidFlagName      = errors.New("invalid flag name")
 	ErrFlagValidationFailed = errors.New("flag validation failed")
 )
+var (
+	ErrUnexpectedError = errors.New("unexpected error")
+)
