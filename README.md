@@ -30,11 +30,11 @@ The barrier is friction. Even simple types like Filename or `DirPath` often dema
 
 ---
 
-## Why It Exists
+## Why `dt` Exists
 
-> _"When two (2) different packages from two (2) different authors both use `dt.Filepath` or `dt.Identifier`, they can exchange values directly. No glue code, no type conversions, and no risk of mismatched assumptions."_<br>— The `dt` team
+> _"When different packages from different authors both use `dt.Filepath` or `dt.DirPath`, they can exchange values directly. No glue code, no type conversions, and greatly reduced risk of mismatched assumptions."_<br>— The `dt` team
 
-Today, developers who use custom types end up isolated. A package defining its own `FilePath` or `Identifier` can’t interoperate cleanly with others that do the same. Every ecosystem needs a shared vocabulary. 
+Today, developers who use custom types end up isolated. A package defining its own `FilePath` or `DirPath` cannot interoperate cleanly with others that do the same. Every ecosystem needs a shared vocabulary. 
 
 For Go, we hope that `dt` can be that vocabulary.
 
