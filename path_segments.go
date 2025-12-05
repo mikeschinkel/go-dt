@@ -44,13 +44,3 @@ func (pss PathSegments) HasDotDotPrefix() bool {
 func (pss PathSegments) Segments() []PathSegment {
 	return pss.Split()
 }
-
-type PathSegment string
-
-func (ps PathSegment) Contains(part any) bool {
-	return EntryPath(ps).Contains(part)
-}
-
-func (ps PathSegment) HasDotDotPrefix() bool {
-	return EntryPath(ps).HasDotDotPrefix()
-}
