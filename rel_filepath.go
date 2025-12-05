@@ -31,3 +31,36 @@ func (fp RelFilepath) ReadFile(fileSys ...fs.FS) ([]byte, error) {
 	}
 	return fs.ReadFile(fileSys[0], string(fp))
 }
+
+func (fp RelFilepath) Rel(baseDir DirPath) (RelFilepath, error) {
+	ps, err := filepath.Rel(string(baseDir), string(fp))
+	return RelFilepath(ps), err
+}
+
+func (fp RelFilepath) Exists() (exists bool, err error) {
+	var status EntryStatus
+	status, err = fp.Status()
+	if err != nil {
+		goto end
+	}
+	exists = status == IsFileEntry
+end:
+	return exists, err
+}
+
+func (fp RelFilepath) WriteFile(data []byte, mode os.FileMode) error {
+	return os.WriteFile(string(fp), data, mode)
+}
+
+// Status classifies the filesystem entry referred to by fp.
+//
+// It returns IsMissingEntry when the entry does not exist (err == nil).
+// It returns IsEntryError for all other filesystem errors (err != nil).
+// By default it follows symlinks (like os.Stat). To inspect the entry
+// itself, pass FlagDontFollowSymlinks.
+//
+// On platforms that don't support certain kinds (e.g., sockets/devices on
+// Windows), those statuses will never be returned.
+func (fp RelFilepath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
+	return EntryPath(fp).Status(flags...)
+}
