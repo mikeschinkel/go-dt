@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"iter"
 	"os"
 	"path/filepath"
 )
@@ -154,4 +155,106 @@ end:
 
 func (dp DirPath) HasDotDotPrefix() bool {
 	return EntryPath(dp).HasDotDotPrefix()
+}
+
+// Walk walks the filesystem rooted at d using d.DirFS() and yields all entries
+// as DirEntry values together with any per-entry errors encountered.
+func (dp DirPath) Walk() iter.Seq2[DirEntry, error] {
+	return dp.WalkFS(dp.DirFS())
+}
+
+// WalkFS walks the provided fsys (typically obtained from d.DirFS()) starting
+// at "." and yields all entries as DirEntry values together with any per-entry
+// errors encountered.
+func (dp DirPath) WalkFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
+	return func(yield func(DirEntry, error) bool) {
+		var skipDir bool
+
+		_ = fs.WalkDir(fsys, ".", func(path string, de fs.DirEntry, err error) error {
+			entry := DirEntry{
+				Root:    dp,
+				Rel:     EntryPath(path),
+				Entry:   de,
+				skipDir: &skipDir,
+			}
+
+			skipDir = false
+
+			if !yield(entry, err) {
+				return fs.SkipAll
+			}
+
+			if skipDir {
+				return fs.SkipDir
+			}
+
+			return nil
+		})
+	}
+}
+
+// WalkFiles walks using d.DirFS() and yields only entries that represent
+// regular files.
+func (dp DirPath) WalkFiles() iter.Seq2[DirEntry, error] {
+	return dp.WalkFilesFS(dp.DirFS())
+}
+
+// WalkFilesFS walks the provided fsys and yields only entries that represent
+// regular files.
+func (dp DirPath) WalkFilesFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
+	return func(yield func(DirEntry, error) bool) {
+		for de, err := range dp.WalkFS(fsys) {
+			if err != nil {
+				if !yield(de, err) {
+					return
+				}
+				continue
+			}
+
+			if de.Entry == nil {
+				continue
+			}
+
+			if !de.IsFile() {
+				continue
+			}
+
+			if !yield(de, nil) {
+				return
+			}
+		}
+	}
+}
+
+// WalkDirs walks using d.DirFS() and yields only entries that represent
+// directories.
+func (dp DirPath) WalkDirs() iter.Seq2[DirEntry, error] {
+	return dp.WalkDirsFS(dp.DirFS())
+}
+
+// WalkDirsFS walks the provided fsys and yields only entries that represent
+// directories.
+func (dp DirPath) WalkDirsFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
+	return func(yield func(DirEntry, error) bool) {
+		for de, err := range dp.WalkFS(fsys) {
+			if err != nil {
+				if !yield(de, err) {
+					return
+				}
+				continue
+			}
+
+			if de.Entry == nil {
+				continue
+			}
+
+			if !de.IsDir() {
+				continue
+			}
+
+			if !yield(de, nil) {
+				return
+			}
+		}
+	}
 }
