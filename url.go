@@ -2,6 +2,7 @@ package dt
 
 import (
 	"net/http"
+	"net/url"
 )
 
 // URL is a string that contains a syntactically valid Uniform Resource Locator
@@ -16,6 +17,11 @@ func (u URL) GET(c *http.Client) (resp *http.Response, err error) {
 func (u URL) HTTPGet(c *http.Client) (resp *http.Response, err error) {
 	return c.Get(string(u))
 }
+
+func (u URL) Parse() (*url.URL, error) {
+	return url.Parse(string(u))
+}
+
 func ParseURL(s string) (u URL, err error) {
 	// TODO Add some validation here
 	u = URL(s)

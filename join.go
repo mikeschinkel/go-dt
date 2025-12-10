@@ -64,3 +64,51 @@ func EntryPathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) EntryPath {
 func EntryPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) EntryPath {
 	return EntryPath(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
 }
+
+func PathSegmentsJoin[T1, T2 ~string](a T1, b T2) PathSegments {
+	return PathSegments(filepath.Join(string(a), string(b)))
+}
+
+func PathSegmentsJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) PathSegments {
+	return PathSegments(filepath.Join(string(a), string(b), string(c)))
+}
+
+func PathSegmentsJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) PathSegments {
+	return PathSegments(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+
+func PathSegmentsJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) PathSegments {
+	return PathSegments(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
+
+func URLJoin[T1, T2 ~string](a T1, b T2) URL {
+	return URL(filepath.Join(string(a), string(b)))
+}
+
+func URLJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) URL {
+	return URL(filepath.Join(string(a), string(b), string(c)))
+}
+
+func URLJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) URL {
+	return URL(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+
+func URLJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) URL {
+	return URL(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
+
+func URLSegmentsJoin[T1, T2 ~string](a T1, b T2) URLSegments {
+	return URLSegments(filepath.Join(string(a), string(b)))
+}
+
+func URLSegmentsJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) URLSegments {
+	return URLSegments(filepath.Join(string(a), string(b), string(c)))
+}
+
+func URLSegmentsJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) URLSegments {
+	return URLSegments(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+
+func URLSegmentsJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) URLSegments {
+	return URLSegments(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}

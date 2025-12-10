@@ -1,0 +1,58 @@
+{
+  "modules": {
+    "./appinfo": {
+      "name": "appinfo",
+      "role": [
+        "lib"
+      ]
+    },
+    "./appinfo/test": {
+      "name": "test",
+      "role": [
+        "lib"
+      ]
+    },
+    "./dtglob": {
+      "name": "dtglob",
+      "role": [
+        "lib"
+      ]
+    },
+    "./dtglob/test": {
+      "name": "test",
+      "role": [
+        "lib"
+      ]
+    },
+    "./dtx": {
+      "name": "dtx",
+      "role": [
+        "lib"
+      ]
+    },
+    "./dtx/test": {
+      "name": "test",
+      "role": [
+        "lib"
+      ]
+    },
+    "./examples/basic_usage": {
+      "name": "basic_usage",
+      "role": [
+        "lib"
+      ]
+    },
+    "./test": {
+      "name": "test",
+      "role": [
+        "test"
+      ]
+    },
+    "./": {
+      "name": "go-dt",
+      "role": [
+        "lib"
+      ]
+    }
+  }
+}

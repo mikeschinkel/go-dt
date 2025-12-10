@@ -25,34 +25,46 @@ type DirEntry struct {
 	skipDir *bool
 }
 
+func NewDirEntry(root DirPath, skipDir *bool) DirEntry {
+	return DirEntry{
+		Root:    root,
+		skipDir: skipDir,
+	}
+}
+
 // SkipDir causes the current directory (if this DirEntry represents a
 // directory during a Walk) to be skipped, analogous to returning fs.SkipDir
 // from a WalkDir callback.
 func (de DirEntry) SkipDir() {
 	if de.skipDir == nil {
-		return
+		goto end
 	}
 	*de.skipDir = true
+end:
+	return
 }
 
 // IsDir reports whether this DirEntry represents a directory.
-func (de DirEntry) IsDir() bool {
+func (de DirEntry) IsDir() (isDir bool) {
 	if de.Entry == nil {
-		return false
+		goto end
 	}
-	return de.Entry.IsDir()
+	isDir = de.Entry.IsDir()
+end:
+	return isDir
 }
 
 // IsFile reports whether this DirEntry represents a regular file (non-dir).
-func (de DirEntry) IsFile() bool {
+func (de DirEntry) IsFile() (isFile bool) {
 	if de.Entry == nil {
-		return false
+		goto end
 	}
 	if de.Entry.IsDir() {
-		return false
+		goto end
 	}
-	mode := de.Entry.Type()
-	return mode.IsRegular()
+	isFile = de.Entry.Type().IsRegular()
+end:
+	return isFile
 }
 
 // Base returns the last path element of Rel as an EntryPath, similar to
@@ -69,6 +81,15 @@ func (de DirEntry) PathSegment() PathSegment {
 		panic("dt.DirEntry.PathSegment called on non-directory entry")
 	}
 	return PathSegment(de.Base())
+}
+
+// DirPath returns the entry as a directory path. It is intended
+// for directory entries and will panic if called on a non-directory.
+func (de DirEntry) DirPath() DirPath {
+	if !de.IsDir() {
+		panic("dt.DirEntry.DirPath called on non-directory entry")
+	}
+	return DirPathJoin(de.Root, de.Rel)
 }
 
 // Filename returns the last path element as a Filename. It is intended for

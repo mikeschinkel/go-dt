@@ -7,6 +7,10 @@ import (
 var (
 	ErrPathIsDir               = errors.New("path is a directory")
 	ErrPathIsFile              = errors.New("path is a file (not a directory)")
+	ErrDoesNotExist            = errors.New("does not exist")
+	ErrExists                  = errors.New("exists")
+	ErrDirDoesNotExist         = errors.New("dir does not exist")
+	ErrDirExists               = errors.New("dir exists")
 	ErrFileDoesNotExist        = errors.New("file does not exist")
 	ErrFileExists              = errors.New("file exists")
 	ErrInvalidEntryStatus      = errors.New("invalid entry status")
@@ -16,11 +20,15 @@ var (
 
 var (
 	ErrInvalidPathSegment = errors.New("invalid path segment")
+	ErrInvalidURLSegment  = errors.New("invalid URL segment")
+	ErrInvalidURLSegments = errors.New("invalid URL segments")
+	ErrInvalidIdentifier  = errors.New("invalid identifier")
 
 	// ErrInvalidForOpen is used when ValidPath()==false
 	ErrInvalidForOpen = errors.New("invalid for open")
 )
 var (
+	ErrFileSystem                      = errors.New("file system error")
 	ErrFailedReadingSymlink            = errors.New("failed reading symlink")
 	ErrFailedToLoadFile                = errors.New("failed to load file")
 	ErrFailedToCopyFile                = errors.New("failed to copy file")

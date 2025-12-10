@@ -7,6 +7,7 @@ import (
 	"iter"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func ParseDirPath(s string) (dp DirPath, err error) {
@@ -128,6 +129,22 @@ func (dp DirPath) Abs() (DirPath, error) {
 	return DirPath(dir), err
 }
 
+func (dp DirPath) HasPrefix(prefix DirPath) bool {
+	return strings.HasPrefix(string(dp), string(prefix))
+}
+
+func (dp DirPath) HasSuffix(suffix string) bool {
+	return strings.HasSuffix(string(dp), suffix)
+}
+
+func (dp DirPath) TrimPrefix(prefix DirPath) DirPath {
+	return DirPath(strings.TrimPrefix(string(dp), string(prefix)))
+}
+
+func (dp DirPath) TrimSuffix(TrimSuffix string) DirPath {
+	return DirPath(strings.TrimSuffix(string(dp), TrimSuffix))
+}
+
 // ===[Enhancements]===
 
 func (dp DirPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
@@ -166,30 +183,91 @@ func (dp DirPath) Walk() iter.Seq2[DirEntry, error] {
 // WalkFS walks the provided fsys (typically obtained from d.DirFS()) starting
 // at "." and yields all entries as DirEntry values together with any per-entry
 // errors encountered.
+//
+// This implementation is non-recursive and uses fs.ReadDir internally so that
+// it can correctly honor the iterator contract: once the caller stops
+// iteration (yield returns false), WalkFS will not call yield again.
 func (dp DirPath) WalkFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
 	return func(yield func(DirEntry, error) bool) {
+		// dirState tracks iteration state for a single directory.
+		type dirState struct {
+			dir     string
+			entries []fs.DirEntry
+			i       int
+		}
+
 		var skipDir bool
 
-		_ = fs.WalkDir(fsys, ".", func(path string, de fs.DirEntry, err error) error {
-			entry := DirEntry{
-				Root:    dp,
-				Rel:     EntryPath(path),
-				Entry:   de,
-				skipDir: &skipDir,
+		// Start from the logical root "." inside fsys.
+		stack := []dirState{{dir: "."}}
+
+		for len(stack) > 0 {
+			// Work on the directory at the top of the stack.
+			s := &stack[len(stack)-1]
+
+			// If we haven't read this directory yet, do so now.
+			if s.entries == nil {
+				ents, err := fs.ReadDir(fsys, s.dir)
+				if err != nil {
+					entry := NewDirEntry(dp, &skipDir)
+					entry.Rel = EntryPath(s.dir)
+
+					skipDir = false
+					if !yield(entry, err) {
+						return
+					}
+
+					// On error, we cannot descend into this directory; pop and continue.
+					stack = stack[:len(stack)-1]
+					continue
+				}
+
+				s.entries = ents
+				s.i = 0
 			}
+
+			// If we've exhausted this directory, pop it and continue with its parent.
+			if s.i >= len(s.entries) {
+				stack = stack[:len(stack)-1]
+				continue
+			}
+
+			// Consume the next entry in this directory.
+			de := s.entries[s.i]
+			s.i++
+
+			// Construct the relative path for this entry.
+			var rel string
+			if s.dir == "." {
+				rel = de.Name()
+			} else {
+				rel = filepath.Join(s.dir, de.Name())
+			}
+
+			entry := NewDirEntry(dp, &skipDir)
+			entry.Rel = EntryPath(rel)
+			entry.Entry = de
 
 			skipDir = false
 
-			if !yield(entry, err) {
-				return fs.SkipAll
+			if !yield(entry, nil) {
+				goto end
+			}
+
+			if !de.IsDir() {
+				continue
 			}
 
 			if skipDir {
-				return fs.SkipDir
+				continue
 			}
 
-			return nil
-		})
+			// If this is a directory and the caller did not request SkipDir,
+			// push it onto the stack to walk its children.
+			stack = append(stack, dirState{dir: rel})
+		}
+	end:
+		return
 	}
 }
 

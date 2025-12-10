@@ -2,6 +2,7 @@ package dt
 
 import (
 	"os"
+	"strings"
 )
 
 type PathSegment string
@@ -44,4 +45,12 @@ func (ps PathSegment) Status(flags ...EntryStatusFlags) (status EntryStatus, err
 
 func (ps PathSegment) MkdirAll(mode os.FileMode) error {
 	return os.MkdirAll(string(ps), mode)
+}
+
+func (ps PathSegment) TrimPrefix(prefix DirPath) PathSegment {
+	return PathSegment(strings.TrimPrefix(string(ps), string(prefix)))
+}
+
+func (ps PathSegment) TrimSuffix(TrimSuffix string) PathSegment {
+	return PathSegment(strings.TrimSuffix(string(ps), TrimSuffix))
 }

@@ -28,7 +28,10 @@ test: test-unit
 
 test-unit:
 	@echo "Running tests for main package..."
-	@cd test && $(GO) test -v -race -coverprofile=./coverage.txt -covermode=atomic ./... || exit 1
+	@$(GO) test -v -race -coverprofile=./coverage.txt -covermode=atomic ./... || exit 1
+	@echo ""
+	@echo "Running tests for main test sub-package..."
+	@cd test && $(GO) test -v -race ./... || exit 1
 	@echo ""
 	@set -e; for dir in */test; do \
 		if [ -d "$$dir" ] && [ -f "$$dir/go.mod" ]; then \

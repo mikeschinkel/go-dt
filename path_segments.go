@@ -5,42 +5,38 @@ import (
 	"strings"
 )
 
-func ParsePathSegment(s string) (ps PathSegment, err error) {
-	if s == "" {
-		err = NewErr(
-			ErrInvalidPathSegment,
-			ErrEmpty,
-		)
-		goto end
-	}
-	ps = PathSegment(s)
-end:
-	return ps, err
-}
-
-// PathSegments is one or more path segments for a filepath, dir path, or URL
+// PathSegments is one or more path segments for a filesystem path
 type PathSegments string
 
-func (pss PathSegments) Base() PathSegment {
-	return PathSegment(filepath.Base(string(pss)))
+// Split returns all segments of the path separated by the OS separator as a slice of PathSegment.
+func (pss PathSegments) Split() []PathSegment {
+	return SplitSegments[PathSegment](string(pss), string(filepath.Separator))
 }
 
-func (pss PathSegments) Split() (out []PathSegment) {
-	out = make([]PathSegment, strings.Count(string(pss), "/"))
-	for i, ps := range strings.Split(string(pss), "/") {
-		out[i] = PathSegment(ps)
-	}
-	return out
-}
-
-func (pss PathSegments) CanWrite() (bool, error) {
-	return CanWrite(EntryPath(pss))
-}
-
-func (pss PathSegments) HasDotDotPrefix() bool {
-	return EntryPath(pss).HasDotDotPrefix()
-}
-
+// Segments returns all segments of the path, same as Split.
 func (pss PathSegments) Segments() []PathSegment {
 	return pss.Split()
+}
+
+// Segment returns the segment at the given index in the path.
+// Returns empty PathSegment if index is out of bounds or negative.
+func (pss PathSegments) Segment(index int) PathSegment {
+	return IndexSegments[PathSegment](string(pss), string(filepath.Separator), index)
+}
+
+// Slice returns segments from start (inclusive) to end (exclusive),
+// similar to string[start:end] slicing.
+func (pss PathSegments) Slice(start, end int) []PathSegment {
+	return SliceSegments[PathSegment](string(pss), string(filepath.Separator), start, end)
+}
+
+// SliceScalar returns a scalar (joined) value of segments from start (inclusive) to end (exclusive),
+// similar to string[start:end] slicing but returns a joined string using the OS separator.
+// Supports -1 for end to mean "to the last segment".
+func (pss PathSegments) SliceScalar(start, end int) PathSegments {
+	return PathSegments(SliceSegmentsScalar[PathSegment](string(pss), string(filepath.Separator), start, end))
+}
+
+func (pss PathSegments) LastIndex(sep string) int {
+	return strings.LastIndex(string(pss), sep)
 }
