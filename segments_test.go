@@ -921,6 +921,109 @@ func TestSliceSegmentsScalar(t *testing.T) {
 			sep:     "\\",
 			wantOut: TestSegment("john\\Documents"),
 		},
+		// Edge cases for beyond-segment-count start position (regression test for makeslice panic)
+		{
+			name:    "two segments slice 10:20 out of bounds with slash",
+			s:       "a/b",
+			start:   10,
+			end:     20,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		{
+			name:    "three segments slice 10:-1 start beyond with slash",
+			s:       "a/b/c",
+			start:   10,
+			end:     -1,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		{
+			name:    "api path slice 10:15 start beyond segments with slash",
+			s:       "api/v1/users/123",
+			start:   10,
+			end:     15,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		// GitHub path test case - extracting repo name from "org/repo"
+		// This is the exact use case from demo_source.go:113
+		// slug := ds.Repo.SliceScalar(ds.Repo.LastIndex("/")+1, -1, "/")
+		{
+			name:    "github repo name extraction from org/repo",
+			s:       "xmlui-org/hello",
+			start:   1,
+			end:     -1,
+			sep:     "/",
+			wantOut: TestSegment("hello"),
+		},
+		{
+			name:    "github repo last index extraction (regression for makeslice panic)",
+			s:       "xmlui-org/demo-app",
+			start:   10, // LastIndex("/") + 1 when / is at position 9
+			end:     -1,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		// Test with different separators
+		{
+			name:    "dot separator slice 0:2",
+			s:       "com.example.domain",
+			start:   0,
+			end:     2,
+			sep:     ".",
+			wantOut: TestSegment("com.example"),
+		},
+		{
+			name:    "dot separator slice 1:3",
+			s:       "com.example.domain",
+			start:   1,
+			end:     3,
+			sep:     ".",
+			wantOut: TestSegment("example.domain"),
+		},
+		// Empty segment handling
+		{
+			name:    "consecutive separators slice 0:3",
+			s:       "a///b",
+			start:   0,
+			end:     3,
+			sep:     "/",
+			wantOut: TestSegment("a//"),
+		},
+		{
+			name:    "consecutive separators slice 1:4",
+			s:       "a///b",
+			start:   1,
+			end:     4,
+			sep:     "/",
+			wantOut: TestSegment("//b"),
+		},
+		// Negative/invalid indices
+		{
+			name:    "negative start returns empty",
+			s:       "a/b/c",
+			start:   -1,
+			end:     2,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		{
+			name:    "invalid range start > end",
+			s:       "a/b/c",
+			start:   3,
+			end:     1,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
+		{
+			name:    "invalid range start == end",
+			s:       "a/b/c",
+			start:   1,
+			end:     1,
+			sep:     "/",
+			wantOut: TestSegment(""),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

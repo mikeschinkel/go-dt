@@ -10,6 +10,8 @@ import (
 	"github.com/mikeschinkel/go-dt"
 )
 
+// AFAIK this is not in use anywhere, HOWEVER it is probably usefu and might be useful on go-dt
+
 // ParseOSPathSegment parses a string to returns an OS-specific Windows file system path segment
 func ParseOSPathSegment(s string) (ps dt.PathSegment, err error) {
 	var osPS any

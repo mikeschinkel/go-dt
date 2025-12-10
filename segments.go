@@ -134,9 +134,78 @@ end:
 // in a string split by sep, similar to string[start:end] slicing but returns a joined string.
 // Supports -1 for end to mean "to the last segment".
 // Returns empty string if indices are invalid.
+// Uses a single pass through the string to find byte positions, avoiding allocations.
 func SliceSegmentsScalar[S ~string](s, sep string, start, end int) S {
-	segments := SliceSegments[S](s, sep, start, end)
-	return JoinSegments(segments, sep)
+	var curIdx int
+	var startPos int
+	var endPos int
+
+	if len(s) == 0 {
+		return S("")
+	}
+	if start < 0 {
+		return S("")
+	}
+	if end < 0 && end != -1 {
+		return S("")
+	}
+	if end != -1 && start >= end {
+		return S("")
+	}
+
+	// Single pass through string to find start and end byte positions
+	rest := s
+	pos := 0
+	startPos = -1
+	endPos = len(s)
+
+	for {
+		before, after, found := strings.Cut(rest, sep)
+
+		// Record position of this segment
+		if curIdx == start {
+			startPos = pos
+		}
+		if curIdx == end && end != -1 {
+			endPos = pos
+			break
+		}
+
+		if !found {
+			// We've reached the last segment
+			if end == -1 || curIdx < end {
+				endPos = len(s)
+			}
+			break
+		}
+
+		// Move to next segment
+		pos += len(before) + len(sep)
+		rest = after
+		curIdx++
+	}
+
+	// Return the substring from startPos to endPos
+	if startPos == -1 {
+		return S("")
+	}
+	if startPos >= len(s) {
+		return S("")
+	}
+	if endPos > len(s) {
+		endPos = len(s)
+	}
+	if startPos >= endPos {
+		return S("")
+	}
+
+	// Handle the case where we need to remove the trailing separator
+	result := s[startPos:endPos]
+	if len(result) > 0 && strings.HasSuffix(result, sep) {
+		result = result[:len(result)-len(sep)]
+	}
+
+	return S(result)
 }
 
 // JoinSegments returns joined slice of segments

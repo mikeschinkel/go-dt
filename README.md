@@ -14,9 +14,9 @@ When you write Go code using the standard library, you don’t have to ask wheth
 
 ## Status
 
-This is **pre-alpha** and in development thus **subject to change**, although I am trying to bring to v1.0 as soon as I feel confident its architecture will not need to change. As of Novemeber 2025 I am actively working on it and using it in current projects.
+This is **pre-alpha** and in development, thus **subject to change**—though I'm working toward v1.0 with confidence that the architecture is approaching stability. As of December 2025, I'm actively developing and using it in current projects.
 
-If you find value in this project and want to use it, please start a discuss to let me know. If you discuver any issues with it, please open an issue or submit a pull request.
+If you find value in this project and want to use it, please open a discussion to let me know. If you discover any issues, please open an issue or submit a pull request.
 
 ---
 
@@ -64,6 +64,20 @@ A community-driven, well-designed set of types that:
 Our _reasonable goal_ is broad adoption: if enough developers and library authors agree to depend on `dt`, interoperability naturally follows.
 
 Our **ultimate goal** — _said with a wink_ — is to see the Go team adopt something like `dt` officially, perhaps as `golang.org/x/dt`. Whether or not that ever happens, the mission remains the same: to make domain types first-class citizens in Go.
+
+---
+
+## The Gofmt Analogy
+
+As [Rob Pike](https://twitter.com/rob_pike) noted:
+
+> _"Gofmt's style is no one's favorite, yet gofmt is everyone's favorite."_
+
+We believe the same principle applies to domain types:
+
+> _"Types in Domain Types are no one's favorite, yet the Types in Domain Types are everyone's favorite."_
+
+Just as `gofmt` succeeds by being **good enough** rather than perfect, `dt` succeeds by establishing a **shared vocabulary** that everyone can build on. It's not about designing the ideal type for every situation—it's about making it easy to agree on something usable, so developers and libraries can interoperate seamlessly without constant friction.
 
 ---
 
@@ -123,13 +137,716 @@ For a detailed technical explanation of this decision, see **[ADR 2025-02-11: Me
 
 ---
 
+## Type Classification
+
+`dt` provides two categories of types:
+
+### Core Types
+
+Domain types that model real-world concepts and are intended to be used as replacements for built-in types like `string`. These represent semantic entities: file paths, identifiers, URLs, versions, and the like.
+
+**Examples:** `Filename`, `Filepath`, `DirPath`, `URL`, `Identifier`, `Version`
+
+### Supplemental Types
+
+Types that provide essential functionality for core types—either as containers or enumerations. These are used alongside core types to enable safe operations and type-safe classification.
+
+**Examples:** `DirEntry` (container), `EntryStatus` (enumeration)
+
+---
+
+## Type Hierarchy
+
+The following diagram shows how `dt` types relate to one another, from broad to narrow:
+
+```
+Types
+├── Supplemental Types
+│   ├── DirEntry (used during directory walking)
+│   └── EntryStatus (enumeration: FileEntry, DirEntry, SymlinkEntry, UnknownEntry)
+└── Core Types (all extend string)
+    ├── Identifier (validated identifiers)
+    ├── TimeFormat (time layout strings)
+    ├── Version (software version strings)
+    ├── EntryPath (generic file or directory path)
+    │   ├── DirPath (directory path)
+    │   │   ├── VolumeName (Windows volume identifier)
+    │   │   └── PathSegments
+    │   │       └── PathSegment (single path component)
+    │   └── Filepath (file path with filename)
+    │       ├── RelFilepath (relative file path with traversal protection)
+    │       └── Filename (filename without path)
+    │           └── FileExt (file extension with leading period)
+    ├── InternetDomain (internet domain names)
+    └── URL (syntactically valid URLs)
+        ├── URLSegments (URL path components)
+        │   └── URLSegment (single URL path component)
+        └── Filename (when used in URL contexts)
+            └── FileExt
+```
+
+---
+
+## Parse Functions
+
+Many types in `dt` have associated `Parse<Type>()` functions:
+
+```go
+filename, err := dt.ParseFilename("config.json")
+url, err := dt.ParseURL("https://example.com")
+version, err := dt.ParseVersion("1.2.3")
+```
+
+**Current Status:** These functions are currently lightweight casting functions. Over time, they will evolve to include robust validation similar to `url.Parse()` from the standard library.
+
+**Future Intent:** As validation is implemented progressively, the type hierarchy understanding will evolve to reflect validated constraints. This design ensures `dt` can add validation without breaking existing code.
+
+---
+
+## Types and APIs
+
+### Filesystem Path Types
+
+Filesystem paths are the core focus of `dt`. They represent locations on the filesystem and provide type-safe operations for reading, writing, and navigation.
+
+#### DirPath
+
+Represents a filesystem directory path (absolute or relative).
+
+**Key Methods:**
+- `EnsureExists()` — Create directory and parents if needed; error if path exists as file
+- `ReadDir()` — List directory contents
+- `Walk()` — Iterate through directory tree with `SkipDir()` support
+- `WalkFiles()` — Iterate through files only
+- `WalkDirs()` — Iterate through directories only
+- `Join(...any)` — Join path components
+- `Dir()` — Parent directory
+- `Base()` — Directory name as `PathSegment`
+- `Clean()` — Normalize path
+- `Stat()`, `Lstat()` — File info
+- `Exists()` — Check existence
+- `DirFS()` — Convert to `fs.FS`
+
+**Comprehensive Example:**
+```go
+func processDirPath() (err error) {
+    var dir dt.DirPath
+    var subDir dt.DirPath
+    var configFile dt.Filepath
+
+    dir = dt.DirPath("/home/user/projects")
+    err = dir.EnsureExists()
+    if err != nil {
+        goto end
+    }
+
+    // Walk all files recursively
+    for entry := range dir.WalkFiles() {
+        if entry.Status() == dt.FileEntry {
+            fmt.Println("File:", entry.Filename())
+        }
+    }
+
+    // Create and navigate subdirectory
+    subDir = dir.Join("src", "main")
+    err = subDir.EnsureExists()
+    if err != nil {
+        goto end
+    }
+
+    // Work with files in subdirectory
+    configFile = dt.FilepathJoin(subDir, "config.json")
+    err = configFile.WriteFile([]byte("{}"), 0o644)
+    if err != nil {
+        goto end
+    }
+
+end:
+    return err
+}
+```
+
+#### Filepath
+
+Represents a complete file path including filename and extension.
+
+**Key Methods:**
+- `ReadFile()` — Read file contents
+- `WriteFile(data, mode)` — Write file
+- `Create()` — Create file
+- `OpenFile(flag, mode)` — Open with flags
+- `Dir()` — Parent directory as `DirPath`
+- `Base()` — Filename as `Filename`
+- `Ext()` — File extension as `FileExt`
+- `Stat()`, `Lstat()` — File info
+- `Exists()` — Check existence
+- `CopyTo(dest, opts)` — Copy file to destination with optional settings
+- `CopyToDir(dest, opts)` — Copy file to destination directory
+- `Remove()` — Delete file
+
+**Comprehensive Example:**
+```go
+func processFile() (data []byte, err error) {
+    var file dt.Filepath
+    var dir dt.DirPath
+
+    file = dt.Filepath("/home/user/config.json")
+
+    // Check and read file
+    if ok, statErr := file.Exists(); !ok {
+        err = statErr
+        goto end
+    }
+
+    data, err = file.ReadFile()
+    if err != nil {
+        goto end
+    }
+
+    // Get parent directory
+    dir = file.Dir()
+    fmt.Println("Config location:", dir)
+
+    // Copy to backup
+    backup := dt.FilepathJoin(dir, "config.json.bak")
+    err = file.CopyTo(backup, nil)
+    if err != nil {
+        goto end
+    }
+
+end:
+    return data, err
+}
+```
+
+#### RelFilepath
+
+Represents a relative file path with protections against directory traversal attacks. Validates that the path does not attempt to escape the intended directory using `../` sequences.
+
+**Key Methods:**
+- Same as `Filepath`, but with traversal protection guarantees
+- Safe for use with user-provided paths
+
+#### EntryPath
+
+Generic filesystem entry path that can represent either a file or directory. Use when the type is unknown until runtime.
+
+**Key Methods:**
+- Type assertion methods: `IsFile()`, `IsDir()`
+- Conversion methods: `AsFilepath()`, `AsDirPath()`
+
+#### Filename
+
+Filename without any path component.
+
+**Key Methods:**
+- `Ext()` — Extension as `FileExt`
+- `String()` — Get filename as string
+
+**Example:**
+```go
+fn := dt.Filename("document.txt")
+ext := fn.Ext()        // FileExt(".txt")
+name := fn.String()    // "document.txt"
+```
+
+#### FileExt
+
+File extension including the leading period.
+
+**Key Methods:**
+- `Valid()` — Check if extension is valid
+- `String()` — Get as string (includes period)
+- `WithoutDot()` — Get extension without leading period
+
+### Path Components and Segments
+
+Working with components of filesystem paths.
+
+#### PathSegments
+
+Represents a filesystem path as a string with segment operations.
+
+**Key Methods:**
+- `Split()` — Split into `[]PathSegment` using OS separator
+- `Segment(index)` — Get segment at index
+- `Slice(start, end)` — Get segment slice (supports `end == -1` for "to last")
+- `SliceScalar(start, end)` — Get joined substring of segments without intermediate allocations
+- `LastIndex(sep)` — Find last occurrence of separator
+
+**Example:**
+```go
+path := dt.PathSegments("home/user/projects/file.go")
+segments := path.Split()                // []PathSegment{"home", "user", ...}
+segment := path.Segment(1)              // "user"
+slice := path.Slice(0, 3)               // first 3 segments
+scalar := path.SliceScalar(0, 3)        // "home/user/projects"
+```
+
+#### PathSegment
+
+A single filesystem path component.
+
+**Key Methods:**
+- `HasPrefix(prefix)`, `HasSuffix(suffix)` — String prefix/suffix checks
+- `TrimPrefix(prefix)`, `TrimSuffix(suffix)` — Remove prefix/suffix
+- `Contains(substr)` — Check substring presence
+
+### URL Types
+
+Working with URLs and URL components.
+
+#### URL
+
+Represents a syntactically valid Uniform Resource Locator.
+
+**Key Methods:**
+- `Parse()` — Parse into `*url.URL` for detailed access
+- `GET(client)` — Perform HTTP GET request
+- `HTTPGet(client)` — Perform HTTP GET request (alias)
+
+**Comprehensive Example:**
+```go
+func fetchData(endpoint string) (body []byte, err error) {
+    var apiURL dt.URL
+    var resp *http.Response
+
+    apiURL, err = dt.ParseURL(endpoint)
+    if err != nil {
+        goto end
+    }
+
+    resp, err = apiURL.GET(http.DefaultClient)
+    if err != nil {
+        goto end
+    }
+    defer resp.Body.Close()
+
+    body, err = io.ReadAll(resp.Body)
+    if err != nil {
+        goto end
+    }
+
+end:
+    return body, err
+}
+```
+
+#### URLSegments
+
+Represents URL path segments (parts separated by `/`).
+
+**Key Methods:**
+- `Split()` — Split into `[]URLSegment`
+- `Segment(index)` — Get segment at index
+- `Slice(start, end)` — Get segment slice
+- `SliceScalar(start, end, sep)` — Get joined scalar with custom separator
+- `LastIndex(sep)` — Find last occurrence of separator
+- `Base()` — Last segment as `URLSegment`
+
+**Example:**
+```go
+segments := dt.URLSegments("api/v1/users/123")
+all := segments.Split()                     // []URLSegment{"api", "v1", "users", "123"}
+middle := segments.Slice(1, 3)              // []URLSegment{"v1", "users"}
+scalar := segments.SliceScalar(1, 3, "/")   // "v1/users"
+last := segments.Base()                     // "123"
+```
+
+#### URLSegment
+
+A single URL path component, semantically different from a `PathSegment`.
+
+### Helper Types
+
+#### Identifier
+
+A string type representing validated identifiers suitable for Git references, semantic version components, and similar uses.
+
+**Example:**
+```go
+ref := dt.Identifier("main")
+tag := dt.Identifier("v1.2.3")
+```
+
+#### Version
+
+Software version string following semantic versioning conventions.
+
+**Key Methods:**
+- `Major()`, `Minor()`, `Patch()` — Extract version components
+- `Valid()` — Check if version is valid
+
+#### InternetDomain
+
+Internet domain name (e.g., `example.com`).
+
+**Key Methods:**
+- `Valid()` — Validate domain format
+- `TLD()` — Extract top-level domain
+- `String()` — Get as string
+
+#### TimeFormat
+
+Time layout string for use with `time.Parse()` and `time.Format()`.
+
+#### VolumeName
+
+Mounted volume name, primarily for Windows support (e.g., `C:`).
+
+### Directory Entry and Status
+
+#### DirEntry
+
+Represents a filesystem entry encountered during directory walking.
+
+**Key Methods:**
+- `Name()` — Entry name as `PathSegment`
+- `Filename()` — Filename as `Filename` (if file)
+- `DirPath()` — Full path as `DirPath`
+- `Filepath()` — Full path as `Filepath` (if file)
+- `Status()` — Entry type as `EntryStatus`
+- `IsFile()`, `IsDir()`, `IsSymlink()` — Type checks
+- `Info()` — Get underlying `fs.FileInfo`
+
+#### EntryStatus
+
+Enumeration classifying filesystem entries:
+- `FileEntry` — Regular file
+- `DirEntry` — Directory
+- `SymlinkEntry` — Symbolic link
+- `UnknownEntry` — Other or unknown type
+
+---
+
+## Generic Segment Operations
+
+These functions work with any string type and separator, providing zero-cost abstractions for delimited string manipulation.
+
+### SplitSegments
+
+```go
+func SplitSegments[S ~string](s, sep string) []S
+```
+
+Splits a string by separator into typed segments. Pre-counts separators for optimal memory allocation.
+
+**Example:**
+```go
+func example() {
+    segments := dt.SplitSegments[dt.PathSegment]("home/user/projects", "/")
+    // segments = []PathSegment{"home", "user", "projects"}
+}
+```
+
+### IndexSegments
+
+```go
+func IndexSegments[S ~string](s, sep string, index int) S
+```
+
+Returns the segment at the given index. Returns empty string if index is out of bounds or negative.
+
+**Example:**
+```go
+func example() {
+    segment := dt.IndexSegments[dt.PathSegment]("home/user/projects", "/", 1)
+    // segment = "user"
+}
+```
+
+### SliceSegments
+
+```go
+func SliceSegments[S ~string](s, sep string, start, end int) []S
+```
+
+Returns a slice of segments from `start` (inclusive) to `end` (exclusive). Supports `end == -1` to mean "to the last segment". Returns empty slice if indices are invalid.
+
+**Example:**
+```go
+func example() {
+    segments := dt.SliceSegments[dt.PathSegment]("home/user/projects/file.go", "/", 1, 3)
+    // segments = []PathSegment{"user", "projects"}
+}
+```
+
+### SliceSegmentsScalar
+
+```go
+func SliceSegmentsScalar[S ~string](s, sep string, start, end int) S
+```
+
+Like `SliceSegments`, but returns a joined scalar string instead of a slice. **Zero heap allocations** — uses single-pass byte position tracking, ideal for extracting contiguous segment ranges.
+
+**Performance Note:** This function is optimized for memory efficiency with exactly one pass through the input string without creating intermediate data structures.
+
+**Example:**
+```go
+func example() {
+    result := dt.SliceSegmentsScalar[dt.PathSegment]("home/user/projects/file.go", "/", 1, 3)
+    // result = "user/projects" (no intermediate allocations)
+}
+```
+
+### JoinSegments
+
+```go
+func JoinSegments[S ~string](ss []S, sep string) S
+```
+
+Joins a slice of segments with a separator. Pre-calculates required capacity for minimal allocations.
+
+**Example:**
+```go
+func example() {
+    segments := []dt.PathSegment{"home", "user", "projects"}
+    result := dt.JoinSegments(segments, "/")
+    // result = "home/user/projects"
+}
+```
+
+---
+
+## Type-Safe Join Functions
+
+`dt` provides generic join functions for safely combining path and URL components with type preservation. These functions use generics to accept any string-like types.
+
+### Filesystem Path Join Functions
+
+```go
+// Generic join functions for any string-like types
+func DirPathJoin[T1, T2 ~string](a T1, b T2) DirPath
+func DirPathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) DirPath
+func DirPathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) DirPath
+func DirPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) DirPath
+
+func FilepathJoin[T1, T2 ~string](a T1, b T2) Filepath
+func FilepathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) Filepath
+func FilepathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) Filepath
+func FilepathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) Filepath
+
+func RelFilepathJoin[T1, T2 ~string](a T1, b T2) RelFilepath
+func RelFilepathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) RelFilepath
+func RelFilepathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) RelFilepath
+func RelFilepathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) RelFilepath
+
+func EntryPathJoin[T1, T2 ~string](a T1, b T2) EntryPath
+func EntryPathJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) EntryPath
+func EntryPathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) EntryPath
+func EntryPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) EntryPath
+```
+
+### Path Segment Join Functions
+
+```go
+func PathSegmentsJoin[T1, T2 ~string](a T1, b T2) PathSegments
+func PathSegmentsJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) PathSegments
+```
+
+### URL Join Functions
+
+```go
+func URLJoin[T1, T2 ~string](a T1, b T2) URL
+func URLJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) URL
+func URLJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) URL
+func URLJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) URL
+
+func URLSegmentsJoin[T1, T2 ~string](a T1, b T2) URLSegments
+func URLSegmentsJoin3[T1, T2, T3 ~string](a T1, b T2, c T3) URLSegments
+```
+
+**Example:**
+```go
+func buildPaths() {
+    baseDir := dt.DirPath("/home/user")
+
+    // Join accepts any string-like types
+    subDir := dt.DirPathJoin(baseDir, "projects")
+    configFile := dt.FilepathJoin(baseDir, "config.json")
+
+    // Fixed-arity versions for multiple components
+    logFile := dt.FilepathJoin3(baseDir, "logs", "app.log")
+}
+```
+
+---
+
+## OS Wrapper Functions
+
+`dt` wraps common `os` package functions with type safety.
+
+### Directory Operations
+
+```go
+func MkdirAll(path dt.DirPath, perm os.FileMode) error
+func MkdirTemp(dir dt.DirPath, pattern string) (dt.DirPath, error)
+func RemoveAll(path dt.DirPath) error
+```
+
+### File Operations
+
+```go
+func CreateFile(path dt.Filepath) (*os.File, error)
+func CreateTemp(dir dt.DirPath, pattern string) (*os.File, error)
+func ReadFile(path dt.Filepath) ([]byte, error)
+func WriteFile(path dt.Filepath, data []byte, perm os.FileMode) error
+```
+
+### Working Directory and Home
+
+```go
+func Getwd() (dt.DirPath, error)
+func TempDir() dt.DirPath
+func UserHomeDir() (dt.DirPath, error)
+func UserConfigDir() (dt.DirPath, error)
+func UserCacheDir() (dt.DirPath, error)
+```
+
+### Filesystem Introspection
+
+```go
+func DirFS(path dt.DirPath) fs.FS
+```
+
+**Example:**
+```go
+func setupApplicationDirs() (err error) {
+    var homeDir dt.DirPath
+    var configDir dt.DirPath
+
+    homeDir, err = dt.UserHomeDir()
+    if err != nil {
+        goto end
+    }
+
+    configDir = dt.DirPathJoin(homeDir, ".config", "myapp")
+    err = dt.MkdirAll(configDir, 0o755)
+    if err != nil {
+        goto end
+    }
+
+    tempDir, err := dt.MkdirTemp(dt.TempDir(), "myapp-*")
+    if err != nil {
+        goto end
+    }
+    defer dt.RemoveAll(tempDir)
+
+end:
+    return err
+}
+```
+
+---
+
+## Error Handling
+
+`dt` uses the structured error system from the `doterr` package internally. We recommend you use `doterr` as well for consistent error handling throughout your applications.
+
+**Reference:** See [`go-doterr`](https://github.com/mikeschinkel/go-doterr) for complete documentation on structured error metadata and chaining.
+
+---
+
+## Utility Functions
+
+### File Status Checking
+
+```go
+func CanWrite(path dt.Filepath) (bool, error)
+func Stat(path dt.EntryPath) (os.FileInfo, error)
+func StatFile(path dt.Filepath) (os.FileInfo, error)
+func StatDir(path dt.DirPath) (os.FileInfo, error)
+```
+
+### File Time Operations
+
+```go
+func Chtimes(path dt.EntryPath, atime, mtime time.Time) error
+func ChangeFileTimes(path dt.Filepath, atime, mtime time.Time) error
+func ChangeDirTimes(path dt.DirPath, atime, mtime time.Time) error
+```
+
+### Time Formatting Utilities
+
+```go
+func ParseTimeDurationEx(duration string) (time.Duration, error)
+```
+
+### Logging
+
+```go
+func Logger() *slog.Logger
+func SetLogger(logger *slog.Logger)
+func EnsureLogger()
+func LogOnError(err error)
+func CloseOrLog(closer io.Closer)
+```
+
+**Example:**
+```go
+func checkFileAccess(filePath dt.Filepath) (err error) {
+    var info os.FileInfo
+    var canWrite bool
+
+    canWrite, err = dt.CanWrite(filePath)
+    if err != nil {
+        goto end
+    }
+
+    info, err = dt.StatFile(filePath)
+    if err != nil {
+        goto end
+    }
+
+    fmt.Printf("File: %s, Writable: %v, Size: %d\n",
+        filePath, canWrite, info.Size())
+
+end:
+    return err
+}
+```
+
+---
+
 ## Companion Packages
 
-| Package                    | Purpose                                                                                                                                                                                                                    |
-| -------------------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`dt/de`](../de)           | **Domain Errors** — shared sentinel errors and helpers used throughout the ecosystem.                                                                                                                                      |
-| [`dt/appinfo`](../appinfo) | **Application Information** — common interfaces for describing an app’s name, version, config paths, and metadata.                                                                                                         |
-| [`dt/dtx`](../dtx)         | **Experimental Incubator** — new types and helpers under evaluation for future inclusion in `dt`. Usable in production with strong guarantees of continued existence, but subject to change when there is no other option. |
+### dtx (Experimental Extensions)
+
+Experimental types and utilities under evaluation for potential inclusion in the main `dt` package. Safe for production use with strong compatibility guarantees, though subject to evolution when necessary.
+
+**Key Features:**
+- `GetWorkingDir()` — OS-aware working directory detection with hint support
+- `IsZero()`, `IsNil()`, `IsNilable()`, `IsNilableKind()` — Type introspection helpers
+- `Must()` — Panic on error helper for fail-fast patterns
+- `Panicf()` — Formatted panic function
+- `AssertType()` — Safe type assertion with panic fallback
+- `TempTestDir()`, `SetTestEnv()` — Testing and environment helpers
+- OS-specific path segment parsers (Windows, Darwin, Linux)
+- `EntryStatusError()` — Convert `EntryStatus` to error types
+
+**Package:** [`go-dt/dtx`](dtx)
+
+### dtglob (Glob Patterns)
+
+Pattern-based file operations with glob-style matching and bulk copy operations.
+
+**Key Features:**
+- `Glob` — Type-safe glob pattern representation
+- `GlobRule` — Single file copy operation specification
+- `GlobRules` — Container for multiple rules with batch `CopyTo()` operation
+
+**Package:** `go-dt/dtglob` _(if available in your installation)_
+
+### appinfo (Application Metadata)
+
+Standard interface for describing application metadata across the ecosystem.
+
+**Key Features:**
+- `AppInfo` interface — Contract for application metadata including name, version, config paths
+- `New(Args)` — Create concrete `AppInfo` implementations
+- Test helpers for verifying `AppInfo` implementations
+
+**Package:** `go-dt/appinfo`
 
 ---
 
