@@ -11,8 +11,29 @@ import (
 )
 
 func ParseDirPath(s string) (dp DirPath, err error) {
-	// TODO Add some validation here
-	dp = DirPath(s)
+	if len(s) == 0 {
+		err = ErrEmpty
+		goto end
+	}
+
+	if s[0] != '~' {
+		dp = DirPath(s)
+		goto end
+	}
+
+	_, err = ParseTildeDirPath(s)
+	if errors.Is(err, ErrNotTildePath) {
+		dp = DirPath(s)
+		err = nil
+		goto end
+	}
+	if err != nil {
+		goto end
+	}
+
+	dp, err = TildeDirPath(s).Expand()
+
+end:
 	return dp, err
 }
 
@@ -30,6 +51,20 @@ func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
 		dps = append(dps, dp)
 	}
 	return dps, CombineErrs(errs)
+}
+
+func DirPathRead(dp DirPath) (des []DirEntry, err error) {
+	var entries []os.DirEntry
+	entries, err = dp.ReadDir()
+	if err != nil {
+		goto end
+	}
+	des = make([]DirEntry, len(entries))
+	for i, entry := range entries {
+		des[i] = NewDirEntry(dp, entry)
+	}
+end:
+	return des, err
 }
 
 var _ fmt.Stringer = (*DirPath)(nil)
@@ -56,6 +91,10 @@ func (dp DirPath) EnsureExists() (err error) {
 	info, err = os.Stat(string(dp))
 	if errors.Is(err, os.ErrNotExist) {
 		err = os.MkdirAll(string(dp), os.ModePerm)
+		if err != nil {
+			goto end
+		}
+		info, err = os.Stat(string(dp))
 	}
 	if err != nil {
 		goto end
@@ -120,6 +159,10 @@ func (dp DirPath) Stat(fileSys ...fs.FS) (os.FileInfo, error) {
 	return EntryPath(dp).Stat(fileSys...)
 }
 
+func (dp DirPath) Lstat(fileSys ...fs.FS) (os.FileInfo, error) {
+	return EntryPath(dp).Lstat(fileSys...)
+}
+
 func (dp DirPath) IsAbs() bool {
 	return filepath.IsAbs(string(dp))
 }
@@ -127,6 +170,13 @@ func (dp DirPath) IsAbs() bool {
 func (dp DirPath) Abs() (DirPath, error) {
 	dir, err := filepath.Abs(string(dp))
 	return DirPath(dir), err
+}
+
+// Normalize expands a leading "~" to the current user's home directory (when
+// it uses the correct OS path separator), then returns an absolute directory
+// path.
+func (dp DirPath) Normalize() (DirPath, error) {
+	return TildeDirPath(dp).Expand()
 }
 
 func (dp DirPath) HasPrefix(prefix DirPath) bool {
@@ -143,6 +193,33 @@ func (dp DirPath) TrimPrefix(prefix DirPath) DirPath {
 
 func (dp DirPath) TrimSuffix(TrimSuffix string) DirPath {
 	return DirPath(strings.TrimSuffix(string(dp), TrimSuffix))
+}
+func (dp DirPath) ToSlash() DirPath {
+	return DirPath(filepath.ToSlash(string(dp)))
+}
+
+func (dp DirPath) ToLower() DirPath {
+	return DirPath(strings.ToLower(string(dp)))
+}
+
+func (dp DirPath) ToUpper() DirPath {
+	return DirPath(strings.ToUpper(string(dp)))
+}
+
+func (dp DirPath) ToTilde() (tdp TildeDirPath, err error) {
+	var home DirPath
+	var rel PathSegments
+	home, err = UserHomeDir()
+	if err != nil {
+		goto end
+	}
+	rel, err = dp.Rel(home)
+	if err != nil {
+		goto end
+	}
+	tdp = TildeDirPath(DirPathJoin(fmt.Sprintf("~%c", os.PathSeparator), rel))
+end:
+	return tdp, err
 }
 
 // ===[Enhancements]===
@@ -209,9 +286,7 @@ func (dp DirPath) WalkFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
 			if s.entries == nil {
 				ents, err := fs.ReadDir(fsys, s.dir)
 				if err != nil {
-					entry := NewDirEntry(dp, &skipDir)
-					entry.Rel = EntryPath(s.dir)
-
+					entry := NewDirEntryWithSkipDir(dp, RelPath(s.dir), &skipDir)
 					skipDir = false
 					if !yield(entry, err) {
 						return
@@ -244,8 +319,7 @@ func (dp DirPath) WalkFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
 				rel = filepath.Join(s.dir, de.Name())
 			}
 
-			entry := NewDirEntry(dp, &skipDir)
-			entry.Rel = EntryPath(rel)
+			entry := NewDirEntryWithSkipDir(dp, RelPath(rel), &skipDir)
 			entry.Entry = de
 
 			skipDir = false

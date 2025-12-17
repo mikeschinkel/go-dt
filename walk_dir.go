@@ -36,8 +36,8 @@ func WalkDir(root DirPath) iter.Seq2[DirEntry, error] {
 
 		rootEntry := DirEntry{
 			Root:    root,
-			Rel:     EntryPath("."), // relative *within* this walk
-			Entry:   nil,            // we’ll wrap info below if ok
+			Rel:     ".", // relative *within* this walk
+			Entry:   nil, // we’ll wrap info below if ok
 			skipDir: &skipDir,
 		}
 
@@ -67,7 +67,7 @@ func WalkDir(root DirPath) iter.Seq2[DirEntry, error] {
 
 					entry := DirEntry{
 						Root:    root,
-						Rel:     EntryPath(rel),
+						Rel:     RelPath(rel),
 						Entry:   nil,
 						skipDir: &skipDir,
 					}
@@ -98,7 +98,7 @@ func WalkDir(root DirPath) iter.Seq2[DirEntry, error] {
 
 			entry := DirEntry{
 				Root:    root,
-				Rel:     EntryPath(rel),
+				Rel:     RelPath(rel),
 				Entry:   de,
 				skipDir: &skipDir,
 			}

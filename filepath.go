@@ -166,7 +166,7 @@ func (fp Filepath) CopyToDir(dest DirPath, opts *CopyOptions) (err error) {
 		err = fp.CopyTo(destFP, opts)
 	default:
 		err = NewErr(
-			ErrNotADirectory,
+			ErrNotDirectory,
 			"entry_status", status,
 		)
 	}

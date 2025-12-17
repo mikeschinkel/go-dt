@@ -16,8 +16,8 @@ func (ep EntryPath) Dir() DirPath {
 	return DirPath(filepath.Dir(string(ep)))
 }
 
-func (ep EntryPath) Base() Filename {
-	return Filename(filepath.Base(string(ep)))
+func (ep EntryPath) Base() PathSegment {
+	return PathSegment(filepath.Base(string(ep)))
 }
 
 func (ep EntryPath) Stat(fileSys ...fs.FS) (fs.FileInfo, error) {
@@ -27,8 +27,11 @@ func (ep EntryPath) Stat(fileSys ...fs.FS) (fs.FileInfo, error) {
 	return fs.Stat(fileSys[0], string(ep))
 }
 
-func (ep EntryPath) Lstat() (os.FileInfo, error) {
-	return os.Lstat(string(ep))
+func (ep EntryPath) Lstat(fileSys ...fs.FS) (os.FileInfo, error) {
+	if len(fileSys) == 0 {
+		return os.Lstat(string(ep))
+	}
+	return fs.Lstat(fileSys[0], string(ep))
 }
 
 // Status classifies the filesystem entry referred to by fp.
@@ -139,6 +142,14 @@ func (ep EntryPath) VolumeName() VolumeName {
 func (ep EntryPath) Abs() (EntryPath, error) {
 	entry, err := filepath.Abs(string(ep))
 	return EntryPath(entry), err
+}
+
+func (ep EntryPath) IsFile() bool {
+	return filepath.IsAbs(string(ep))
+}
+
+func (ep EntryPath) IsAbs() bool {
+	return filepath.IsAbs(string(ep))
 }
 
 func (ep EntryPath) Join(elems ...any) EntryPath {

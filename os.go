@@ -24,6 +24,9 @@ func RemoveAll(dp DirPath) error {
 
 func UserHomeDir() (DirPath, error) {
 	dp, err := os.UserHomeDir()
+	if err != nil {
+		err = NewErr(ErrAccessingUserHomeDir, err)
+	}
 	return DirPath(dp), err
 }
 
