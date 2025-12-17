@@ -35,6 +35,12 @@ func TestParseDirPath(t *testing.T) {
 			name:    "empty path",
 			input:   "",
 			want:    dt.DirPath(""),
+			wantErr: true,
+		},
+		{
+			name:    "literal tilde name",
+			input:   "~noslash",
+			want:    dt.DirPath("~noslash"),
 			wantErr: false,
 		},
 	}
