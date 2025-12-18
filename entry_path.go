@@ -277,13 +277,10 @@ func (ep EntryPath) Expand() (out EntryPath, err error) {
 		if runtime.GOOS == "windows" {
 			s = filepath.FromSlash(s)
 		}
-		// Break out to be handled by the tilde expansion
-		break
+		// Go on to be handled by the tilde expansion
 
 	case s[:2] == "~\\" && runtime.GOOS == "windows":
-		// We start with ~\ so we are a tilde path on Windows
-		// Break out to be handled by the tilde expansion
-		break
+		// Go on to be handled by the tilde expansion
 
 	default:
 		// Not a special case, just a relative path

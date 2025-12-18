@@ -21,5 +21,5 @@ func UniqueSlice[T comparable](slice []T) (out []T) {
 		out = append(out, ele)
 	}
 end:
-	return slice
+	return out
 }
