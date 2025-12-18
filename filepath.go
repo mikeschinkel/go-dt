@@ -102,6 +102,12 @@ end:
 	return exists, err
 }
 
+func (fp Filepath) EvalSymlinks() (_ Filepath, err error) {
+	var path string
+	path, err = filepath.EvalSymlinks(string(fp))
+	return Filepath(path), err
+}
+
 // EntryStatusFlags controls optional classification behavior.
 // The zero value is safe and means "follow symlinks" (os.Stat).
 type EntryStatusFlags uint32
@@ -253,4 +259,10 @@ end:
 
 func (fp Filepath) HasDotDotPrefix() bool {
 	return EntryPath(fp).HasDotDotPrefix()
+}
+
+func (fp Filepath) Expand() (_ Filepath, err error) {
+	var ep EntryPath
+	ep, err = EntryPath(fp).Expand()
+	return Filepath(ep), err
 }

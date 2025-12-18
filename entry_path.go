@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -14,6 +15,10 @@ type EntryPath string
 
 func (ep EntryPath) Dir() DirPath {
 	return DirPath(filepath.Dir(string(ep)))
+}
+
+func (ep EntryPath) Clean() EntryPath {
+	return EntryPath(filepath.Clean(string(ep)))
 }
 
 func (ep EntryPath) Base() PathSegment {
@@ -152,6 +157,12 @@ func (ep EntryPath) IsAbs() bool {
 	return filepath.IsAbs(string(ep))
 }
 
+func (ep EntryPath) EvalSymlinks() (_ EntryPath, err error) {
+	var s string
+	s, err = filepath.EvalSymlinks(string(ep))
+	return EntryPath(s), err
+}
+
 func (ep EntryPath) Join(elems ...any) EntryPath {
 	ss := make([]string, 0, len(elems)+1)
 	ss = append(ss, string(ep))
@@ -209,4 +220,90 @@ end:
 // It does NOT treat names like "..foo" as having a dot-dot prefix.
 func (ep EntryPath) HasDotDotPrefix() bool {
 	return ep == ".." || strings.HasPrefix(string(ep), ".."+string(os.PathSeparator))
+}
+
+func (ep EntryPath) Expand() (out EntryPath, err error) {
+	var home DirPath
+	s := string(ep)
+
+	switch {
+	case len(s) == 0:
+		err = ErrEmpty
+		goto end
+
+	case s == ".":
+		var dp DirPath
+		// We are "current directory
+		dp, err = Getwd()
+		if err != nil {
+			goto end
+		}
+		out = EntryPath(dp)
+		goto end
+
+	case s == "~":
+		home, err = UserHomeDir()
+		if err != nil {
+			goto end
+		}
+		out = EntryPath(home)
+		goto end
+
+	case s[0] == '/':
+		// We are an absolute path already, works on Windows, macOS and Linux.
+		if runtime.GOOS == "windows" {
+			s = filepath.FromSlash(s)
+		}
+		out, err = EntryPath(s).Clean().Abs()
+		goto end
+
+	case s[0] == '\\' && runtime.GOOS == "windows":
+		// We are an absolute path on Windows already
+		s = filepath.FromSlash(s)
+		out, err = EntryPath(s).Clean().Abs()
+		goto end
+
+	case len(s) == 1:
+		out, err = EntryPath(s).Clean().Abs()
+		goto end
+
+	case s[:2] == "..":
+		// We are a parent path, just return it
+		out, err = EntryPath(filepath.Dir(s)).Clean().Abs()
+		goto end
+
+	case s[:2] == "~/":
+		// We start with ~/ so we are a tilde path; works on Windows or Linux/macOS
+		if runtime.GOOS == "windows" {
+			s = filepath.FromSlash(s)
+		}
+		// Break out to be handled by the tilde expansion
+		break
+
+	case s[:2] == "~\\" && runtime.GOOS == "windows":
+		// We start with ~\ so we are a tilde path on Windows
+		// Break out to be handled by the tilde expansion
+		break
+
+	default:
+		// Not a special case, just a relative path
+		out, err = EntryPath(s).Clean().Abs()
+		goto end
+
+	}
+
+	home, err = UserHomeDir()
+	if err != nil {
+		goto end
+	}
+
+	if len(s) == 2 {
+		out = EntryPath(home)
+		goto end
+	}
+
+	out = EntryPathJoin(home, s[2:]).Clean()
+
+end:
+	return out, err
 }

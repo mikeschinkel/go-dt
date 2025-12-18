@@ -172,13 +172,6 @@ func (dp DirPath) Abs() (DirPath, error) {
 	return DirPath(dir), err
 }
 
-// Normalize expands a leading "~" to the current user's home directory (when
-// it uses the correct OS path separator), then returns an absolute directory
-// path.
-func (dp DirPath) Normalize() (DirPath, error) {
-	return TildeDirPath(dp).Expand()
-}
-
 func (dp DirPath) HasPrefix(prefix DirPath) bool {
 	return strings.HasPrefix(string(dp), string(prefix))
 }
@@ -206,6 +199,27 @@ func (dp DirPath) ToUpper() DirPath {
 	return DirPath(strings.ToUpper(string(dp)))
 }
 
+func (dp DirPath) EvalSymlinks() (_ DirPath, err error) {
+	var path string
+	path, err = filepath.EvalSymlinks(string(dp))
+	return DirPath(path), err
+}
+
+// ===[Enhancements]===
+
+func (dp DirPath) Expand() (_ DirPath, err error) {
+	var ep EntryPath
+	ep, err = EntryPath(dp).Expand()
+	return DirPath(ep), err
+}
+
+// Normalize expands a leading "~" to the current user's home directory (when
+// it uses the correct OS path separator), then returns an absolute directory
+// path.
+func (dp DirPath) Normalize() (DirPath, error) {
+	return TildeDirPath(dp).Expand()
+}
+
 func (dp DirPath) ToTilde() (tdp TildeDirPath, err error) {
 	var home DirPath
 	var rel PathSegments
@@ -221,8 +235,6 @@ func (dp DirPath) ToTilde() (tdp TildeDirPath, err error) {
 end:
 	return tdp, err
 }
-
-// ===[Enhancements]===
 
 func (dp DirPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
 	return EntryPath(dp).Status(flags...)
