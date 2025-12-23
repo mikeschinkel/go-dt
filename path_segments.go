@@ -1,12 +1,14 @@
 package dt
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
 )
 
 // PathSegments is one or more path segments for a filesystem path
 type PathSegments string
+type RelDirPath = PathSegments
 
 // Split returns all segments of the path separated by the OS separator as a slice of PathSegment.
 func (pss PathSegments) Split() []PathSegment {
@@ -45,6 +47,10 @@ func (pss PathSegments) ToSlash() PathSegments {
 	return PathSegments(filepath.ToSlash(string(pss)))
 }
 
+func (pss PathSegments) FromSlash() PathSegments {
+	return PathSegments(filepath.FromSlash(string(pss)))
+}
+
 func (pss PathSegments) ToLower() PathSegments {
 	return PathSegments(strings.ToLower(string(pss)))
 }
@@ -68,6 +74,38 @@ func (pss PathSegments) TrimPrefix(prefix PathSegments) PathSegments {
 func (pss PathSegments) TrimSuffix(TrimSuffix string) PathSegments {
 	return PathSegments(strings.TrimSuffix(string(pss), TrimSuffix))
 }
+
+func (pss PathSegments) TrimSpace() PathSegments {
+	return PathSegments(strings.TrimSpace(string(pss)))
+}
+
+func ParentPath() PathSegments {
+	return PathSegments(".." + string(filepath.Separator))
+}
+
+//===[Enhancements]===
+
+// Normalize returns a consistent format given different inputs when represent the same path
+func (pss PathSegments) Normalize() PathSegments {
+	if len(pss) >= 2 && pss[:2] == "."+PathSegments(os.PathSeparator) {
+		pss = pss[2:]
+	}
+	return pss
+}
+
 func (pss PathSegments) Contains(part any) bool {
 	return EntryPath(pss).Contains(part)
+}
+
+func (pss PathSegments) Escapes() (escapes bool) {
+	if pss.HasPrefix(ParentPath()) {
+		escapes = true
+		goto end
+	}
+	if pss == ".." {
+		escapes = true
+		goto end
+	}
+end:
+	return escapes
 }

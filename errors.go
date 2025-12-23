@@ -19,10 +19,11 @@ var (
 )
 
 var (
-	ErrInvalidPathSegment = errors.New("invalid path segment")
-	ErrInvalidURLSegment  = errors.New("invalid URL segment")
-	ErrInvalidURLSegments = errors.New("invalid URL segments")
-	ErrInvalidIdentifier  = errors.New("invalid identifier")
+	ErrInvalidPathSegment  = errors.New("invalid path segment")
+	ErrInvalidURLSegment   = errors.New("invalid URL segment")
+	ErrInvalidURLSegments  = errors.New("invalid URL segments")
+	ErrInvalidIdentifier   = errors.New("invalid identifier")
+	ErrFailedTypeAssertion = errors.New("failed type assertion")
 
 	// ErrInvalidForOpen is used when ValidPath()==false
 	ErrInvalidForOpen = errors.New("invalid for open")
@@ -42,6 +43,7 @@ var (
 	ErrTooLong                         = errors.New("too long")
 	ErrUnspecified                     = errors.New("unspecified")
 	ErrInvalid                         = errors.New("invalid")
+	ErrInvalidDirectory                = errors.New("invalid directory")
 	ErrInvalidfileSystemEntryType      = errors.New("invalid file system entry type")
 	ErrControlCharacter                = errors.New("control character")
 	ErrInvalidCharacter                = errors.New("invalid charnacter")

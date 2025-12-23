@@ -31,7 +31,7 @@ func ParseDirPath(s string) (dp DirPath, err error) {
 		goto end
 	}
 
-	dp, err = TildeDirPath(s).Expand()
+	dp, err = DirPath(s).Expand()
 
 end:
 	return dp, err
@@ -205,6 +205,10 @@ func (dp DirPath) EvalSymlinks() (_ DirPath, err error) {
 	return DirPath(path), err
 }
 
+func (dp DirPath) Remove() error {
+	return os.Remove(string(dp))
+}
+
 // ===[Enhancements]===
 
 func (dp DirPath) Expand() (_ DirPath, err error) {
@@ -217,7 +221,7 @@ func (dp DirPath) Expand() (_ DirPath, err error) {
 // it uses the correct OS path separator), then returns an absolute directory
 // path.
 func (dp DirPath) Normalize() (DirPath, error) {
-	return TildeDirPath(dp).Expand()
+	return dp.Expand()
 }
 
 func (dp DirPath) ToTilde() (tdp TildeDirPath, err error) {
@@ -231,7 +235,7 @@ func (dp DirPath) ToTilde() (tdp TildeDirPath, err error) {
 	if err != nil {
 		goto end
 	}
-	tdp = TildeDirPath(DirPathJoin(fmt.Sprintf("~%c", os.PathSeparator), rel))
+	tdp = TildeDirPathJoin(fmt.Sprintf("~%c", os.PathSeparator), rel)
 end:
 	return tdp, err
 }
@@ -421,4 +425,13 @@ func (dp DirPath) WalkDirsFS(fsys fs.FS) iter.Seq2[DirEntry, error] {
 			}
 		}
 	}
+}
+
+func (dp DirPath) IsTidlePath() bool {
+	_, err := ParseTildeDirPath(string(dp))
+	return err == nil
+}
+
+func (dp DirPath) ErrKV() ErrKV {
+	return kv{k: "dir_path", v: dp}
 }
