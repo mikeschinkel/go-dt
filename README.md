@@ -20,6 +20,58 @@ If you find value in this project and want to use it, please open a discussion t
 
 ---
 
+## Stability & Compatibility Policy
+
+dt uses explicit stability levels for exported symbols:
+
+- **Stable**: no breaking changes to symbol identity or documented behavior
+- **Provisional**: likely safe for production, but may still change as naming/shape matures
+- **Experimental**: may change or disappear without notice
+- **Deprecated**: scheduled for removal with a published removal floor
+- **Obsolete**: retained for compatibility but should not be used
+- **Internal**: exported for technical reasons but not part of the public API
+
+Alignment note: OpenTelemetry provides useful prior art for maturity ladders and deprecation floors; this repo borrows vocabulary and minimum floors, but retains symbol-level enforcement goals that OTel does not target for Go API identifiers.
+
+## Deprecation Policy
+
+For Deprecated symbols:
+
+- Minimum removal floor: **2 minor releases or 6 months, whichever is later**
+- Required metadata: `RemoveAfter` and `Replacement`
+- We meet OTel's minimum and may exceed it; the symbol-level contract is authoritative
+
+## How to Read Contract Blocks
+
+Contract blocks are machine-readable doc comments attached to exported identifiers.
+
+```go
+// Filepath represents a filesystem path including a filename.
+//
+// Contract:
+// - Stability: Stable
+// - Since: v0.6.0
+// - Note: Methods are stable and will not change without a major version.
+type Filepath string
+```
+
+Deprecated items also include:
+
+```go
+// - Deprecated: v0.8.0
+// - RemoveAfter: v1.0.0 or 2026-01-01
+// - Replacement: dt.NewFilepath
+```
+
+## Tooling / CI (planned)
+
+Planned tooling makes contracts enforceable:
+
+- Extract `Contract:` blocks into a generated JSON index
+- Validate that Deprecated items include `RemoveAfter` and `Replacement`
+- Use `golang.org/x/exp/apidiff` to detect breaking changes
+- Fail CI when Stable contracts break without a major version bump
+
 ## Rationale
 
 Many Go developers recognize that custom domain types can improve correctness and readability. Yet few actually use them, because in today’s ecosystem doing so requires too much effort.
@@ -73,7 +125,7 @@ As [Rob Pike](https://twitter.com/rob_pike) noted:
 
 > _"Gofmt's style is no one's favorite, yet gofmt is everyone's favorite."_
 
-We believe the same principle applies to domain types:
+We believe the same principle could _(should?)_ apply to this Domain Types package:
 
 > _"Types in Domain Types are no one's favorite, yet the Types in Domain Types are everyone's favorite."_
 
@@ -1089,6 +1141,53 @@ Standard interface for describing application metadata across the ecosystem.
 **Package:** `go-dt/appinfo`
 
 ---
+
+## Objections
+
+### Why do we need Domain Types at all?!?
+
+| |                                                                                                                                                                                                                                                                         |
+| --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Short answer** | Shared types reduce friction and make codebases interoperate.                                                                                                                                                                                                           |
+| **Longer answer** | When two packages both use a domain type like `dt.DirPath` they exchange values without constant type casting.<br> Using a 3rd package eliminates _dreaded_ import cycles. <br/>Using `dt` saves time, reduces bugs, and makes APIs easier to compose across teams. |
+| **<nobr>Minimal adoption</nobr>** | Use a single type (for example `dt.Filepath`) at package boundaries.                                                                                                                                                                                                    |
+| **<nobr>Compatibility angle</nobr>** | Stable shared types are a stronger guarantee than ad-hoc local types that can drift or be renamed.                                                                                                                                                                      |
+
+### Why not define my own types per package?
+
+| |                                                                                                                                                                                                                                                                                                                                                          |
+| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Short answer** | You lose the **key benefit** of domains types: _interoperability._                                                                                                                                                                                                                                                                                       |
+| **Longer answer** | Local types fracture the ecosystem because each package invents its own names and helpers.<br>Local types require constant type casting across packages. <br>`dt` aims to be the **stable**, no _(other)_ dependency. shared vocabulary. <br>You often **must** create your own 3rd package **to avoid import cycles** anyway, why not use `dt` instead? |
+| **<nobr>Minimal adoption</nobr>** | Use `dt` types at package boundaries, keep internals local.                                                                                                                                                                                                                                                                                              |
+| **<nobr>Compatibility angle</nobr>** | Shared stable types reduce breakage at integration points.                                                                                                                                                                                                                                                                                               |
+
+### This is overkill for small libraries.
+
+| | |
+| --- | --- |
+| **Short answer** | Small libraries benefit most from stable compatibility signals. |
+| **Longer answer** | Small teams often ship faster and have fewer release resources, so breaking changes are more costly.<br>A small set of stable types reduces downstream churn. |
+| **<nobr>Minimal adoption</nobr>** | Use only 1-2 core types and ignore the rest. |
+| **<nobr>Compatibility angle</nobr>** | A tiny stable surface is easier to preserve than a large, implicit one. |
+
+### Why not just use plain strings?
+
+| |                                                                                                                                                                                                                                                                                           |
+| --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Short answer** | Types encode intent and reduce mistakes.                                                                                                                                                                                                                                                  |
+| **Longer answer** | `string` does not tell readers or tooling whether the value is a filename, a URL, or an identifier.<br>`dt` types make intent explicit and enable safe helper methods.<br>Validating `Parse<type>()(<type>,error)` funcs for each type make baked-in assumptions explicit and actionable. |
+| **<nobr>Minimal adoption</nobr>** | Replace only the most error-prone `string` fields in public APIs.                                                                                                                                                                                                                         |
+| **<nobr>Compatibility angle</nobr>** | Stable types keep public contracts clear even as internals change.                                                                                                                                                                                                                        |
+
+### I do not want to teach new developers a new way.
+
+| |                                                                                                                                                              |
+| --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Short answer** | Use a small set and let [tooling](https://github.com/mikeschinkel/squire) teach the rest.                                                                    |
+| **Longer answer** | A handful of domain types is easy and obvious to learn. <br>Method-based API are discoverable in IDEs.<br>Linters can enforce conventions at the boundaries. |
+| **<nobr>Minimal adoption</nobr>** | Use only the types that already map to your domain language.<br>Start with `dt.DirPath` and `dt.Filepath`, for example.                                      |
+| **<nobr>Compatibility angle</nobr>** | Clear, stable types reduce downstream friction and support burden.                                                                                           |
 
 ## Governance & Community
 
