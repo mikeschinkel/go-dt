@@ -1,18 +1,20 @@
-package dt
+package dt_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/mikeschinkel/go-dt"
 )
 
 func TestURLSegments_Segment(t *testing.T) {
 	tests := []struct {
 		name    string
-		pss     URLSegments
+		pss     dt.URLSegments
 		index   int
-		wantSeg URLSegment
+		wantSeg dt.URLSegment
 	}{
-		// Empty URLSegments
+		// Empty dt.URLSegments
 		{
 			name:    "empty segments with index 0",
 			pss:     "",
@@ -220,119 +222,119 @@ func TestURLSegments_Segment(t *testing.T) {
 func TestURLSegments_Split(t *testing.T) {
 	tests := []struct {
 		name    string
-		pss     URLSegments
-		wantOut []URLSegment
+		pss     dt.URLSegments
+		wantOut []dt.URLSegment
 	}{
 		// Empty segments
 		{
 			name:    "empty string",
 			pss:     "",
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Single segment (no slashes)
 		{
 			name:    "single segment",
 			pss:     "a",
-			wantOut: []URLSegment{"a"},
+			wantOut: []dt.URLSegment{"a"},
 		},
 		{
 			name:    "single longer segment",
 			pss:     "alpha",
-			wantOut: []URLSegment{"alpha"},
+			wantOut: []dt.URLSegment{"alpha"},
 		},
 		// Two segments
 		{
 			name:    "two segments",
 			pss:     "a/b",
-			wantOut: []URLSegment{"a", "b"},
+			wantOut: []dt.URLSegment{"a", "b"},
 		},
 		{
 			name:    "two longer segments",
 			pss:     "alpha/beta",
-			wantOut: []URLSegment{"alpha", "beta"},
+			wantOut: []dt.URLSegment{"alpha", "beta"},
 		},
 		// Three segments
 		{
 			name:    "three segments",
 			pss:     "a/b/c",
-			wantOut: []URLSegment{"a", "b", "c"},
+			wantOut: []dt.URLSegment{"a", "b", "c"},
 		},
 		{
 			name:    "three longer segments",
 			pss:     "alpha/beta/gamma",
-			wantOut: []URLSegment{"alpha", "beta", "gamma"},
+			wantOut: []dt.URLSegment{"alpha", "beta", "gamma"},
 		},
 		// Four segments
 		{
 			name:    "four segments",
 			pss:     "a/b/c/d",
-			wantOut: []URLSegment{"a", "b", "c", "d"},
+			wantOut: []dt.URLSegment{"a", "b", "c", "d"},
 		},
 		// Deep path with many segments
 		{
 			name:    "six segments",
 			pss:     "a/b/c/d/e/f",
-			wantOut: []URLSegment{"a", "b", "c", "d", "e", "f"},
+			wantOut: []dt.URLSegment{"a", "b", "c", "d", "e", "f"},
 		},
 		{
 			name:    "deep path ten segments",
 			pss:     "a/b/c/d/e/f/g/h/i/j",
-			wantOut: []URLSegment{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			wantOut: []dt.URLSegment{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
 		},
 		// Segments with special characters
 		{
 			name:    "segments with hyphens",
 			pss:     "foo-bar/baz-qux/quux-corge",
-			wantOut: []URLSegment{"foo-bar", "baz-qux", "quux-corge"},
+			wantOut: []dt.URLSegment{"foo-bar", "baz-qux", "quux-corge"},
 		},
 		{
 			name:    "segments with underscores",
 			pss:     "foo_bar/baz_qux",
-			wantOut: []URLSegment{"foo_bar", "baz_qux"},
+			wantOut: []dt.URLSegment{"foo_bar", "baz_qux"},
 		},
 		{
 			name:    "segments with numbers",
 			pss:     "path1/path2/path3",
-			wantOut: []URLSegment{"path1", "path2", "path3"},
+			wantOut: []dt.URLSegment{"path1", "path2", "path3"},
 		},
 		{
 			name:    "segments with dots",
 			pss:     "file.txt/dir.name/file.ext",
-			wantOut: []URLSegment{"file.txt", "dir.name", "file.ext"},
+			wantOut: []dt.URLSegment{"file.txt", "dir.name", "file.ext"},
 		},
 		// Edge cases with consecutive slashes
 		{
 			name:    "consecutive slashes two segments",
 			pss:     "a//b",
-			wantOut: []URLSegment{"a", "", "b"},
+			wantOut: []dt.URLSegment{"a", "", "b"},
 		},
 		{
 			name:    "consecutive slashes three segments",
 			pss:     "a///b",
-			wantOut: []URLSegment{"a", "", "", "b"},
+			wantOut: []dt.URLSegment{"a", "", "", "b"},
 		},
 		{
 			name: "leading slash",
 			pss:  "/a/b",
-			//wantOut: []URLSegment{""), URLSegment("a", "b"},
-			wantOut: []URLSegment{"", "a", "b"},
+			//wantOut: []dt.URLSegment{""), dt.URLSegment("a", "b"},
+			wantOut: []dt.URLSegment{"", "a", "b"},
 		},
 		// URL-like paths
 		{
 			name:    "domain path",
 			pss:     "api/v1/users",
-			wantOut: []URLSegment{"api", "v1", "users"},
+			wantOut: []dt.URLSegment{"api", "v1", "users"},
 		},
 		{
 			name:    "api endpoint",
 			pss:     "api/v2/users/123",
-			wantOut: []URLSegment{"api", "v2", "users", "123"},
+			wantOut: []dt.URLSegment{"api", "v2", "users", "123"},
 		},
 		// Mixed case and character segments
 		{
 			name:    "mixed case",
 			pss:     "MyPath/MyFile/MyExt",
-			wantOut: []URLSegment{"MyPath", "MyFile", "MyExt"},
+			wantOut: []dt.URLSegment{"MyPath", "MyFile", "MyExt"},
 		},
 	}
 	for _, tt := range tests {
@@ -348,10 +350,10 @@ func TestURLSegments_Split(t *testing.T) {
 func TestURLSegments_Slice(t *testing.T) {
 	tests := []struct {
 		name    string
-		pss     URLSegments
+		pss     dt.URLSegments
 		start   int
 		end     int
-		wantOut []URLSegment
+		wantOut []dt.URLSegment
 	}{
 		// Empty segments
 		{
@@ -359,14 +361,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "",
 			start:   0,
 			end:     1,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		{
 			name:    "empty segments slice 0:0",
 			pss:     "",
 			start:   0,
 			end:     0,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Single segment
 		{
@@ -374,21 +376,21 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a",
 			start:   0,
 			end:     1,
-			wantOut: []URLSegment{"a"},
+			wantOut: []dt.URLSegment{"a"},
 		},
 		{
 			name:    "single segment slice 0:2",
 			pss:     "a",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"a"},
+			wantOut: []dt.URLSegment{"a"},
 		},
 		{
 			name:    "single segment slice 1:2",
 			pss:     "a",
 			start:   1,
 			end:     2,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Two segments
 		{
@@ -396,35 +398,35 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b",
 			start:   0,
 			end:     1,
-			wantOut: []URLSegment{"a"},
+			wantOut: []dt.URLSegment{"a"},
 		},
 		{
 			name:    "two segments slice 0:2",
 			pss:     "a/b",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"a", "b"},
+			wantOut: []dt.URLSegment{"a", "b"},
 		},
 		{
 			name:    "two segments slice 1:2",
 			pss:     "a/b",
 			start:   1,
 			end:     2,
-			wantOut: []URLSegment{"b"},
+			wantOut: []dt.URLSegment{"b"},
 		},
 		{
 			name:    "two segments slice 0:3",
 			pss:     "a/b",
 			start:   0,
 			end:     3,
-			wantOut: []URLSegment{"a", "b"},
+			wantOut: []dt.URLSegment{"a", "b"},
 		},
 		{
 			name:    "two segments slice 2:3",
 			pss:     "a/b",
 			start:   2,
 			end:     3,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Three segments
 		{
@@ -432,42 +434,42 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b/c",
 			start:   0,
 			end:     1,
-			wantOut: []URLSegment{"a"},
+			wantOut: []dt.URLSegment{"a"},
 		},
 		{
 			name:    "three segments slice 0:2",
 			pss:     "a/b/c",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"a", "b"},
+			wantOut: []dt.URLSegment{"a", "b"},
 		},
 		{
 			name:    "three segments slice 0:3",
 			pss:     "a/b/c",
 			start:   0,
 			end:     3,
-			wantOut: []URLSegment{"a", "b", "c"},
+			wantOut: []dt.URLSegment{"a", "b", "c"},
 		},
 		{
 			name:    "three segments slice 1:2",
 			pss:     "a/b/c",
 			start:   1,
 			end:     2,
-			wantOut: []URLSegment{"b"},
+			wantOut: []dt.URLSegment{"b"},
 		},
 		{
 			name:    "three segments slice 1:3",
 			pss:     "a/b/c",
 			start:   1,
 			end:     3,
-			wantOut: []URLSegment{"b", "c"},
+			wantOut: []dt.URLSegment{"b", "c"},
 		},
 		{
 			name:    "three segments slice 2:3",
 			pss:     "a/b/c",
 			start:   2,
 			end:     3,
-			wantOut: []URLSegment{"c"},
+			wantOut: []dt.URLSegment{"c"},
 		},
 		// Deep path (six segments)
 		{
@@ -475,28 +477,28 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b/c/d/e/f",
 			start:   0,
 			end:     3,
-			wantOut: []URLSegment{"a", "b", "c"},
+			wantOut: []dt.URLSegment{"a", "b", "c"},
 		},
 		{
 			name:    "six segments slice 2:5",
 			pss:     "a/b/c/d/e/f",
 			start:   2,
 			end:     5,
-			wantOut: []URLSegment{"c", "d", "e"},
+			wantOut: []dt.URLSegment{"c", "d", "e"},
 		},
 		{
 			name:    "six segments slice 3:6",
 			pss:     "a/b/c/d/e/f",
 			start:   3,
 			end:     6,
-			wantOut: []URLSegment{"d", "e", "f"},
+			wantOut: []dt.URLSegment{"d", "e", "f"},
 		},
 		{
 			name:    "six segments slice 4:6",
 			pss:     "a/b/c/d/e/f",
 			start:   4,
 			end:     6,
-			wantOut: []URLSegment{"e", "f"},
+			wantOut: []dt.URLSegment{"e", "f"},
 		},
 		// Out of bounds
 		{
@@ -504,21 +506,21 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b/c",
 			start:   0,
 			end:     10,
-			wantOut: []URLSegment{"a", "b", "c"},
+			wantOut: []dt.URLSegment{"a", "b", "c"},
 		},
 		{
 			name:    "out of bounds slice 2:10",
 			pss:     "a/b/c",
 			start:   2,
 			end:     10,
-			wantOut: []URLSegment{"c"},
+			wantOut: []dt.URLSegment{"c"},
 		},
 		{
 			name:    "out of bounds slice 10:20",
 			pss:     "a/b/c",
 			start:   10,
 			end:     20,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Invalid ranges
 		{
@@ -526,21 +528,21 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b/c",
 			start:   1,
 			end:     1,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		{
 			name:    "start greater than end slice 2:1",
 			pss:     "a/b/c",
 			start:   2,
 			end:     1,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		{
 			name:    "start greater than end slice 3:0",
 			pss:     "a/b/c",
 			start:   3,
 			end:     0,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Negative indices
 		{
@@ -548,21 +550,21 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a/b/c",
 			start:   -1,
 			end:     2,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		{
 			name:    "negative end slice 0:-1",
 			pss:     "a/b/c",
 			start:   0,
 			end:     -1,
-			wantOut: []URLSegment{"a", "b", "c"},
+			wantOut: []dt.URLSegment{"a", "b", "c"},
 		},
 		{
 			name:    "both negative slice -2:-1",
 			pss:     "a/b/c",
 			start:   -2,
 			end:     -1,
-			wantOut: []URLSegment{},
+			wantOut: []dt.URLSegment{},
 		},
 		// Longer segment names
 		{
@@ -570,14 +572,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "alpha/beta/gamma",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"alpha", "beta"},
+			wantOut: []dt.URLSegment{"alpha", "beta"},
 		},
 		{
 			name:    "longer names slice 1:3",
 			pss:     "alpha/beta/gamma",
 			start:   1,
 			end:     3,
-			wantOut: []URLSegment{"beta", "gamma"},
+			wantOut: []dt.URLSegment{"beta", "gamma"},
 		},
 		// Segments with special characters
 		{
@@ -585,14 +587,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "foo-bar/baz-qux/quux-corge",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"foo-bar", "baz-qux"},
+			wantOut: []dt.URLSegment{"foo-bar", "baz-qux"},
 		},
 		{
 			name:    "underscores slice 1:2",
 			pss:     "foo_bar/baz_qux/test_file",
 			start:   1,
 			end:     2,
-			wantOut: []URLSegment{"baz_qux"},
+			wantOut: []dt.URLSegment{"baz_qux"},
 		},
 		// Edge case with consecutive slashes
 		{
@@ -600,14 +602,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "a//b/c",
 			start:   0,
 			end:     3,
-			wantOut: []URLSegment{"a", "", "b"},
+			wantOut: []dt.URLSegment{"a", "", "b"},
 		},
 		{
 			name:    "consecutive slashes slice 1:3",
 			pss:     "a//b/c",
 			start:   1,
 			end:     3,
-			wantOut: []URLSegment{"", "b"},
+			wantOut: []dt.URLSegment{"", "b"},
 		},
 		// Leading slash
 		{
@@ -615,14 +617,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "/a/b/c",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"", "a"},
+			wantOut: []dt.URLSegment{"", "a"},
 		},
 		{
 			name:    "leading slash slice 1:3",
 			pss:     "/a/b/c",
 			start:   1,
 			end:     3,
-			wantOut: []URLSegment{"a", "b"},
+			wantOut: []dt.URLSegment{"a", "b"},
 		},
 		// URL-like paths
 		{
@@ -630,14 +632,14 @@ func TestURLSegments_Slice(t *testing.T) {
 			pss:     "api/v1/users/123",
 			start:   0,
 			end:     2,
-			wantOut: []URLSegment{"api", "v1"},
+			wantOut: []dt.URLSegment{"api", "v1"},
 		},
 		{
 			name:    "api path slice 2:4",
 			pss:     "api/v1/users/123",
 			start:   2,
 			end:     4,
-			wantOut: []URLSegment{"users", "123"},
+			wantOut: []dt.URLSegment{"users", "123"},
 		},
 	}
 	for _, tt := range tests {
@@ -653,7 +655,7 @@ func TestURLSegments_Slice(t *testing.T) {
 func TestURLSegments_SliceScalar(t *testing.T) {
 	tests := []struct {
 		name    string
-		uss     URLSegments
+		uss     dt.URLSegments
 		start   int
 		end     int
 		sep     string

@@ -1,4 +1,4 @@
-package dt
+package dt_test
 
 import (
 	"errors"
@@ -10,33 +10,35 @@ import (
 	"sort"
 	"strings"
 	"testing"
+
+	"github.com/mikeschinkel/go-dt"
 )
 
 type testDirTree struct {
-	root      DirPath
-	sub       DirPath
-	nested    DirPath
-	file1Path Filepath
-	file2Path Filepath
+	root      dt.DirPath
+	sub       dt.DirPath
+	nested    dt.DirPath
+	file1Path dt.Filepath
+	file2Path dt.Filepath
 }
 
 func makeTestDirTree(t *testing.T) testDirTree {
 	t.Helper()
 
-	root := DirPath(t.TempDir())
-	sub := DirPathJoin(root, "sub")
-	nested := DirPathJoin(sub, "nested")
+	root := dt.DirPath(t.TempDir())
+	sub := dt.DirPathJoin(root, "sub")
+	nested := dt.DirPathJoin(sub, "nested")
 
 	if err := os.MkdirAll(string(nested), 0o755); err != nil {
 		t.Fatalf("MkdirAll(nested) error = %v", err)
 	}
 
-	file1Path := FilepathJoin(root, "file1.txt")
+	file1Path := dt.FilepathJoin(root, "file1.txt")
 	if err := os.WriteFile(string(file1Path), []byte("file1"), 0o644); err != nil {
 		t.Fatalf("WriteFile(file1) error = %v", err)
 	}
 
-	file2Path := FilepathJoin(nested, "file2.txt")
+	file2Path := dt.FilepathJoin(nested, "file2.txt")
 	if err := os.WriteFile(string(file2Path), []byte("file2"), 0o644); err != nil {
 		t.Fatalf("WriteFile(file2) error = %v", err)
 	}
@@ -56,7 +58,7 @@ func sortedStrings(ss []string) []string {
 	return cp
 }
 
-func collectWalkRels(t *testing.T, seq iter.Seq2[DirEntry, error]) (rels []string) {
+func collectWalkRels(t *testing.T, seq iter.Seq2[dt.DirEntry, error]) (rels []string) {
 	t.Helper()
 	for de, err := range seq {
 		if err != nil {
@@ -78,7 +80,7 @@ func countSeq2[K any, V any](seq iter.Seq2[K, V]) (count int) {
 func TestDirPath_String(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
+		dp   dt.DirPath
 		want string
 	}{
 		{name: "empty", dp: "", want: ""},
@@ -86,7 +88,7 @@ func TestDirPath_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.dp.String(); got != tt.want {
+			if got := string(tt.dp); got != tt.want {
 				t.Fatalf("String() = %q, want %q", got, tt.want)
 			}
 		})
@@ -96,10 +98,10 @@ func TestDirPath_String(t *testing.T) {
 func TestDirPath_Clean(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
-		{name: "cleans dot dot", dp: DirPath(filepath.Join("a", "b", "..", "c")), want: DirPath(filepath.Join("a", "c"))},
+		{name: "cleans dot dot", dp: dt.DirPath(filepath.Join("a", "b", "..", "c")), want: dt.DirPath(filepath.Join("a", "c"))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -117,13 +119,13 @@ func TestDirPath_Abs(t *testing.T) {
 	}
 	tests := []struct {
 		name string
-		dp   DirPath
-		want func() (DirPath, error)
+		dp   dt.DirPath
+		want func() (dt.DirPath, error)
 	}{
-		{name: "dot", dp: ".", want: func() (DirPath, error) { return DirPath(wd), nil }},
-		{name: "relative", dp: DirPath(filepath.Join("a", "b")), want: func() (DirPath, error) {
+		{name: "dot", dp: ".", want: func() (dt.DirPath, error) { return dt.DirPath(wd), nil }},
+		{name: "relative", dp: dt.DirPath(filepath.Join("a", "b")), want: func() (dt.DirPath, error) {
 			abs, err := filepath.Abs(filepath.Join("a", "b"))
-			return DirPath(abs), err
+			return dt.DirPath(abs), err
 		}},
 	}
 	for _, tt := range tests {
@@ -147,11 +149,11 @@ func TestDirPath_IsAbs(t *testing.T) {
 	}
 	tests := []struct {
 		name string
-		dp   DirPath
+		dp   dt.DirPath
 		want bool
 	}{
 		{name: "relative", dp: "a/b", want: false},
-		{name: "absolute", dp: DirPath(wd), want: true},
+		{name: "absolute", dp: dt.DirPath(wd), want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -165,10 +167,10 @@ func TestDirPath_IsAbs(t *testing.T) {
 func TestDirPath_Dir(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
-		{name: "simple", dp: DirPath(filepath.Join("a", "b", "c")), want: DirPath(filepath.Join("a", "b"))},
+		{name: "simple", dp: dt.DirPath(filepath.Join("a", "b", "c")), want: dt.DirPath(filepath.Join("a", "b"))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -182,10 +184,10 @@ func TestDirPath_Dir(t *testing.T) {
 func TestDirPath_Base(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want PathSegment
+		dp   dt.DirPath
+		want dt.PathSegment
 	}{
-		{name: "simple", dp: DirPath(filepath.Join("a", "b", "c")), want: "c"},
+		{name: "simple", dp: dt.DirPath(filepath.Join("a", "b", "c")), want: "c"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -199,11 +201,11 @@ func TestDirPath_Base(t *testing.T) {
 func TestDirPath_Join(t *testing.T) {
 	tests := []struct {
 		name  string
-		dp    DirPath
+		dp    dt.DirPath
 		elems []any
-		want  DirPath
+		want  dt.DirPath
 	}{
-		{name: "joins elems", dp: DirPath(filepath.Join("a", "b")), elems: []any{"c", PathSegment("d")}, want: DirPath(filepath.Join("a", "b", "c", "d"))},
+		{name: "joins elems", dp: dt.DirPath(filepath.Join("a", "b")), elems: []any{"c", dt.PathSegment("d")}, want: dt.DirPath(filepath.Join("a", "b", "c", "d"))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -217,13 +219,13 @@ func TestDirPath_Join(t *testing.T) {
 func TestDirPath_Contains(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
+		dp   dt.DirPath
 		part any
 		want bool
 	}{
-		{name: "contains string", dp: DirPath(filepath.Join("a", "b", "c")), part: "b", want: true},
-		{name: "not contains", dp: DirPath(filepath.Join("a", "b", "c")), part: "z", want: false},
-		{name: "contains dirpath", dp: DirPath(filepath.Join("a", "b", "c")), part: DirPath("b"), want: true},
+		{name: "contains string", dp: dt.DirPath(filepath.Join("a", "b", "c")), part: "b", want: true},
+		{name: "not contains", dp: dt.DirPath(filepath.Join("a", "b", "c")), part: "z", want: false},
+		{name: "contains dirpath", dp: dt.DirPath(filepath.Join("a", "b", "c")), part: dt.DirPath("b"), want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -237,12 +239,12 @@ func TestDirPath_Contains(t *testing.T) {
 func TestDirPath_HasPrefix(t *testing.T) {
 	tests := []struct {
 		name   string
-		dp     DirPath
-		prefix DirPath
+		dp     dt.DirPath
+		prefix dt.DirPath
 		want   bool
 	}{
-		{name: "has prefix", dp: DirPath(filepath.Join("a", "b", "c")), prefix: DirPath(filepath.Join("a", "b")), want: true},
-		{name: "missing prefix", dp: DirPath(filepath.Join("a", "b", "c")), prefix: "z", want: false},
+		{name: "has prefix", dp: dt.DirPath(filepath.Join("a", "b", "c")), prefix: dt.DirPath(filepath.Join("a", "b")), want: true},
+		{name: "missing prefix", dp: dt.DirPath(filepath.Join("a", "b", "c")), prefix: "z", want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -256,12 +258,12 @@ func TestDirPath_HasPrefix(t *testing.T) {
 func TestDirPath_HasSuffix(t *testing.T) {
 	tests := []struct {
 		name   string
-		dp     DirPath
+		dp     dt.DirPath
 		suffix string
 		want   bool
 	}{
-		{name: "has suffix", dp: DirPath(filepath.Join("a", "b", "c")), suffix: "c", want: true},
-		{name: "missing suffix", dp: DirPath(filepath.Join("a", "b", "c")), suffix: "z", want: false},
+		{name: "has suffix", dp: dt.DirPath(filepath.Join("a", "b", "c")), suffix: "c", want: true},
+		{name: "missing suffix", dp: dt.DirPath(filepath.Join("a", "b", "c")), suffix: "z", want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -275,15 +277,15 @@ func TestDirPath_HasSuffix(t *testing.T) {
 func TestDirPath_TrimPrefix(t *testing.T) {
 	tests := []struct {
 		name   string
-		dp     DirPath
-		prefix DirPath
-		want   DirPath
+		dp     dt.DirPath
+		prefix dt.DirPath
+		want   dt.DirPath
 	}{
 		{
 			name:   "trims",
-			dp:     DirPath(filepath.Join("a", "b", "c")),
-			prefix: DirPath(filepath.Join("a", "b")),
-			want:   DirPath(strings.TrimPrefix(filepath.Join("a", "b", "c"), filepath.Join("a", "b"))),
+			dp:     dt.DirPath(filepath.Join("a", "b", "c")),
+			prefix: dt.DirPath(filepath.Join("a", "b")),
+			want:   dt.DirPath(strings.TrimPrefix(filepath.Join("a", "b", "c"), filepath.Join("a", "b"))),
 		},
 	}
 	for _, tt := range tests {
@@ -298,15 +300,15 @@ func TestDirPath_TrimPrefix(t *testing.T) {
 func TestDirPath_TrimSuffix(t *testing.T) {
 	tests := []struct {
 		name       string
-		dp         DirPath
+		dp         dt.DirPath
 		trimSuffix string
-		want       DirPath
+		want       dt.DirPath
 	}{
 		{
 			name:       "trims",
-			dp:         DirPath(filepath.Join("a", "b", "c")),
+			dp:         dt.DirPath(filepath.Join("a", "b", "c")),
 			trimSuffix: "c",
-			want:       DirPath(strings.TrimSuffix(filepath.Join("a", "b", "c"), "c")),
+			want:       dt.DirPath(strings.TrimSuffix(filepath.Join("a", "b", "c"), "c")),
 		},
 	}
 	for _, tt := range tests {
@@ -322,12 +324,12 @@ func TestDirPath_EnsureTrailSep(t *testing.T) {
 	sep := string(os.PathSeparator)
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
 		{name: "empty unchanged", dp: "", want: ""},
-		{name: "adds sep", dp: DirPath(filepath.Join("a", "b")), want: DirPath(filepath.Join("a", "b") + sep)},
-		{name: "already has sep", dp: DirPath("a" + sep), want: DirPath("a" + sep)},
+		{name: "adds sep", dp: dt.DirPath(filepath.Join("a", "b")), want: dt.DirPath(filepath.Join("a", "b") + sep)},
+		{name: "already has sep", dp: dt.DirPath("a" + sep), want: dt.DirPath("a" + sep)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -341,11 +343,11 @@ func TestDirPath_EnsureTrailSep(t *testing.T) {
 func TestDirPath_HasDotDotPrefix(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
+		dp   dt.DirPath
 		want bool
 	}{
 		{name: "dotdot", dp: "..", want: true},
-		{name: "dotdot segment", dp: DirPath(".."+string(os.PathSeparator)) + "a", want: true},
+		{name: "dotdot segment", dp: dt.DirPath(".."+string(os.PathSeparator)) + "a", want: true},
 		{name: "not segment", dp: "..foo", want: false},
 	}
 	for _, tt := range tests {
@@ -360,8 +362,8 @@ func TestDirPath_HasDotDotPrefix(t *testing.T) {
 func TestDirPath_ToLower(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
 		{name: "lowercases", dp: "AbC", want: "abc"},
 	}
@@ -377,8 +379,8 @@ func TestDirPath_ToLower(t *testing.T) {
 func TestDirPath_ToUpper(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
 		{name: "uppercases", dp: "AbC", want: "ABC"},
 	}
@@ -394,10 +396,10 @@ func TestDirPath_ToUpper(t *testing.T) {
 func TestDirPath_ToSlash(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want DirPath
+		dp   dt.DirPath
+		want dt.DirPath
 	}{
-		{name: "converts", dp: DirPath(filepath.Join("a", "b")), want: DirPath(filepath.ToSlash(filepath.Join("a", "b")))},
+		{name: "converts", dp: dt.DirPath(filepath.Join("a", "b")), want: dt.DirPath(filepath.ToSlash(filepath.Join("a", "b")))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -411,10 +413,10 @@ func TestDirPath_ToSlash(t *testing.T) {
 func TestDirPath_VolumeName(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   DirPath
-		want VolumeName
+		dp   dt.DirPath
+		want dt.VolumeName
 	}{
-		{name: "wrapper", dp: DirPath(filepath.Join("a", "b")), want: VolumeName(filepath.VolumeName(filepath.Join("a", "b")))},
+		{name: "wrapper", dp: dt.DirPath(filepath.Join("a", "b")), want: dt.VolumeName(filepath.VolumeName(filepath.Join("a", "b")))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -435,14 +437,14 @@ func TestDirPath_ParseDirPathAndParseDirPaths(t *testing.T) {
 	tests := []struct {
 		name    string
 		input   string
-		wantDp  DirPath
+		wantDp  dt.DirPath
 		wantErr error
 	}{
-		{name: "empty", input: "", wantErr: ErrEmpty},
+		{name: "empty", input: "", wantErr: dt.ErrEmpty},
 		{name: "literal tilde name", input: "~noslash", wantDp: "~noslash"},
 		{name: "absolute path passthrough", input: string(tree.root), wantDp: tree.root},
 		{name: "relative path passthrough", input: "relative/path", wantDp: "relative/path"},
-		{name: "tilde only", input: "~", wantDp: DirPath(home)},
+		{name: "tilde only", input: "~", wantDp: dt.DirPath(home)},
 	}
 
 	switch runtime.GOOS {
@@ -450,21 +452,21 @@ func TestDirPath_ParseDirPathAndParseDirPaths(t *testing.T) {
 		tests = append(tests, struct {
 			name    string
 			input   string
-			wantDp  DirPath
+			wantDp  dt.DirPath
 			wantErr error
-		}{name: "tilde nested slash", input: "~/sub/dir", wantDp: DirPathJoin(DirPath(home), filepath.Join("sub", "dir")).Clean()})
+		}{name: "tilde nested slash", input: "~/sub/dir", wantDp: dt.DirPathJoin(dt.DirPath(home), filepath.Join("sub", "dir")).Clean()})
 	default:
 		tests = append(tests, struct {
 			name    string
 			input   string
-			wantDp  DirPath
+			wantDp  dt.DirPath
 			wantErr error
-		}{name: "tilde nested", input: "~/sub/dir", wantDp: DirPathJoin(DirPath(home), "sub/dir").Clean()})
+		}{name: "tilde nested", input: "~/sub/dir", wantDp: dt.DirPathJoin(dt.DirPath(home), "sub/dir").Clean()})
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotDp, err := ParseDirPath(tt.input)
+			gotDp, err := dt.ParseDirPath(tt.input)
 			if !errors.Is(err, tt.wantErr) {
 				t.Fatalf("ParseDirPath() error = %v, wantErr %v", err, tt.wantErr)
 			}
@@ -475,7 +477,7 @@ func TestDirPath_ParseDirPathAndParseDirPaths(t *testing.T) {
 	}
 
 	t.Run("ParseDirPaths collects errors", func(t *testing.T) {
-		got, err := ParseDirPaths([]string{string(tree.root), ""})
+		got, err := dt.ParseDirPaths([]string{string(tree.root), ""})
 		if err == nil {
 			t.Fatalf("ParseDirPaths() error = nil, want non-nil")
 		}
@@ -490,28 +492,28 @@ func TestDirPath_Normalize(t *testing.T) {
 	t.Setenv("HOME", home)
 	t.Setenv("USERPROFILE", home)
 
-	wd, err := Getwd()
+	wd, err := dt.Getwd()
 	if err != nil {
 		t.Fatalf("Getwd() error = %v", err)
 	}
 
-	abs := func(s string) DirPath {
+	abs := func(s string) dt.DirPath {
 		p, err := filepath.Abs(s)
 		if err != nil {
 			t.Fatalf("filepath.Abs(%q) error = %v", s, err)
 		}
-		return DirPath(p)
+		return dt.DirPath(p)
 	}
 
 	type testCase struct {
 		name  string
-		input DirPath
-		want  DirPath
+		input dt.DirPath
+		want  dt.DirPath
 	}
 
 	tests := []testCase{
 		{name: "dot", input: ".", want: wd},
-		{name: "tilde only", input: "~", want: DirPath(home)},
+		{name: "tilde only", input: "~", want: dt.DirPath(home)},
 		{name: "tilde missing separator treated literal", input: "~noslash", want: abs("~noslash")},
 		{name: "relative becomes absolute", input: "relative/path", want: abs("relative/path")},
 	}
@@ -519,13 +521,13 @@ func TestDirPath_Normalize(t *testing.T) {
 	switch runtime.GOOS {
 	case "windows":
 		tests = append(tests,
-			testCase{name: "tilde nested backslash", input: "~\\sub\\dir", want: DirPathJoin(DirPath(home), filepath.Join("sub", "dir")).Clean()},
-			testCase{name: "tilde nested slash", input: "~/sub/dir", want: DirPathJoin(DirPath(home), filepath.Join("sub", "dir")).Clean()},
+			testCase{name: "tilde nested backslash", input: "~\\sub\\dir", want: dt.DirPathJoin(dt.DirPath(home), filepath.Join("sub", "dir")).Clean()},
+			testCase{name: "tilde nested slash", input: "~/sub/dir", want: dt.DirPathJoin(dt.DirPath(home), filepath.Join("sub", "dir")).Clean()},
 			testCase{name: "absolute passthrough", input: "C:\\tmp", want: abs("C:\\tmp")},
 		)
 	default:
 		tests = append(tests,
-			testCase{name: "tilde nested", input: "~/sub/dir", want: DirPathJoin(DirPath(home), "sub/dir").Clean()},
+			testCase{name: "tilde nested", input: "~/sub/dir", want: dt.DirPathJoin(dt.DirPath(home), "sub/dir").Clean()},
 			testCase{name: "wrong separator treated literal", input: "~\\sub", want: abs("~\\sub")},
 			testCase{name: "absolute passthrough", input: "/tmp", want: abs("/tmp")},
 		)
@@ -547,27 +549,27 @@ func TestDirPath_Normalize(t *testing.T) {
 func TestDirPath_EnsureExists(t *testing.T) {
 	tests := []struct {
 		name    string
-		dp      func(t *testing.T, tree testDirTree) DirPath
+		dp      func(t *testing.T, tree testDirTree) dt.DirPath
 		wantErr error
 		wantDir bool
 	}{
 		{
 			name: "creates when missing",
-			dp: func(_ *testing.T, tree testDirTree) DirPath {
-				return DirPathJoin(tree.root, "created")
+			dp: func(_ *testing.T, tree testDirTree) dt.DirPath {
+				return dt.DirPathJoin(tree.root, "created")
 			},
 			wantDir: true,
 		},
 		{
 			name: "errors on file",
-			dp: func(_ *testing.T, tree testDirTree) DirPath {
-				return DirPath(tree.file1Path)
+			dp: func(_ *testing.T, tree testDirTree) dt.DirPath {
+				return dt.DirPath(tree.file1Path)
 			},
-			wantErr: ErrPathIsFile,
+			wantErr: dt.ErrPathIsFile,
 		},
 		{
 			name: "no-op on existing dir",
-			dp: func(_ *testing.T, tree testDirTree) DirPath {
+			dp: func(_ *testing.T, tree testDirTree) dt.DirPath {
 				return tree.sub
 			},
 			wantDir: true,
@@ -598,13 +600,13 @@ func TestDirPath_EnsureExists(t *testing.T) {
 func TestDirPath_Exists(t *testing.T) {
 	tests := []struct {
 		name       string
-		dp         func(t *testing.T, tree testDirTree) DirPath
+		dp         func(t *testing.T, tree testDirTree) dt.DirPath
 		wantExists bool
 		wantErr    bool
 	}{
-		{name: "existing dir", dp: func(_ *testing.T, tree testDirTree) DirPath { return tree.root }, wantExists: true},
-		{name: "missing dir", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPathJoin(tree.root, "nope") }, wantExists: false},
-		{name: "existing file", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPath(tree.file1Path) }, wantExists: false},
+		{name: "existing dir", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return tree.root }, wantExists: true},
+		{name: "missing dir", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPathJoin(tree.root, "nope") }, wantExists: false},
+		{name: "existing file", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPath(tree.file1Path) }, wantExists: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -624,13 +626,13 @@ func TestDirPath_Exists(t *testing.T) {
 func TestDirPath_Status(t *testing.T) {
 	tests := []struct {
 		name       string
-		dp         func(t *testing.T, tree testDirTree) DirPath
-		wantStatus EntryStatus
+		dp         func(t *testing.T, tree testDirTree) dt.DirPath
+		wantStatus dt.EntryStatus
 		wantErr    bool
 	}{
-		{name: "dir", dp: func(_ *testing.T, tree testDirTree) DirPath { return tree.root }, wantStatus: IsDirEntry},
-		{name: "file", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPath(tree.file1Path) }, wantStatus: IsFileEntry},
-		{name: "missing", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPathJoin(tree.root, "missing") }, wantStatus: IsMissingEntry},
+		{name: "dir", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return tree.root }, wantStatus: dt.IsDirEntry},
+		{name: "file", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPath(tree.file1Path) }, wantStatus: dt.IsFileEntry},
+		{name: "missing", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPathJoin(tree.root, "missing") }, wantStatus: dt.IsMissingEntry},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -650,12 +652,12 @@ func TestDirPath_Status(t *testing.T) {
 func TestDirPath_ReadDir(t *testing.T) {
 	tests := []struct {
 		name      string
-		dp        func(t *testing.T, tree testDirTree) DirPath
+		dp        func(t *testing.T, tree testDirTree) dt.DirPath
 		wantNames []string
 		wantErr   bool
 	}{
-		{name: "root has file and sub", dp: func(_ *testing.T, tree testDirTree) DirPath { return tree.root }, wantNames: []string{"file1.txt", "sub"}},
-		{name: "missing errors", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPathJoin(tree.root, "missing") }, wantErr: true},
+		{name: "root has file and sub", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return tree.root }, wantNames: []string{"file1.txt", "sub"}},
+		{name: "missing errors", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPathJoin(tree.root, "missing") }, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -682,18 +684,18 @@ func TestDirPath_ReadDir(t *testing.T) {
 func TestDirPathRead(t *testing.T) {
 	tests := []struct {
 		name      string
-		dp        func(t *testing.T, tree testDirTree) DirPath
+		dp        func(t *testing.T, tree testDirTree) dt.DirPath
 		wantNames []string
 		wantErr   bool
 	}{
-		{name: "root has file and sub", dp: func(_ *testing.T, tree testDirTree) DirPath { return tree.root }, wantNames: []string{"file1.txt", "sub"}},
-		{name: "missing errors", dp: func(_ *testing.T, tree testDirTree) DirPath { return DirPathJoin(tree.root, "missing") }, wantErr: true},
+		{name: "root has file and sub", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return tree.root }, wantNames: []string{"file1.txt", "sub"}},
+		{name: "missing errors", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return dt.DirPathJoin(tree.root, "missing") }, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tree := makeTestDirTree(t)
 			dp := tt.dp(t, tree)
-			des, err := DirPathRead(dp)
+			des, err := dt.DirPathRead(dp)
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("DirPathRead() error = %v, wantErr %v", err, tt.wantErr)
 			}
@@ -759,7 +761,7 @@ func TestDirPath_Stat(t *testing.T) {
 			name: "Stat with DirFS uses relative path",
 			run: func(t *testing.T, tree testDirTree) {
 				fsys := tree.root.DirFS()
-				info, err := DirPath(".").Stat(fsys)
+				info, err := dt.DirPath(".").Stat(fsys)
 				if err != nil {
 					t.Fatalf("Stat(DirFS, .) error = %v", err)
 				}
@@ -789,7 +791,7 @@ func TestDirPath_Rel(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Rel(nested, root) error = %v", err)
 				}
-				want := PathSegments(filepath.Join("sub", "nested"))
+				want := dt.PathSegments(filepath.Join("sub", "nested"))
 				if got != want {
 					t.Fatalf("Rel(nested, root) = %q, want %q", got, want)
 				}
@@ -807,10 +809,10 @@ func TestDirPath_Rel(t *testing.T) {
 func TestDirPath_CanWrite(t *testing.T) {
 	tests := []struct {
 		name string
-		dp   func(t *testing.T, tree testDirTree) DirPath
+		dp   func(t *testing.T, tree testDirTree) dt.DirPath
 		want bool
 	}{
-		{name: "temp dir writable", dp: func(_ *testing.T, tree testDirTree) DirPath { return tree.root }, want: true},
+		{name: "temp dir writable", dp: func(_ *testing.T, tree testDirTree) dt.DirPath { return tree.root }, want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -909,7 +911,7 @@ func TestDirPath_WalkFSStopsAfterBreak(t *testing.T) {
 			tree := makeTestDirTree(t)
 			fsys := tree.root.DirFS()
 			count := 0
-			tree.root.WalkFS(fsys)(func(_ DirEntry, _ error) bool {
+			tree.root.WalkFS(fsys)(func(_ dt.DirEntry, _ error) bool {
 				count++
 				return false
 			})
@@ -924,21 +926,20 @@ func TestDirPath_ToTildeRoundTrip(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("HOME", home)
 	t.Setenv("USERPROFILE", home)
-
+	err := dt.EnsureUserHomeDir()
+	if err != nil {
+		t.Fatalf("EnsureUserHomeDir() error = %v", err)
+	}
 	tests := []struct {
 		name string
-		dp   DirPath
+		dp   dt.DirPath
 	}{
-		{name: "home", dp: DirPath(home)},
-		{name: "nested", dp: DirPathJoin(DirPath(home), filepath.Join("sub", "dir")).Clean()},
+		{name: "home", dp: dt.DirPath(home)},
+		{name: "nested", dp: dt.DirPathJoin(dt.DirPath(home), filepath.Join("sub", "dir")).Clean()},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tdp, err := tt.dp.ToTilde()
-			if err != nil {
-				t.Fatalf("ToTilde() error = %v", err)
-			}
-			got, err := tdp.Expand()
+			got, err := tt.dp.ToTilde(dt.OrFullPath).Expand()
 			if err != nil {
 				t.Fatalf("Expand(ToTilde()) error = %v", err)
 			}

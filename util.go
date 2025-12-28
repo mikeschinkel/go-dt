@@ -7,18 +7,18 @@ import (
 
 func LogOnError(err error) {
 	if err != nil {
-		logIt("Operation failed", err)
+		Logf("Operation failed", err)
 	}
 }
 
 func CloseOrLog(c io.Closer) {
 	err := c.Close()
 	if err != nil {
-		logIt("Failed to close", err)
+		Logf("Failed to close", err)
 	}
 }
 
-func logIt(msg string, err error) {
+func Logf(msg string, err error) {
 	if logger != nil {
 		logger.Warn(msg, "error", err)
 	}

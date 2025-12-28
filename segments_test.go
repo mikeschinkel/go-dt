@@ -1,13 +1,14 @@
-package dt
+package dt_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/mikeschinkel/go-dt"
 )
 
 // Dummy types for testing generic functions
 type TestSegment string
-type TestSegments []TestSegment
 
 func TestSplitSegments(t *testing.T) {
 	tests := []struct {
@@ -118,7 +119,7 @@ func TestSplitSegments(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOut := SplitSegments[TestSegment](tt.s, "/")
+			gotOut := dt.SplitSegments[TestSegment](tt.s, "/")
 			if !reflect.DeepEqual(gotOut, tt.wantOut) {
 				t.Errorf("SplitSegments() = %v, want %v", gotOut, tt.wantOut)
 			}
@@ -322,7 +323,7 @@ func TestIndexSegments(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotSeg := IndexSegments[TestSegment](tt.s, "/", tt.index)
+			gotSeg := dt.IndexSegments[TestSegment](tt.s, "/", tt.index)
 			if gotSeg != tt.wantSeg {
 				t.Errorf("IndexSegments() = %v, want %v", gotSeg, tt.wantSeg)
 			}
@@ -670,7 +671,7 @@ func TestSliceSegments(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOut := SliceSegments[TestSegment](tt.s, "/", tt.start, tt.end)
+			gotOut := dt.SliceSegments[TestSegment](tt.s, "/", tt.start, tt.end)
 			if !reflect.DeepEqual(gotOut, tt.wantOut) {
 				t.Errorf("SliceSegments() = %v, want %v", gotOut, tt.wantOut)
 			}
@@ -760,7 +761,7 @@ func TestJoinSegments(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOut := JoinSegments[TestSegment](tt.ss, tt.sep)
+			gotOut := dt.JoinSegments[TestSegment](tt.ss, tt.sep)
 			if gotOut != tt.wantOut {
 				t.Errorf("JoinSegments() = %v, want %v", gotOut, tt.wantOut)
 			}
@@ -1027,7 +1028,7 @@ func TestSliceSegmentsScalar(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotOut := SliceSegmentsScalar[TestSegment](tt.s, tt.sep, tt.start, tt.end)
+			gotOut := dt.SliceSegmentsScalar[TestSegment](tt.s, tt.sep, tt.start, tt.end)
 			if gotOut != tt.wantOut {
 				t.Errorf("SliceSegmentsScalar() = %v, want %v", gotOut, tt.wantOut)
 			}

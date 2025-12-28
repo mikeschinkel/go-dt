@@ -4,6 +4,27 @@ import (
 	"path/filepath"
 )
 
+type joinable interface {
+	EntryPath | DirPath | Filepath
+	~string
+}
+
+func Join[T1, T2 joinable](a T1, b T2) T1 {
+	return T1(filepath.Join(string(a), string(b)))
+}
+
+func Join3[T1, T2, T3 joinable](a T1, b T2, c T3) T1 {
+	return T1(filepath.Join(string(a), string(b), string(c)))
+}
+
+func Join4[T1, T2, T3, T4 joinable](a T1, b T2, c T3, d T4) T1 {
+	return T1(filepath.Join(string(a), string(b), string(c), string(d)))
+}
+
+func Join5[T1, T2, T3, T4, T5 joinable](a T1, b T2, c T3, d T4, e T5) T1 {
+	return T1(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
+
 func DirPathJoin[T1, T2 ~string](a T1, b T2) DirPath {
 	return DirPath(filepath.Join(string(a), string(b)))
 }
@@ -67,6 +88,10 @@ func EntryPathJoin4[T1, T2, T3, T4 ~string](a T1, b T2, c T3, d T4) EntryPath {
 
 func EntryPathJoin5[T1, T2, T3, T4, T5 ~string](a T1, b T2, c T3, d T4, e T5) EntryPath {
 	return EntryPath(filepath.Join(string(a), string(b), string(c), string(d), string(e)))
+}
+
+func TildeEntryPathJoin[T1, T2 ~string](a T1, b T2) TildeEntryPath {
+	return TildeEntryPath(filepath.Join(string(a), string(b)))
 }
 
 func PathSegmentsJoin[T1, T2 ~string](a T1, b T2) PathSegments {

@@ -2,7 +2,6 @@ package dt
 
 type (
 	// Filename with name and extension, if exists, but no path component
-	Filename string
 
 	// FileExt is a filename extension with leading period ('.')
 	FileExt string
