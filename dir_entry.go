@@ -1,6 +1,7 @@
 package dt
 
 import (
+	"errors"
 	"io/fs"
 	"path/filepath"
 )
@@ -8,6 +9,34 @@ import (
 // DirEntry represents a filesystem entry discovered while walking a DirPath.
 // It wraps fs.DirEntry and uses EntryPath for the entry's path relative to the
 // walked root.
+
+func ParseEntryPath(s string) (dp EntryPath, err error) {
+	if len(s) == 0 {
+		err = ErrEmpty
+		goto end
+	}
+
+	if s[0] != '~' {
+		dp = EntryPath(s)
+		goto end
+	}
+
+	_, err = ParseTildeEntryPath(s)
+	if errors.Is(err, ErrNotTildePath) {
+		dp = EntryPath(s)
+		err = nil
+		goto end
+	}
+	if err != nil {
+		goto end
+	}
+
+	dp, err = EntryPath(s).Expand()
+
+end:
+	return dp, err
+}
+
 type DirEntry struct {
 	// Root is the logical root DirPath that was walked.
 	// It is exactly what the caller passed to Walk / WalkFS and may be

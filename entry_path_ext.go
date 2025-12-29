@@ -216,12 +216,15 @@ func (ep EntryPath) Expand() (out EntryPath, err error) {
 	out = EntryPathJoin(home, s[2:]).Clean()
 
 end:
+	if err != nil {
+		err = WithErr(err, ErrFailedToExpandPath, ep.ErrKV())
+	}
 	return out, err
 }
 
-func (dp EntryPath) Exists() (exists bool, err error) {
+func (ep EntryPath) Exists() (exists bool, err error) {
 	var status EntryStatus
-	status, err = dp.Status()
+	status, err = ep.Status()
 	if err != nil {
 		goto end
 	}
@@ -236,4 +239,61 @@ func (ep EntryPath) ToTilde(opt TildeOption) (tep TildeEntryPath) {
 
 func (ep EntryPath) TrimTilde() (tdp PathSegments) {
 	return TrimTilde[EntryPath](ep)
+}
+
+func (ep EntryPath) IsFile() (isFile bool) {
+	status, err := ep.Status()
+	if err != nil {
+		goto end
+	}
+	if status != IsFileEntry {
+		goto end
+	}
+	isFile = true
+end:
+	return isFile
+}
+
+func (ep EntryPath) IsDir() (isDir bool) {
+	status, err := ep.Status()
+	if err != nil {
+		goto end
+	}
+	if status != IsDirEntry {
+		goto end
+	}
+	isDir = true
+end:
+	return isDir
+}
+
+func (ep EntryPath) ErrKV() ErrKV {
+	return kv{k: "path", v: ep.ToTilde(OrFullPath)}
+}
+
+func (ep EntryPath) EnsureFilepath(defaultName Filename) (fp Filepath, err error) {
+	var exists bool
+	fp = Filepath(ep)
+	if ep.IsDir() {
+		fp = Filepath(ep.Join(defaultName))
+	}
+	exists, err = fp.Exists()
+	if exists {
+		err = NewErr(ErrFileNotExists, fp.ErrKV(), err)
+		goto end
+	}
+end:
+	return fp, err
+}
+
+func EnsureFilepath(path string, defaultName Filename) (fp Filepath, err error) {
+	var ep EntryPath
+	ep, err = ParseEntryPath(path)
+	if err != nil {
+		err = NewErr(ErrInvalidFilepath, err)
+		goto end
+	}
+	fp, err = ep.EnsureFilepath(defaultName)
+end:
+	return fp, err
 }

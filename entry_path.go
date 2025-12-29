@@ -92,10 +92,6 @@ func (ep EntryPath) Abs() (EntryPath, error) {
 	return EntryPath(entry), err
 }
 
-func (ep EntryPath) IsFile() bool {
-	return filepath.IsAbs(string(ep))
-}
-
 func (ep EntryPath) IsAbs() bool {
 	return filepath.IsAbs(string(ep))
 }

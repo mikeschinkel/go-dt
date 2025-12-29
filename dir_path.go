@@ -9,30 +9,8 @@ import (
 )
 
 func ParseDirPath(s string) (dp DirPath, err error) {
-	if len(s) == 0 {
-		err = ErrEmpty
-		goto end
-	}
-
-	if s[0] != '~' {
-		dp = DirPath(s)
-		goto end
-	}
-
-	_, err = ParseTildeDirPath(s)
-	if errors.Is(err, ErrNotTildePath) {
-		dp = DirPath(s)
-		err = nil
-		goto end
-	}
-	if err != nil {
-		goto end
-	}
-
-	dp, err = DirPath(s).Expand()
-
-end:
-	return dp, err
+	ep, err := ParseEntryPath(s)
+	return DirPath(ep), err
 }
 
 func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
@@ -86,11 +64,11 @@ type DirPath string
 // If the path already exists as a directory, EnsureExists is a no-op.
 // If the path exists as a file, it returns ErrPathIsFile.
 // Any other filesystem error is returned as-is.
-func (dp DirPath) EnsureExists() (err error) {
+func (dp DirPath) EnsureExists(mod os.FileMode) (err error) {
 	var info os.FileInfo
 	info, err = os.Stat(string(dp))
 	if errors.Is(err, os.ErrNotExist) {
-		err = os.MkdirAll(string(dp), os.ModePerm)
+		err = os.MkdirAll(string(dp), mod)
 		if err != nil {
 			goto end
 		}
@@ -103,6 +81,9 @@ func (dp DirPath) EnsureExists() (err error) {
 		err = NewErr(ErrPathIsFile, err)
 	}
 end:
+	if err != nil {
+		err = WithErr(err, ErrFailedToEnsureDir, dp.ErrKV())
+	}
 	return err
 }
 

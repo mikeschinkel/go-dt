@@ -20,6 +20,6 @@ func (ai *Test) SetConfigFile(cf dt.RelFilepath) {
 	ai.configFile = cf
 }
 
-func (ai *Test) SetLogFile(lf dt.Filename) {
+func (ai *Test) SetLogFile(lf dt.RelFilepath) {
 	ai.logFile = lf
 }

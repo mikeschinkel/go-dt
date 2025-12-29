@@ -6,6 +6,26 @@ import (
 	"path/filepath"
 )
 
+func ParseRelFilepath(p string) (fp RelFilepath, err error) {
+	if len(p) == 0 {
+		err = NewErr(ErrEmpty)
+		goto end
+	}
+
+	if !fs.ValidPath(p) {
+		err = NewErr(ErrInvalidRelFilepath)
+		goto end
+	}
+
+	fp = RelFilepath(p)
+
+end:
+	if err != nil {
+		err = WithErr(err, fp.ErrKV())
+	}
+	return fp, err
+}
+
 // RelFilepath is an relativate filepath with filename including extension if applicable
 type RelFilepath string
 
@@ -63,4 +83,8 @@ func (fp RelFilepath) WriteFile(data []byte, mode os.FileMode) error {
 // Windows), those statuses will never be returned.
 func (fp RelFilepath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
 	return EntryPath(fp).Status(flags...)
+}
+
+func (fp RelFilepath) ErrKV() ErrKV {
+	return kv{k: "rel_filepath", v: fp}
 }

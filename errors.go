@@ -19,6 +19,8 @@ var (
 )
 
 var (
+	ErrInvalidFilepath     = errors.New("invalid filepath")
+	ErrInvalidRelFilepath  = errors.New("invalid relative filepath")
 	ErrInvalidPathSegment  = errors.New("invalid path segment")
 	ErrInvalidURLSegment   = errors.New("invalid URL segment")
 	ErrInvalidURLSegments  = errors.New("invalid URL segments")
@@ -33,6 +35,7 @@ var (
 	ErrFailedReadingSymlink            = errors.New("failed reading symlink")
 	ErrFailedToLoadFile                = errors.New("failed to load file")
 	ErrFailedToCopyFile                = errors.New("failed to copy file")
+	ErrFailedToSaveFile                = errors.New("failed to save file")
 	ErrFailedToRemoveFile              = errors.New("failed to remove file")
 	ErrFailedToReadFile                = errors.New("failed to read file")
 	ErrFailedToOpenFile                = errors.New("failed to open file")
@@ -60,6 +63,8 @@ var (
 	ErrIsAFile                         = errors.New("is a file")
 	ErrIsADirectory                    = errors.New("is a directory")
 	ErrCannotDetermineWorkingDirectory = errors.New("cannot determine working directory")
+	ErrFailedToExpandPath              = errors.New("failed to expand path")
+	ErrFailedToEnsureDir               = errors.New("failed to ensure directory")
 )
 var (
 	ErrValueIsNil          = errors.New("value is nil")
