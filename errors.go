@@ -87,6 +87,7 @@ var (
 var (
 	ErrUnexpectedError = errors.New("unexpected error")
 	ErrInternalError   = errors.New("internal error")
+	ErrNotImplemented  = errors.New("not implemented")
 )
 
 var (

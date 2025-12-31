@@ -1184,7 +1184,7 @@ Standard interface for describing application metadata across the ecosystem.
 
 | |                                                                                                                                                              |
 | --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Short answer** | Use a small set and let [tooling](https://github.com/mikeschinkel/squire) teach the rest.                                                                    |
+| **Short answer** | Use a small set and let [tooling](https://github.com/mikeschinkel/gomion) teach the rest.                                                                    |
 | **Longer answer** | A handful of domain types is easy and obvious to learn. <br>Method-based API are discoverable in IDEs.<br>Linters can enforce conventions at the boundaries. |
 | **<nobr>Minimal adoption</nobr>** | Use only the types that already map to your domain language.<br>Start with `dt.DirPath` and `dt.Filepath`, for example.                                      |
 | **<nobr>Compatibility angle</nobr>** | Clear, stable types reduce downstream friction and support burden.                                                                                           |

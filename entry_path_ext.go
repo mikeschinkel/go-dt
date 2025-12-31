@@ -278,7 +278,7 @@ func (ep EntryPath) EnsureFilepath(defaultName Filename) (fp Filepath, err error
 		fp = Filepath(ep.Join(defaultName))
 	}
 	exists, err = fp.Exists()
-	if exists {
+	if !exists {
 		err = NewErr(ErrFileNotExists, fp.ErrKV(), err)
 		goto end
 	}
