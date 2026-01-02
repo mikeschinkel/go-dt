@@ -4,6 +4,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func ParseRelFilepath(p string) (fp RelFilepath, err error) {
@@ -70,6 +71,10 @@ end:
 
 func (fp RelFilepath) WriteFile(data []byte, mode os.FileMode) error {
 	return os.WriteFile(string(fp), data, mode)
+}
+
+func (fp RelFilepath) HasPrefix(prefix PathSegments) bool {
+	return strings.HasPrefix(string(fp), string(prefix))
 }
 
 // Status classifies the filesystem entry referred to by fp.

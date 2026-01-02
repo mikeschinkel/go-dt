@@ -579,7 +579,7 @@ func TestDirPath_EnsureExists(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			tree := makeTestDirTree(t)
 			dp := tt.dp(t, tree)
-			err := dp.EnsureExists()
+			err := dp.EnsureExists(os.ModePerm)
 			if !errors.Is(err, tt.wantErr) {
 				t.Fatalf("EnsureExists() error = %v, wantErr %v", err, tt.wantErr)
 			}
