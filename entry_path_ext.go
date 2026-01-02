@@ -36,7 +36,6 @@ const (
 // Windows), those statuses will never be returned.
 func (ep EntryPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err error) {
 	var info os.FileInfo
-	var mode os.FileMode
 
 	switch {
 	case len(flags) == 0:
@@ -57,23 +56,7 @@ func (ep EntryPath) Status(flags ...EntryStatusFlags) (status EntryStatus, err e
 		goto end
 	}
 
-	mode = info.Mode()
-	switch {
-	case mode.IsRegular():
-		status = IsFileEntry
-	case mode.IsDir():
-		status = IsDirEntry
-	case mode&fs.ModeSymlink != 0:
-		status = IsSymlinkEntry
-	case mode&fs.ModeSocket != 0:
-		status = IsSocketEntry
-	case mode&fs.ModeNamedPipe != 0:
-		status = IsPipeEntry
-	case mode&fs.ModeDevice != 0:
-		status = IsDeviceEntry
-	default:
-		status = IsUnclassifiedEntryStatus
-	}
+	status = GetEntryStatus(info)
 
 end:
 	return status, err
@@ -296,4 +279,25 @@ func EnsureFilepath(path string, defaultName Filename) (fp Filepath, err error) 
 	fp, err = ep.EnsureFilepath(defaultName)
 end:
 	return fp, err
+}
+
+func GetEntryStatus(info os.FileInfo) (status EntryStatus) {
+	mode := info.Mode()
+	switch {
+	case mode.IsRegular():
+		return IsFileEntry
+	case mode.IsDir():
+		return IsDirEntry
+	case mode&fs.ModeSymlink != 0:
+		return IsSymlinkEntry
+	case mode&fs.ModeSocket != 0:
+		return IsSocketEntry
+	case mode&fs.ModeNamedPipe != 0:
+		return IsPipeEntry
+	case mode&fs.ModeDevice != 0:
+		return IsDeviceEntry
+	case uint32(mode) != 0:
+		return IsUnclassifiedEntryStatus
+	}
+	return IsInvalidEntryStatus
 }
