@@ -53,7 +53,7 @@ func (fp RelFilepath) ReadFile(fileSys ...fs.FS) ([]byte, error) {
 	return fs.ReadFile(fileSys[0], string(fp))
 }
 
-func (fp RelFilepath) Rel(baseDir DirPath) (RelFilepath, error) {
+func (fp RelFilepath) Rel(baseDir RelDirPath) (RelFilepath, error) {
 	ps, err := filepath.Rel(string(baseDir), string(fp))
 	return RelFilepath(ps), err
 }
@@ -75,6 +75,18 @@ func (fp RelFilepath) WriteFile(data []byte, mode os.FileMode) error {
 
 func (fp RelFilepath) HasPrefix(prefix PathSegments) bool {
 	return strings.HasPrefix(string(fp), string(prefix))
+}
+
+func (fp RelFilepath) Split(sep string) (pss []PathSegment) {
+	pss = make([]PathSegment, strings.Count(string(fp), sep)+1)
+	for i, s := range strings.Split(string(fp), sep) {
+		pss[i] = PathSegment(s)
+	}
+	return pss
+}
+
+func (fp RelFilepath) ToSlash(baseDir RelDirPath) RelFilepath {
+	return RelFilepath(filepath.ToSlash(string(baseDir)))
 }
 
 // Status classifies the filesystem entry referred to by fp.
