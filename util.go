@@ -5,7 +5,8 @@ import (
 	"log"
 )
 
-func LogOnError(err error) {
+
+func LogOnErr(err error) {
 	if err != nil {
 		Logf("Operation failed", err)
 	}
