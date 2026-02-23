@@ -24,6 +24,8 @@ func (u URL) Parse() (*url.URL, error) {
 
 func ParseURL(s string) (u URL, err error) {
 	// TODO Add some validation here
+	//  This needs to handle git@hithub.com:org/repo.git as well as http(s)://
+	//  Do we need a dt.HTTPURL for http(s) specific URLs?
 	u = URL(s)
 	return u, err
 }
