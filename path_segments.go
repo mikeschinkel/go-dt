@@ -109,3 +109,7 @@ func (pss PathSegments) Escapes() (escapes bool) {
 end:
 	return escapes
 }
+
+func (pss PathSegments) ErrKV() ErrKV {
+	return kv{k: "rel_dirpath", v: pss}
+}

@@ -21,6 +21,8 @@ var (
 var (
 	ErrInvalidFilepath     = errors.New("invalid filepath")
 	ErrInvalidRelFilepath  = errors.New("invalid relative filepath")
+	ErrInvalidRelDirPath   = errors.New("invalid relative directory segment")
+	ErrInvalidPathSegments = ErrInvalidRelDirPath
 	ErrInvalidPathSegment  = errors.New("invalid path segment")
 	ErrInvalidURLSegment   = errors.New("invalid URL segment")
 	ErrInvalidURLSegments  = errors.New("invalid URL segments")
@@ -32,6 +34,7 @@ var (
 )
 var (
 	ErrFileSystem                      = errors.New("file system error")
+	ErrFileStat                        = errors.New("file stat error")
 	ErrFailedReadingSymlink            = errors.New("failed reading symlink")
 	ErrFailedToLoadFile                = errors.New("failed to load file")
 	ErrFailedToCopyFile                = errors.New("failed to copy file")
@@ -43,11 +46,13 @@ var (
 	ErrFailedToMakeDirectory           = errors.New("failed to make directory")
 	ErrFailedtoCreateTempFile          = errors.New("failed to create temp file")
 	ErrFailedtoCreateFile              = errors.New("failed to create file")
+	ErrFailedtoRemoveFile              = errors.New("failed to remove file")
 	ErrFailedtoCreateDir               = errors.New("failed to create directory")
 	ErrContainsBackslash               = errors.New("contains slash ('\\')")
 	ErrContainsSlash                   = errors.New("contains slash ('/')")
 	ErrEmpty                           = errors.New("cannot be empty")
 	ErrInvalidPercentEncoding          = errors.New("invalid percent encoding")
+	ErrTooShort                        = errors.New("too short")
 	ErrTooLong                         = errors.New("too long")
 	ErrUnspecified                     = errors.New("unspecified")
 	ErrInvalid                         = errors.New("invalid")
@@ -100,3 +105,5 @@ var (
 
 var ErrNotTildePath = errors.New("not a tilde-prefixed path")
 var ErrInvalidPathSeparator = errors.New("invalid path separator")
+var ErrFailedToUnmarshalJSON = errors.New("failed to unmarshal JSON")
+var ErrFailedToMarshalJSON = errors.New("failed to marshal JSON")

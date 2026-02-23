@@ -5,6 +5,9 @@ import (
 	"log"
 )
 
+func LogOnErrFunc(errFunc func() error) {
+	LogOnErr(errFunc())
+}
 
 func LogOnErr(err error) {
 	if err != nil {

@@ -262,7 +262,7 @@ func (ep EntryPath) EnsureFilepath(defaultName Filename) (fp Filepath, err error
 	}
 	exists, err = fp.Exists()
 	if !exists {
-		err = NewErr(ErrFileNotExists, fp.ErrKV(), err)
+		err = NewErr(ErrFileNotExist, fp.ErrKV(), err)
 		goto end
 	}
 end:
