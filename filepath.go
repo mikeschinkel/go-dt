@@ -3,6 +3,7 @@ package dt
 import (
 	"io/fs"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
@@ -128,4 +129,18 @@ func (fp Filepath) IsAbs() bool {
 	return filepath.IsAbs(string(fp))
 }
 
-// ===[Enhancements]===
+func (fp Filepath) Contains(needle string) bool {
+	return strings.Contains(string(fp), needle)
+}
+func (fp Filepath) Split(sep string) []string {
+	return strings.Split(string(fp), sep)
+}
+
+func (fp Filepath) LookPath() (Filepath, error) {
+	path, err := exec.LookPath(string(fp))
+	return Filepath(path), err
+}
+
+func (fp Filepath) Match(pattern string) (matched bool, err error) {
+	return filepath.Match(pattern, string(fp))
+}

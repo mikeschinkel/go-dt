@@ -10,8 +10,8 @@ import (
 // RelPath can be a RelFilepath or a PathSegments
 type RelPath string
 
-func (rp RelPath) Dir() DirPath {
-	return DirPath(filepath.Dir(string(rp)))
+func (rp RelPath) Dir() RelDirPath {
+	return RelDirPath(filepath.Dir(string(rp)))
 }
 
 func (rp RelPath) Base() PathSegment {
@@ -76,4 +76,8 @@ func (rp RelPath) Abs() (RelPath, error) {
 
 func (rp RelPath) Join(elems ...any) RelPath {
 	return RelPath(EntryPath(rp).Join(elems...))
+}
+
+func (rp RelPath) RelFilepath() RelFilepath {
+	return RelFilepath(rp)
 }

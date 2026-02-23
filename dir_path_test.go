@@ -279,13 +279,13 @@ func TestDirPath_TrimPrefix(t *testing.T) {
 		name   string
 		dp     dt.DirPath
 		prefix dt.DirPath
-		want   dt.DirPath
+		want   dt.RelDirPath
 	}{
 		{
 			name:   "trims",
-			dp:     dt.DirPath(filepath.Join("a", "b", "c")),
-			prefix: dt.DirPath(filepath.Join("a", "b")),
-			want:   dt.DirPath(strings.TrimPrefix(filepath.Join("a", "b", "c"), filepath.Join("a", "b"))),
+			dp:     dt.DirPathJoin3("a", "b", "c"),
+			prefix: dt.DirPathJoin("a", "b"),
+			want:   dt.RelDirPath("/c"),
 		},
 	}
 	for _, tt := range tests {

@@ -33,7 +33,6 @@ type RelFilepath string
 func (fp RelFilepath) Dir() DirPath {
 	return DirPath(filepath.Dir(string(fp)))
 }
-
 func (fp RelFilepath) Base() Filename {
 	return Filename(filepath.Base(string(fp)))
 }
@@ -56,6 +55,9 @@ func (fp RelFilepath) ReadFile(fileSys ...fs.FS) ([]byte, error) {
 func (fp RelFilepath) Rel(baseDir RelDirPath) (RelFilepath, error) {
 	ps, err := filepath.Rel(string(baseDir), string(fp))
 	return RelFilepath(ps), err
+}
+func (fp RelFilepath) Ext() FileExt {
+	return FileExt(filepath.Ext(string(fp)))
 }
 
 func (fp RelFilepath) Exists() (exists bool, err error) {
@@ -89,6 +91,10 @@ func (fp RelFilepath) ToSlash(baseDir RelDirPath) RelFilepath {
 	return RelFilepath(filepath.ToSlash(string(baseDir)))
 }
 
+func (fp RelFilepath) Create() (*os.File, error) {
+	return os.Create(string(fp))
+}
+
 // Status classifies the filesystem entry referred to by fp.
 //
 // It returns IsMissingEntry when the entry does not exist (err == nil).
@@ -104,4 +110,7 @@ func (fp RelFilepath) Status(flags ...EntryStatusFlags) (status EntryStatus, err
 
 func (fp RelFilepath) ErrKV() ErrKV {
 	return kv{k: "rel_filepath", v: fp}
+}
+func (fp RelFilepath) RelPath() RelPath {
+	return RelPath(string(fp))
 }

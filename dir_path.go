@@ -13,6 +13,15 @@ func ParseDirPath(s string) (dp DirPath, err error) {
 	return DirPath(ep), err
 }
 
+func ParseRelDirPath(s string) (_ RelDirPath, err error) {
+	return ParsePathSegments(s)
+}
+
+func ParsePathSegments(s string) (_ PathSegments, err error) {
+	// TODO: Add validation
+	return PathSegments(s), err
+}
+
 func ParseDirPaths(dirs []string) (dps []DirPath, err error) {
 	var errs []error
 	var dp DirPath
@@ -78,7 +87,7 @@ func (dp DirPath) EnsureExists(mod os.FileMode) (err error) {
 		goto end
 	}
 	if !info.IsDir() {
-		err = NewErr(ErrPathIsFile, err)
+		err = NewErr(ErrPathIsFile)
 	}
 end:
 	if err != nil {
@@ -161,8 +170,8 @@ func (dp DirPath) HasSuffix(suffix string) bool {
 	return strings.HasSuffix(string(dp), suffix)
 }
 
-func (dp DirPath) TrimPrefix(prefix DirPath) DirPath {
-	return DirPath(strings.TrimPrefix(string(dp), string(prefix)))
+func (dp DirPath) TrimPrefix(prefix DirPath) RelDirPath {
+	return RelDirPath(strings.TrimPrefix(string(dp), string(prefix)))
 }
 
 func (dp DirPath) TrimSuffix(TrimSuffix string) DirPath {
@@ -189,4 +198,8 @@ func (dp DirPath) EvalSymlinks() (_ DirPath, err error) {
 
 func (dp DirPath) Remove() error {
 	return os.Remove(string(dp))
+}
+
+func (dp DirPath) TrimSpace() DirPath {
+	return DirPath(strings.TrimSpace(string(dp)))
 }

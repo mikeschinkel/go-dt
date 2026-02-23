@@ -2,6 +2,7 @@ package dt
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -51,6 +52,10 @@ func (ps PathSegment) TrimPrefix(prefix DirPath) PathSegment {
 	return PathSegment(strings.TrimPrefix(string(ps), string(prefix)))
 }
 
-func (ps PathSegment) TrimSuffix(TrimSuffix string) PathSegment {
-	return PathSegment(strings.TrimSuffix(string(ps), TrimSuffix))
+func (ps PathSegment) RelFilepath() RelFilepath {
+	return RelFilepath(ps)
+}
+
+func (ps PathSegment) Match(pattern string) (matched bool, err error) {
+	return filepath.Match(pattern, string(ps))
 }
