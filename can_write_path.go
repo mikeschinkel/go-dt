@@ -48,10 +48,9 @@ func CanWrite(path EntryPath) (canWrite bool, err error) {
 	if tmpFile == nil {
 		goto end
 	}
-	defer func() {
-		LogOnError(os.Remove(tmpFile.Name()))
-		CloseOrLog(tmpFile)
-	}()
+	// Note: Defers are executed in reverse order
+	defer LogOnErrFunc(func() error { return os.Remove(tmpFile.Name()) })
+	defer CloseOrLog(tmpFile)
 	canWrite = true
 end:
 	return canWrite, err
