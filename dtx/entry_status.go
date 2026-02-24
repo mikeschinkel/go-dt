@@ -7,7 +7,7 @@ import (
 func EntryStatusError(status dt.EntryStatus) (err error) {
 	switch status {
 	case dt.IsMissingEntry:
-		err = NewErr(dt.ErrFileNotExists)
+		err = NewErr(dt.ErrFileNotExist)
 	case dt.IsDirEntry:
 		err = NewErr(dt.ErrPathIsDir)
 	case dt.IsSocketEntry, dt.IsPipeEntry, dt.IsDeviceEntry:

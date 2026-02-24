@@ -87,7 +87,7 @@ func (ds *DirPathScanner) Scan() (entries []dt.EntryPath, err error) {
 	}
 
 	if !exists {
-		err = NewErr(dt.ErrFileNotExists)
+		err = NewErr(dt.ErrFileNotExist)
 		goto end
 	}
 
