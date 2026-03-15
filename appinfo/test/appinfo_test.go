@@ -16,7 +16,7 @@ func TestNew(t *testing.T) {
 		ConfigSlug:  dt.PathSegment("testapp-config"),
 		ConfigFile:  dt.RelFilepath("config/app.json"),
 		ExeName:     dt.Filename("testapp"),
-		LogFile:     dt.Filename("testapp.log"),
+		LogFile:     dt.RelFilepath("testapp.log"),
 		LogPath:     dt.PathSegments("logs"),
 		InfoURL:     dt.URL("https://example.com/testapp"),
 		ExtraInfo:   map[string]any{"key": "value"},
