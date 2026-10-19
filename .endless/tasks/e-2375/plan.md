@@ -7,6 +7,10 @@ The changes at filing time (2026-10-17), excluding `.endless/`:
 - Untracked: dtx/go.sum.
 - go-dt is foundational. several sibling repos depend on it, so check its importers when analyzing.
 
+## Modules
+
+Every directory with its own `go.mod` is a separate Go module, versioned independently: a module below the root is tagged with its directory as a prefix (`dtx/v0.2.1`), and one module's require of another, even within this repo, names a version or a `replace`. go-dt's modules at filing time are the root, appinfo/, appinfo/test/, dtglob/, dtglob/test/, dtx/, dtx/test/, examples/basic_usage/ and test/. Analyze and report the changes per module, and list every module whose contents change, so the release that follows can decide each one's version bump on its own.
+
 ## Steps
 
 1. **Snapshot without touching main.** From this task's worktree, read the main checkout's full diff against HEAD, staged and unstaged together, including deletions, binaries and untracked non-`.endless/` files. Recreate it on a branch named `wip/<task-id>` cut from main's HEAD, and commit it there as one commit with message "WIP snapshot of main working tree". Then confirm the branch's tree matches main's working tree file for file. Don't use `git stash`; the stash stack is shared across sessions.
