@@ -1,0 +1,94 @@
+{
+  "results": {
+    "tool": {
+      "name": "endless"
+    },
+    "summary": {
+      "tests": 15,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "pending": 0,
+      "other": 0,
+      "start": 0,
+      "stop": 0
+    },
+    "tests": [
+      {
+        "name": "TestPathSegments_IsRoot passes",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtx/test requires go-dt v0.5.0",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtx/test requires dtx v0.2.1",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtx/test has no zero pseudo-version",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dropped dtx/go.sum is not tracked",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": ". builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "appinfo builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "appinfo/test builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtglob builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtglob/test builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtx builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "dtx/test builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "examples/basic_usage builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "test builds and vets",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "make test passes (root and all test modules)",
+        "status": "passed",
+        "duration": 0
+      }
+    ]
+  }
+}
