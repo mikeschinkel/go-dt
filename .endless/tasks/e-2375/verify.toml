@@ -1,0 +1,12 @@
+# Verification suite for E-2375 — land or drop main's uncommitted changes.
+# DO NOT EDIT unless you ARE E-2375. See .endless/tasks/CLAUDE.md.
+#
+# go-dt has no _harness.sh, so the one check is a self-contained sh
+# script emitting TAP.
+schema = 1
+task   = "E-2375"
+
+[[check]]
+runner  = "sh"
+command = "sh \"$ENDLESS_VERIFY_DIR\"/landed.sh"
+format  = "tap"
