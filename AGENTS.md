@@ -31,3 +31,9 @@
 - PRs should explain motivation, summarize behavioral changes, and list validation (`make test`, `make lint`, etc.).
 - Link related issues/ADRs and include repro steps or logs when fixing bugs; screenshots only when UI output is relevant (rare here).
 - Keep changes focused; cross-module edits should note downstream impact on domain types and semantics.
+
+<!-- endless (managed by `endless project init`) -->
+## Endless
+
+This project's work is tracked with Endless. Run `endless guide` before
+starting work.

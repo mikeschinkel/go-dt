@@ -1,0 +1,12 @@
+{
+  "name": "go-dt",
+  "label": "Domain Types for Go",
+  "description": "Share common domain types across packages. These are types I wish Go provided in its standard library. No 3rd party dependencies.",
+  "language": "go",
+  "status": "active",
+  "dependencies": [],
+  "documents": {
+    "rules": []
+  },
+  "identity": "0f47f0479185e556b2a808582a416229588eb106"
+}
