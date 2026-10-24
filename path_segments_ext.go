@@ -17,3 +17,9 @@ func (pss PathSegments) UpperFirst() PathSegments {
 end:
 	return pss
 }
+
+// IsRoot returns true if these path segments represent the root directory.
+// Handles both "" (normalized root) and "." (filepath.Rel result for same-dir).
+func (pss PathSegments) IsRoot() bool {
+	return pss == "" || pss == "."
+}
