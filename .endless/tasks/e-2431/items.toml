@@ -101,3 +101,8 @@ statement = "Does not change any other repo, including go-cliutil's workflows an
 id = "P20"
 kind = "exclusion"
 statement = "Does not edit E-2375's verify suite, whose make test and dtx/test go-dt v0.5.0 checks stop holding"
+
+[[item]]
+id = "P21"
+kind = "deliverable"
+statement = "go-dt's .endless/tasks holds _harness.sh and _guard.sh copied unchanged from Endless's .endless/tasks"
