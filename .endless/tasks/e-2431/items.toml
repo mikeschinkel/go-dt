@@ -106,3 +106,8 @@ statement = "Does not edit E-2375's verify suite, whose make test and dtx/test g
 id = "P21"
 kind = "deliverable"
 statement = "go-dt's .endless/tasks holds _harness.sh and _guard.sh copied unchanged from Endless's .endless/tasks"
+
+[[item]]
+id = "P22"
+kind = "deliverable"
+statement = "E-2431's verify suite is a verify.sh that sources _harness.sh and checks each module with GOWORK=off"
