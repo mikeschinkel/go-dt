@@ -11,3 +11,5 @@
 **Versions.** For each of dtx, appinfo and dtglob, compare its exported API at its last tag against HEAD (`go doc -all` or apidiff in a scratch copy). Per Go Stability at v0: a removal or incompatible change is a minor bump, otherwise patch. Give the user each tag, the reason and a short description, and wait for them to run the workflow.
 
 **Gomion and Endless.** Add an open question to gomion E-2434, E-2212 and E-2347 and endless E-2433: whether release tooling should rely on go.work plus no replace in publishable modules, instead of removing and restoring replaces. Cite the trial results recorded in this task's analysis.
+
+**Verify suite.** Copy `_harness.sh` and `_guard.sh` verbatim from Endless's `.endless/tasks/` into go-dt's `.endless/tasks/`, and write E-2431's suite as `.endless/tasks/e-2431/verify.sh` sourcing the harness. Each module is checked with `cd <dir> && GOWORK=off go ...`, since a gotest check cannot reach a nested module (endless E-2438).
