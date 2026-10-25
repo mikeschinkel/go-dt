@@ -1142,6 +1142,30 @@ Standard interface for describing application metadata across the ecosystem.
 
 ---
 
+## Local Development
+
+This repository holds several Go modules: the root `go-dt`, the publishable nested modules `dtx`, `appinfo` and `dtglob`, and the test and example modules beside them. The publishable modules require a **published** go-dt version and carry no `replace` directive, because a consumer never sees a replace — only the require — and a replace would let a wrong require go unnoticed.
+
+To build every module from the code on disk, create a Go workspace:
+
+```sh
+just work
+```
+
+`just work` writes a `go.work` listing every directory that holds a `go.mod`, so it needs no edit when a module is added. Re-run it after adding one.
+
+`go.work` is not committed (it is in `.gitignore`). CI builds and tests with `GOWORK=off`, against the versions each `go.mod` requires, so a change in a nested module that depends on an unpublished root change fails in CI until that root version is tagged and required. To see what CI sees locally, prefix a command with `GOWORK=off`:
+
+```sh
+cd dtx && GOWORK=off go test ./...
+```
+
+Each test or example module keeps exactly one `replace`, pointing at the module it tests, so CI tests the commit's code rather than the last published tag. `just tidy` runs `go mod tidy` in every module with `GOWORK=off`, and CI fails when any `go.mod` is not tidy.
+
+Run `just` to list the other recipes (`test`, `test-all`, `lint`, `vet`, `examples`, `ci`, …).
+
+---
+
 ## Objections
 
 ### Why do we need Domain Types at all?!?

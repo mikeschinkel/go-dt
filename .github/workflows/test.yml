@@ -8,6 +8,9 @@ on:
 
 env:
   GO_VERSION: '1.25'
+  # Build against each go.mod's requires, never a local go.work (see README,
+  # Local Development), so an unpublished dependency fails here.
+  GOWORK: 'off'
 
 jobs:
   # Fast tests that run on every commit/PR
@@ -43,6 +46,48 @@ jobs:
       - name: Run fuzz corpus regression tests
         working-directory: test
         run: go test -v -run=TestFuzzCorpus
+
+      - name: Test dtx
+        run: |
+          (cd dtx && go test -v -race ./...)
+          (cd dtx/test && go test -v -race ./...)
+
+      - name: Test appinfo
+        run: |
+          (cd appinfo && go test -v -race ./...)
+          (cd appinfo/test && go test -v -race ./...)
+
+      - name: Test dtglob
+        run: |
+          (cd dtglob && go test -v -race ./...)
+          (cd dtglob/test && go test -v -race ./...)
+
+  # Every go.mod must be tidy as committed; CI checks, it does not tidy for you
+  tidy:
+    name: go.mod Tidy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Check every module is tidy
+        run: |
+          status=0
+          for mod in $(find . -name go.mod -not -path './.endless/*' | sort); do
+            dir=$(dirname "$mod")
+            echo "Checking $dir..."
+            if ! (cd "$dir" && go mod tidy -diff); then
+              echo "::error file=$mod::$dir is not tidy; run 'just tidy'"
+              status=1
+            fi
+          done
+          exit $status
 
   # Note: For extended fuzzing, use the manual workflow or run locally with:
   #   cd test && ./infinite-fuzz.sh

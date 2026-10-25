@@ -8,27 +8,28 @@
 - `adrs/` documents architectural decisions; consult when proposing API changes.
 
 ## Build, Test, and Development Commands
-- `GOEXPERIMENT=jsonv2 make test` — run race-enabled unit tests for root and all submodules; writes `coverage.txt`.
-- `GOEXPERIMENT=jsonv2 make test-corpus` — execute fuzz corpus regressions via `TestFuzzCorpus` in each module.
-- `GOEXPERIMENT=jsonv2 make lint` — run golangci-lint (v2.6.x) across modules.
-- `make fmt` / `make vet` — gofmt all files; go vet with the jsonv2 experiment enabled.
-- `GOEXPERIMENT=jsonv2 make build` — compile packages; `make examples` builds each example into `./bin/`.
-- `make ci` — convenience target that runs fmt, vet, lint, and full test suite locally.
+- `just work` — write the (uncommitted) `go.work` over every module; run once before local development. CI uses `GOWORK=off`.
+- `just test` — run race-enabled unit tests for root and all submodules; writes `coverage.txt`. The justfile sets `GOEXPERIMENT=jsonv2`.
+- `just test-corpus` — execute fuzz corpus regressions via `TestFuzzCorpus` in each module.
+- `just lint` — run golangci-lint (v2.6.x) across modules.
+- `just fmt` / `just vet` — gofmt all files; go vet with the jsonv2 experiment enabled.
+- `just build` — compile packages; `just examples` builds each example into `./bin/`.
+- `just ci` — convenience recipe that runs fmt, vet, lint, and full test suite locally.
 
 ## Coding Style & Naming Conventions
-- Go 1.25.x with `GOEXPERIMENT=jsonv2` expected; keep modules tidy with `make tidy`.
+- Go 1.25.x with `GOEXPERIMENT=jsonv2` expected; keep modules tidy with `just tidy`; publishable modules (`dtx`, `appinfo`, `dtglob`) require a published go-dt and carry no `replace`.
 - Always `gofmt`; prefer small, composable methods on domain types (DirPath, Filepath, URL) over package functions.
 - Exported types and methods use PascalCase; keep package-level names minimal and consistent with existing DT vocabulary.
 - Use `context.Context` as the first arg when applicable; avoid stutter (`dt.DirPath`, not `dt.PathDirPath`).
 
 ## Testing Guidelines
 - Add `*_test.go` next to the code under test; integration-style tests belong in `test/` (or `<module>/test/`).
-- Include race detection and coverage locally (`make test`); keep fuzz corpora current when adding fuzzers.
+- Include race detection and coverage locally (`just test`); keep fuzz corpora current when adding fuzzers.
 - Prefer table-driven tests; use temporary dirs via helpers in `dtx` when available.
 
 ## Commit & Pull Request Guidelines
 - Follow the existing Conventional Commit style seen in history (`feat:`, `fix:`, `chore:`); scope names optional but encouraged for modules.
-- PRs should explain motivation, summarize behavioral changes, and list validation (`make test`, `make lint`, etc.).
+- PRs should explain motivation, summarize behavioral changes, and list validation (`just test`, `just lint`, etc.).
 - Link related issues/ADRs and include repro steps or logs when fixing bugs; screenshots only when UI output is relevant (rare here).
 - Keep changes focused; cross-module edits should note downstream impact on domain types and semantics.
 
