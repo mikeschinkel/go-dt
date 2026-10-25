@@ -35,7 +35,7 @@ statement = "just work writes a go.work listing every module in the repo, found 
 [[item]]
 id = "P7"
 kind = "deliverable"
-statement = "README.md tells a contributor to run just work, explains why go.work is not committed (a workflow step that forgot GOWORK=off would silently build against the code on disk), and shows GOWORK=off for seeing what CI sees"
+statement = "README.md documents that local development needs a go.work, created by running just work"
 
 [[item]]
 id = "P8"
