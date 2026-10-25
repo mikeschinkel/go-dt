@@ -1,22 +1,43 @@
 package dtx
 
 import (
+	"fmt"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/mikeschinkel/go-dt"
 )
+
+// newScanFixture builds a nested tree with enough files to expose ordering
+// issues, plus .git, vendor and node_modules directories for skip tests, so
+// the test does not depend on what exists on the machine running it.
+func newScanFixture(t *testing.T) dt.DirPath {
+	t.Helper()
+	root := t.TempDir()
+	dirs := []string{"a", "b/c", "b/d/e", "z", ".git/objects", "vendor/x", "node_modules/y"}
+	for _, dir := range dirs {
+		for i := 0; i < 10; i++ {
+			path := filepath.Join(root, dir, fmt.Sprintf("file%02d.txt", i))
+			err := os.MkdirAll(filepath.Dir(path), 0o755)
+			if err != nil {
+				t.Fatalf("Failed to create fixture directory: %v", err)
+			}
+			err = os.WriteFile(path, []byte(path), 0o644)
+			if err != nil {
+				t.Fatalf("Failed to create fixture file: %v", err)
+			}
+		}
+	}
+	return dt.DirPath(root)
+}
 
 // TestDirPathScanner_Determinism verifies that scanning the same directory
 // multiple times always returns files in the same order.
 func TestDirPathScanner_Determinism(t *testing.T) {
 	const numRuns = 20 // Run many times to catch non-determinism
 
-	// Use the go-dt package directory itself as test data
-	// It has enough files to expose ordering issues if they exist
-	testDir, err := dt.ParseDirPath("~/Projects/go-pkgs/go-dt")
-	if err != nil {
-		t.Fatalf("Failed to parse test directory: %v", err)
-	}
+	testDir := newScanFixture(t)
 
 	// First run - capture baseline
 	scanner := NewDirPathScanner(testDir, DirPathScannerArgs{
@@ -78,10 +99,7 @@ func TestDirPathScanner_Determinism(t *testing.T) {
 func TestDirPathScanner_DeterminismWithSkips(t *testing.T) {
 	const numRuns = 10
 
-	testDir, err := dt.ParseDirPath("~/Projects/go-pkgs")
-	if err != nil {
-		t.Fatalf("Failed to parse test directory: %v", err)
-	}
+	testDir := newScanFixture(t)
 
 	skipPaths := []dt.PathSegment{
 		".git",
