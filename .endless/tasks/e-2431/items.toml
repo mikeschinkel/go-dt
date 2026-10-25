@@ -111,3 +111,8 @@ statement = "go-dt's .endless/tasks holds _harness.sh and _guard.sh copied uncha
 id = "P22"
 kind = "deliverable"
 statement = "E-2431's verify suite is a verify.sh that sources _harness.sh and checks each module with GOWORK=off"
+
+[[item]]
+id = "P23"
+kind = "deliverable"
+statement = "dtx's DirPathScanner tests scan a temp fixture instead of ~/Projects/go-pkgs, so they pass in CI and the isolated verify run"
