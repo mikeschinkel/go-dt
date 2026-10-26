@@ -1,0 +1,1 @@
+Re-homed to endless as E-2445 (endless-go commands usable by any Go repo), with go-dt's thin recipes in E-2446. Mike decided this 2026-10-26; E-2441's decisions are carried over in E-2445's context.
