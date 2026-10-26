@@ -14,14 +14,20 @@ import (
 
 // ParseOSPathSegment parses a string to returns an OS-specific Windows file system path segment
 func ParseOSPathSegment(s string) (ps dt.PathSegment, err error) {
+	return parsePathSegmentForOS(runtime.GOOS, s)
+}
+
+// parsePathSegmentForOS is ParseOSPathSegment for a given GOOS, so a test can
+// reach every OS's branch from any one machine.
+func parsePathSegmentForOS(goos, s string) (ps dt.PathSegment, err error) {
 	var osPS any
-	switch runtime.GOOS {
+	switch goos {
 	case "windows":
 		osPS, err = ParseWindowsPathSegment(s)
 	case "darwin":
 		osPS, err = ParseDarwinPathSegment(s)
 	default:
-		osPS, err = ParseOSPathSegment(s)
+		osPS, err = ParseLinuxPathSegment(s)
 	}
 	switch t := osPS.(type) {
 	case string:

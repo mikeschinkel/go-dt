@@ -37,6 +37,25 @@ if (( FAIL_COUNT > 0 )); then
     summary
 fi
 
+section "Every OS's path-segment branch works, and every module compiles for Linux and Windows"
+# CI runs on Linux while development is on macOS; ParseOSPathSegment's
+# non-darwin branch once recursed forever and only CI saw it.
+if out=$(cd dtx && go test -run 'TestParsePathSegmentForOS' -v . 2>&1); then
+    assert_contains "dtx: parsePathSegmentForOS covers windows, darwin, linux and freebsd" \
+        "PASS: TestParsePathSegmentForOS/freebsd" "${out}"
+else
+    report_fail "dtx: TestParsePathSegmentForOS passes" "exit 0" "${out}"
+fi
+for goos in linux windows; do
+    for dir in "${ALL_MODULES[@]}"; do
+        if out=$(cd "${dir}" && GOOS="${goos}" go vet ./... 2>&1); then
+            report_pass "${dir}: go vet passes for GOOS=${goos}"
+        else
+            report_fail "${dir}: go vet passes for GOOS=${goos}" "exit 0" "${out}"
+        fi
+    done
+done
+
 section "Publishable modules require a published go-dt and carry no replace (P1, P2)"
 for dir in "${PUBLISHABLE[@]}"; do
     assert_eq "${dir}/go.mod has no replace directive" "" "$(replaces "${dir}")"
