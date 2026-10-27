@@ -1,0 +1,1 @@
+Mike, 2026-10-27: Q1 answered C — fix go-dt here, and one Gomion task (E-2454) brings every go-pkgs repo's release.yml to go-dt's model. Excluding by path rather than by the 'Endless:' subject keeps commits like 2cab020 that change files outside .endless/ too. Measured: root's v0.6.0..v0.6.1 notes drop from 41 commits to 3; v0.5.0..v0.6.0 stays at 14.
