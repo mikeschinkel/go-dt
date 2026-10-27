@@ -82,7 +82,7 @@ assert_eq "2cab020 changes files both inside and outside .endless/" "yes yes" \
 assert_contains "the mixed commit 2cab020 is still listed" "2cab020" "${hashes}"
 assert_eq "root's notes list be26016, 2cab020 and b9a036c" \
     "be26016 2cab020 b9a036c" "$(tr '\n' ' ' <<<"${hashes}" | sed 's/ $//')"
-assert_contains "the heading names the project and version" "## Domain Types for Go (`dt`) v0.6.1" "${body}"
+assert_contains "the heading names the project and version" '## Domain Types for Go (`dt`) v0.6.1' "${body}"
 assert_contains "the Full Changelog line is kept" \
     "**Full Changelog**: https://github.com/mikeschinkel/go-dt/compare/v0.6.0...v0.6.1" "${body}"
 
