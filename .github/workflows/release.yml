@@ -229,7 +229,8 @@ jobs:
             HEADING="${PROJECT_NAME} ${VERSION}"
 
             # Root's history, less commits that touch only nested modules
-            PATHS=(-- . ':(exclude)dtx' ':(exclude)appinfo' ':(exclude)dtglob')
+            # or only Endless's own files under .endless/
+            PATHS=(-- . ':(exclude)dtx' ':(exclude)appinfo' ':(exclude)dtglob' ':(exclude).endless')
           else
             HEADING="$TITLE"
             PATHS=(-- "$DIR")
