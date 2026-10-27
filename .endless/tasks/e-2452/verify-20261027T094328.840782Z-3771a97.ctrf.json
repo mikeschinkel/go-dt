@@ -1,0 +1,84 @@
+{
+  "results": {
+    "tool": {
+      "name": "endless"
+    },
+    "summary": {
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "pending": 0,
+      "other": 0,
+      "start": 0,
+      "stop": 0
+    },
+    "tests": [
+      {
+        "name": "the 'Generate release notes' script parses",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "root's PATHS excludes .endless after the nested modules",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "no listed commit touches only .endless/ (38 left out)",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "the PathSegments.IsRoot commit is listed",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "2cab020 changes files both inside and outside .endless/",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "the mixed commit 2cab020 is still listed",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "root's notes list be26016, 2cab020 and b9a036c",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "the heading names the project and version",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "the Full Changelog line is kept",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "root's v0.5.0..v0.6.0 notes still list 14 commits",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "a nested module's PATHS is still its own directory",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "the only code line release.yml changes is root's PATHS",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "outside .endless/, only release.yml differs from main",
+        "status": "passed",
+        "duration": 0
+      }
+    ]
+  }
+}
