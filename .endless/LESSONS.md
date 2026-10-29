@@ -28,3 +28,7 @@ In go-dt E-2431 (2026-10-26) I fixed a recursion bug in dtx.ParseOSPathSegment b
 ### [2026-10-29] Plan a task's verify suite as verify.toml; verify.sh suites are obsolete
 While planning go-jsonxtractr's E-2432 (2026-10-29) I proposed a verify.sh sourcing _harness.sh, copying what E-2431 did. Mike: 'That is obsolete. Should all be verify.toml now.' Write per-task suites as verify.toml checks.
 - **Project**: go-dt
+
+### [2026-10-29] Fold adjacent work into the open task instead of listing it out of scope; ED-1550
+While planning go-jsonxtractr's E-2432 (2026-10-29) I listed the repo's Makefile conversion, raising Go to 1.27, and main's uncommitted doterr.go and staged .endless/config.json as out of scope. Mike: 'Seriously? You want me file another task to do that? See ED-1550.' An exclusion with no owning task just creates a future filing. Under ED-1550, small adjacent work in the same repo goes into the task being planned; exclude only what an existing open task already owns, and name that task.
+- **Project**: go-dt
