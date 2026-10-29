@@ -24,3 +24,7 @@ In go-dt ES-1369 (2026-10-27) Mike asked why E-2445's 'should follow' link to E-
 ### [2026-10-28] Agree exported API changes with Mike before making them
 In go-dt E-2431 (2026-10-26) I fixed a recursion bug in dtx.ParseOSPathSegment by moving its body into an unexported helper taking the GOOS, and described it as 'refactor the dispatch logic to take the OS as a parameter'. Mike said he does not want his public APIs changed without first discussing and agreeing on it. The exported signature had not changed (apidiff clean), but the wording read as if it might. Before editing his published packages, check whether anything exported changes; if it does, propose it first; if not, say 'exported API unchanged, apidiff clean'.
 - **Project**: go-dt
+
+### [2026-10-29] Plan a task's verify suite as verify.toml; verify.sh suites are obsolete
+While planning go-jsonxtractr's E-2432 (2026-10-29) I proposed a verify.sh sourcing _harness.sh, copying what E-2431 did. Mike: 'That is obsolete. Should all be verify.toml now.' Write per-task suites as verify.toml checks.
+- **Project**: go-dt
