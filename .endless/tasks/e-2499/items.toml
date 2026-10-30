@@ -66,3 +66,8 @@ statement = "Does not regenerate the workflows with gomion; E-2471 owns that"
 id = "P13"
 kind = "exclusion"
 statement = "Does not create or push a tag; Mike runs the Release workflow"
+
+[[item]]
+id = "P14"
+kind = "deliverable"
+statement = "The four infinite-fuzz.sh scripts no longer default GOEXPERIMENT=jsonv2, and AGENTS.md describes Go 1.27, golangci-lint v2.15.0 and no GOEXPERIMENT"
