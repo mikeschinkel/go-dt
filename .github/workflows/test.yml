@@ -7,7 +7,7 @@ on:
     branches: [ main, dev ]
 
 env:
-  GO_VERSION: '1.25'
+  GO_VERSION: '1.27'
   # Build against each go.mod's requires, never a local go.work (see README,
   # Local Development), so an unpublished dependency fails here.
   GOWORK: 'off'

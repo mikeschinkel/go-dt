@@ -124,7 +124,7 @@ func TestIsNilableKind(t *testing.T) {
 		kind reflect.Kind
 		want bool
 	}{
-		{name: "Ptr", kind: reflect.Ptr, want: true},
+		{name: "Ptr", kind: reflect.Pointer, want: true},
 		{name: "Slice", kind: reflect.Slice, want: true},
 		{name: "Map", kind: reflect.Map, want: true},
 		{name: "Chan", kind: reflect.Chan, want: true},

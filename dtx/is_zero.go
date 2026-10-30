@@ -11,7 +11,7 @@ func IsZero(value any) bool {
 
 	v := reflect.ValueOf(value)
 	// Automatically dereference pointers
-	if v.Kind() == reflect.Ptr && !v.IsNil() {
+	if v.Kind() == reflect.Pointer && !v.IsNil() {
 		v = v.Elem()
 	}
 

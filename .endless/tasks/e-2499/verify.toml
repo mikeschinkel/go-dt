@@ -1,0 +1,91 @@
+# Verification suite for E-2499 — bring go-dt to the go-pkgs package baseline.
+# DO NOT EDIT unless you ARE E-2499. See .endless/tasks/CLAUDE.md.
+#
+# Every check sees go-dt as CI and a consumer do: without a go.work. The sh
+# checks say GOWORK=off; a gotest check cannot set it, so the first check
+# proves no go.work reaches any module, which is the same thing.
+schema = 1
+task   = "E-2499"
+
+[[check]]
+name   = "no go.work reaches any module, so the gotest checks run as GOWORK=off"
+sh     = "for d in . dtx appinfo dtglob test dtx/test appinfo/test dtglob/test examples/basic_usage; do (cd $d && go env GOWORK); done | grep -v '^off$' || true"
+equals = ""
+
+[[check]]
+name   = "root module tests"
+runner = "gotest"
+paths  = ["./..."]
+
+[[check]]
+name   = "test module tests"
+runner = "gotest"
+dir    = "test"
+paths  = ["./..."]
+
+[[check]]
+name   = "dtx tests"
+runner = "gotest"
+dir    = "dtx"
+paths  = ["./..."]
+
+[[check]]
+name   = "dtx/test tests"
+runner = "gotest"
+dir    = "dtx/test"
+paths  = ["./..."]
+
+[[check]]
+name   = "appinfo/test tests"
+runner = "gotest"
+dir    = "appinfo/test"
+paths  = ["./..."]
+
+[[check]]
+name   = "dtglob/test tests"
+runner = "gotest"
+dir    = "dtglob/test"
+paths  = ["./..."]
+
+[[check]]
+name   = "every go.mod says go 1.27.0"
+sh     = "find . -path ./.endless -prune -o -name go.mod -print | sort | xargs grep -L '^go 1.27.0$'"
+equals = ""
+
+[[check]]
+name   = "there are nine modules, so the checks above saw them all"
+sh     = "find . -path ./.endless -prune -o -name go.mod -print | wc -l | tr -d ' '"
+equals = "9"
+
+[[check]]
+name = "every module is tidy, builds and vets with GOWORK=off"
+sh   = "set -e; export GOWORK=off; for d in $(find . -path ./.endless -prune -o -name go.mod -print | sed 's|/go.mod$||'); do (cd $d && go mod tidy -diff && go build -o \"$(mktemp -d)\" ./... && go vet ./...); done"
+
+[[check]]
+name   = "test.yml and release.yml set GO_VERSION to 1.27, and nothing older"
+sh     = "grep -h \"GO_VERSION: \" .github/workflows/test.yml .github/workflows/release.yml"
+equals = "  GO_VERSION: '1.27'\n  GO_VERSION: '1.27'"
+
+[[check]]
+name   = "nothing in go-dt sets GOEXPERIMENT"
+sh     = "git grep -l GOEXPERIMENT -- . ':(exclude).endless' || true"
+equals = ""
+
+[[check]]
+name     = "the justfile pins golangci-lint v2.15.0"
+sh       = "grep '^linter :=' justfile"
+contains = "golangci-lint@v2.15.0\""
+
+[[check]]
+name   = "just lint reports 0 issues in every module"
+sh     = "GOWORK=off just lint 2>&1 | grep -c '^0 issues\\.$'"
+equals = "9"
+
+[[check]]
+name     = "release notes still leave out .endless commits"
+sh       = "grep 'PATHS=(-- . ' .github/workflows/release.yml"
+contains = "':(exclude).endless'"
+
+[[check]]
+name = "/bin/ and Endless's per-checkout files are ignored, and nothing under bin/ is tracked"
+sh   = "set -e; for p in bin/x .endless/worktrees/x .endless/tmp/x .endless/logs/x .endless/worktree.json .endless/worktree.lock; do git check-ignore -q --no-index \"$p\"; done; test -z \"$(git ls-files bin)\""

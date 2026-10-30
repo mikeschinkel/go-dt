@@ -6,7 +6,7 @@ import (
 
 func IsNilableKind(k reflect.Kind) (nilable bool) {
 	switch k {
-	case reflect.Ptr,
+	case reflect.Pointer,
 		reflect.Slice,
 		reflect.Map,
 		reflect.Chan,

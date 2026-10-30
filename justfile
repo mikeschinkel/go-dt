@@ -1,7 +1,4 @@
-linter := "github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.6.2"
-
-# Go environment (requires jsonv2 experiment)
-export GOEXPERIMENT := env("GOEXPERIMENT", "jsonv2")
+linter := "github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0"
 
 # Every directory holding a go.mod, found rather than listed, so a new module
 # needs no edit here. Worktrees under .endless are other checkouts, not modules.

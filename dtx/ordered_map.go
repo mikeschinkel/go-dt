@@ -149,9 +149,9 @@ func (o *OrderedMap[K, V]) Len() int {
 func (o *OrderedMap[K, V]) String() (s string) {
 	sb := strings.Builder{}
 	for _, k := range o.keys {
-		sb.WriteString(fmt.Sprintf("%v", k))
+		fmt.Fprintf(&sb, "%v", k)
 		sb.WriteByte('=')
-		sb.WriteString(fmt.Sprintf("%v", o.store[k]))
+		fmt.Fprintf(&sb, "%v", o.store[k])
 		sb.WriteByte(' ')
 	}
 	s = sb.String()

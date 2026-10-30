@@ -9,15 +9,15 @@
 
 ## Build, Test, and Development Commands
 - `just work` — write the (uncommitted) `go.work` over every module; run once before local development. CI uses `GOWORK=off`.
-- `just test` — run race-enabled unit tests for root and all submodules; writes `coverage.txt`. The justfile sets `GOEXPERIMENT=jsonv2`.
+- `just test` — run race-enabled unit tests for root and all submodules; writes `coverage.txt`.
 - `just test-corpus` — execute fuzz corpus regressions via `TestFuzzCorpus` in each module.
-- `just lint` — run golangci-lint (v2.6.x) across modules.
-- `just fmt` / `just vet` — gofmt all files; go vet with the jsonv2 experiment enabled.
+- `just lint` — run golangci-lint (v2.15.0) across modules.
+- `just fmt` / `just vet` — gofmt all files; go vet.
 - `just build` — compile packages; `just examples` builds each example into `./bin/`.
 - `just ci` — convenience recipe that runs fmt, vet, lint, and full test suite locally.
 
 ## Coding Style & Naming Conventions
-- Go 1.25.x with `GOEXPERIMENT=jsonv2` expected; keep modules tidy with `just tidy`; publishable modules (`dtx`, `appinfo`, `dtglob`) require a published go-dt and carry no `replace`.
+- Go 1.27 expected; keep modules tidy with `just tidy`; publishable modules (`dtx`, `appinfo`, `dtglob`) require a published go-dt and carry no `replace`.
 - Always `gofmt`; prefer small, composable methods on domain types (DirPath, Filepath, URL) over package functions.
 - Exported types and methods use PascalCase; keep package-level names minimal and consistent with existing DT vocabulary.
 - Use `context.Context` as the first arg when applicable; avoid stutter (`dt.DirPath`, not `dt.PathDirPath`).

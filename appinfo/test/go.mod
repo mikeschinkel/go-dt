@@ -1,6 +1,6 @@
 module github.com/mikeschinkel/go-dt/appinfo/test
 
-go 1.25.3
+go 1.27.0
 
 replace github.com/mikeschinkel/go-dt/appinfo => ..
 

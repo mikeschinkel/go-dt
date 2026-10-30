@@ -22,7 +22,7 @@ on:
         type: string
 
 env:
-  GO_VERSION: '1.25'
+  GO_VERSION: '1.27'
   # Build against each go.mod's requires, never a local go.work
   GOWORK: 'off'
   MODULE: ${{ inputs.module }}
