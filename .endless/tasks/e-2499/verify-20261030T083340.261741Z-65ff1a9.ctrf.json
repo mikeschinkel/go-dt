@@ -1,0 +1,7130 @@
+{
+  "reportFormat": "CTRF",
+  "specVersion": "0.2.0",
+  "results": {
+    "tool": {
+      "name": "endless"
+    },
+    "summary": {
+      "tests": 649,
+      "passed": 647,
+      "failed": 0,
+      "skipped": 2,
+      "pending": 0,
+      "other": 0,
+      "start": 1793349197715,
+      "stop": 1793349220259
+    },
+    "tests": [
+      {
+        "name": "no go.work reaches any module, so the gotest checks run as GOWORK=off",
+        "status": "passed",
+        "duration": 69,
+        "labels": {
+          "check": "no go.work reaches any module, so the gotest checks run as GOWORK=off"
+        }
+      },
+      {
+        "name": "TestToTilde/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/home",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/already_tilde",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/outside_empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/outside_full",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/outside_panic",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/relative_empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/relative_full",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/relative_panic",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde/invalid_option",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestToTilde",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/tilde_sep",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/tilde_nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/non-tilde",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde/tilde_non-sep",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestTrimTilde",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_String/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_String/simple",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_String",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Clean/cleans_dot_dot",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Clean",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Abs/dot",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Abs/relative",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Abs",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_IsAbs/relative",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_IsAbs/absolute",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_IsAbs",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Dir/simple",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Base/simple",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Base",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Join/joins_elems",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Join",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Contains/contains_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Contains/not_contains",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Contains/contains_dirpath",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Contains",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasPrefix/has_prefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasPrefix/missing_prefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasPrefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasSuffix/has_suffix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasSuffix/missing_suffix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasSuffix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_TrimPrefix/trims",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_TrimPrefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_TrimSuffix/trims",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_TrimSuffix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureTrailSep/empty_unchanged",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureTrailSep/adds_sep",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureTrailSep/already_has_sep",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureTrailSep",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasDotDotPrefix/dotdot",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasDotDotPrefix/dotdot_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasDotDotPrefix/not_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_HasDotDotPrefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToLower/lowercases",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToLower",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToUpper/uppercases",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToUpper",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToSlash/converts",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToSlash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_VolumeName/wrapper",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_VolumeName",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/literal_tilde_name",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/absolute_path_passthrough",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/relative_path_passthrough",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/tilde_nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths/ParseDirPaths_collects_errors",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ParseDirPathAndParseDirPaths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/dot",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/tilde_missing_separator_treated_literal",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/relative_becomes_absolute",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/tilde_nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/wrong_separator_treated_literal",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize/absolute_passthrough",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Normalize",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureExists/creates_when_missing",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureExists/errors_on_file",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureExists/no-op_on_existing_dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_EnsureExists",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Exists/existing_dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Exists/missing_dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Exists/existing_file",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Exists",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Status/dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Status/file",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Status/missing",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Status",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ReadDir/root_has_file_and_sub",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ReadDir/missing_errors",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ReadDir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPathRead/root_has_file_and_sub",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPathRead/missing_errors",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPathRead",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_DirFS/can_read_file_relative_to_fs_root",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_DirFS",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Stat/Stat_on_OS_path_works",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Stat/Stat_with_DirFS_uses_relative_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Stat",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Rel/nested_rel_to_root",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Rel",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_CanWrite/temp_dir_writable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_CanWrite",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Walk/yields_all_entries",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_Walk",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkFiles/yields_only_files",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkFiles",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkDirs/yields_only_dirs",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkDirs",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkFSStopsAfterBreak/stops_after_first_yield",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_WalkFSStopsAfterBreak",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToTildeRoundTrip/home",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToTildeRoundTrip/nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestDirPath_ToTildeRoundTrip",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Windows",
+        "status": "skipped",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/current_dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/tilde_separator",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/tilde_nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/tilde_double_separators",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/wrong_separator_treated_literal",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/missing_separator_treated_literal",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/no_tilde",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "Test_EntryPath_Expand_Nix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/empty_is_normalized_root",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/dot_is_filepath.Rel_same-dir",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/single_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/nested_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/dot-dot_is_not_root",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/dot-slash_is_not_normalized",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot/slash_is_not_root_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestPathSegments_IsRoot",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/empty_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/single_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/single_longer_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/two_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/two_longer_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/three_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/three_longer_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/four_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/six_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/deep_path_ten_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/segments_with_hyphens",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/segments_with_underscores",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/segments_with_numbers",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/segments_with_dots",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/consecutive_slashes_two_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/consecutive_slashes_three_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/leading_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/domain_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/api_endpoint",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments/mixed_case",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSplitSegments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/empty_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/empty_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/empty_segments_with_negative_index",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/single_segment_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/single_segment_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/two_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/two_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/two_segments_with_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/two_segments_with_negative_index",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/three_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/three_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/three_segments_with_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/three_segments_with_index_3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/longer_segment_names_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/longer_segment_names_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/longer_segment_names_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/deep_path_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/deep_path_index_3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/deep_path_index_5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_hyphens_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_hyphens_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_underscores_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_underscores_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_numbers_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/segments_with_numbers_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/consecutive_slashes_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/consecutive_slashes_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/consecutive_slashes_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/leading_slash_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/leading_slash_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments/leading_slash_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestIndexSegments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/empty_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/empty_segments_slice_0:0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/single_segment_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/single_segment_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/single_segment_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_2:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_2:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/six_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/six_segments_slice_2:5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/six_segments_slice_3:6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/six_segments_slice_4:6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/out_of_bounds_slice_0:10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/out_of_bounds_slice_2:10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/out_of_bounds_slice_10:20",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/start_equals_end_slice_1:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/start_greater_than_end_slice_2:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/start_greater_than_end_slice_3:0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/negative_start_slice_-1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/negative_end_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/both_negative_slice_-2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/longer_names_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/longer_names_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/hyphens_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/underscores_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/consecutive_slashes_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/consecutive_slashes_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/leading_slash_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/leading_slash_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/api_path_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/api_path_slice_2:4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/single_segment_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/two_segments_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_1:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/three_segments_slice_2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/six_segments_slice_2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/api_path_slice_2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments/api_path_slice_3:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/empty_slice_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/single_segment_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/two_segments_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/three_segments_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/longer_segment_names_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/api_path_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/segments_with_hyphens_and_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/segments_with_underscores_and_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/two_segments_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/three_segments_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/windows_path_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments/deep_path_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestJoinSegments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/empty_string_slice_0:1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/single_segment_slice_0:1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/two_segments_slice_0:2_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_0:3_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_1:2_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_1:3_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/longer_names_slice_0:2_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/api_path_slice_2:4_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/two_segments_slice_0:2_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/windows_path_slice_1:3_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/single_segment_slice_0:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/two_segments_slice_0:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_0:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_1:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_2:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/api_path_slice_2:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/api_path_slice_3:-1_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/windows_path_slice_1:-1_with_backslash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/two_segments_slice_10:20_out_of_bounds_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/three_segments_slice_10:-1_start_beyond_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/api_path_slice_10:15_start_beyond_segments_with_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/github_repo_name_extraction_from_org/repo",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/github_repo_last_index_extraction_(regression_for_makeslice_panic)",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/dot_separator_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/dot_separator_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/consecutive_separators_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/consecutive_separators_slice_1:4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/negative_start_returns_empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/invalid_range_start_\u003e_end",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar/invalid_range_start_==_end",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestSliceSegmentsScalar",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Windows",
+        "status": "skipped",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/root_tilde_only",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/tilde_separator",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/tilde_nested",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/tilde_double_separators",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/wrong_separator",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/tilde_missing_separator",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/no_tilde_prefix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix/empty",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestParse_TildeDirPath_Nix",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/empty_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/empty_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/empty_segments_with_negative_index",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/single_segment_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/single_segment_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/two_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/two_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/two_segments_with_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/two_segments_with_negative_index",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/three_segments_with_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/three_segments_with_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/three_segments_with_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/three_segments_with_index_3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/longer_segment_names_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/longer_segment_names_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/longer_segment_names_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/deep_path_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/deep_path_index_3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/deep_path_index_5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_hyphens_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_hyphens_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_underscores_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_underscores_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_numbers_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/segments_with_numbers_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/consecutive_slashes_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/consecutive_slashes_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/consecutive_slashes_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/leading_slash_index_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/leading_slash_index_1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment/leading_slash_index_2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/empty_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/single_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/single_longer_segment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/two_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/two_longer_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/three_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/three_longer_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/four_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/six_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/deep_path_ten_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/segments_with_hyphens",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/segments_with_underscores",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/segments_with_numbers",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/segments_with_dots",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/consecutive_slashes_two_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/consecutive_slashes_three_segments",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/leading_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/domain_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/api_endpoint",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split/mixed_case",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Split",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/empty_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/empty_segments_slice_0:0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/single_segment_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/single_segment_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/single_segment_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/two_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/two_segments_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/two_segments_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/two_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/two_segments_slice_2:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/three_segments_slice_2:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/six_segments_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/six_segments_slice_2:5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/six_segments_slice_3:6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/six_segments_slice_4:6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/out_of_bounds_slice_0:10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/out_of_bounds_slice_2:10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/out_of_bounds_slice_10:20",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/start_equals_end_slice_1:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/start_greater_than_end_slice_2:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/start_greater_than_end_slice_3:0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/negative_start_slice_-1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/negative_end_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/both_negative_slice_-2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/longer_names_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/longer_names_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/hyphens_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/underscores_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/consecutive_slashes_slice_0:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/consecutive_slashes_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/leading_slash_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/leading_slash_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/api_path_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice/api_path_slice_2:4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_Slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/empty_segments_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/single_segment_slice_0:1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/two_segments_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/three_segments_slice_1:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/three_segments_slice_1:3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/api_path_slice_0:2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/api_path_slice_2:4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/single_segment_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/two_segments_slice_0:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/three_segments_slice_1:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/three_segments_slice_2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/api_path_slice_2:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar/api_path_slice_3:-1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestURLSegments_SliceScalar",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt"
+        ],
+        "labels": {
+          "check": "root module tests"
+        }
+      },
+      {
+        "name": "TestFuzzCorpus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath/valid_absolute_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath/valid_relative_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath/root_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath/empty_path",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath/literal_tilde_name",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPath",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPaths/multiple_valid_paths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPaths/empty_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestParseDirPaths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathJoin/join_two_paths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathJoin/join_with_trailing_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathJoin/join_relative_paths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathJoin",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestFilepathJoin/join_dirpath_and_filename",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestFilepathJoin/join_relative_paths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestFilepathJoin",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathMethodJoin/join_with_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathMethodJoin/join_with_multiple_elements",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathMethodJoin",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#8",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#9",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#11",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#12",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#13",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#14",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath/seed#15",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPath",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseDirPaths",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzDirPathJoin",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilepath",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzFilename",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzParseTildeDirPath",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "FuzzTildeDirPathExpand",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "test module tests"
+        }
+      },
+      {
+        "name": "TestDirPathScanner_Determinism",
+        "status": "passed",
+        "duration": 20,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestDirPathScanner_DeterminismWithSkips",
+        "status": "passed",
+        "duration": 10,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/windows/file.txt",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/windows/a:b",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/darwin/file.txt",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/darwin/a/b",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/linux/file.txt",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/linux/a/b",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/freebsd/file.txt",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS/freebsd/",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestParsePathSegmentForOS",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/EmptySlice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/SingleElement",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/AllUnique",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/AllDuplicate",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/DuplicatesAtStart",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/DuplicatesAtEnd",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/DuplicatesInMiddle",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/DuplicatesNotAdjacent",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/MixedDuplicates",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/TwoElements_BothSame",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings/TwoElements_Different",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithStrings",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/EmptySlice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/SingleElement",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/AllUnique",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/AllDuplicate",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/DuplicatesPreservesOrder",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/NegativeNumbers",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers/ZeroValues",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithIntegers",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithBools/EmptySlice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithBools/AllTrue",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithBools/AllFalse",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithBools/MixedBools",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice/WithBools",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestUniqueSlice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestNewSafeMap/create_empty_map_with_cap_0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestNewSafeMap/create_map_with_cap_10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestNewSafeMap",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Delete/delete_existing_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Delete/delete_non-existing_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Delete/delete_from_empty_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Delete",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Get/get_existing_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Get/get_non-existing_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Get/get_from_empty_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Get",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Iter/iterate_over_populated_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Iter/iterate_over_empty_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Iter",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Len/empty_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Len/map_with_one_item",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Len/map_with_multiple_items",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Len",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Set/set_new_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Set/overwrite_existing_key",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Set/set_multiple_keys",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Set",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Values/iterate_over_values_in_populated_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Values/iterate_over_empty_map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestSafeMap_Values",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx"
+        ],
+        "labels": {
+          "check": "dtx tests"
+        }
+      },
+      {
+        "name": "TestFuzzCorpus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/zero_int",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/non-zero_int",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/empty_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/non-empty_string",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/nil_pointer",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/zero_struct",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/nil_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/empty_non-nil_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero/non-empty_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsZero",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/pointer_is_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/slice_is_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/map_is_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/channel_is_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/function_is_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/nil_interface_value",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/int_is_not_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/string_is_not_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable/struct_is_not_nilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilable",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/nil_pointer",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/non-nil_pointer",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/nil_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/empty_slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/nil_interface",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil/non-nilable_value",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNil",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Ptr",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Slice",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Map",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Chan",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Func",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Interface",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Int",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/String",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind/Struct",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestIsNilableKind",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#7",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#8",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#9",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#10",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment/seed#11",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzParseOSPathSegment",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "FuzzIsZero",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtx/test"
+        ],
+        "labels": {
+          "check": "dtx/test tests"
+        }
+      },
+      {
+        "name": "TestNew",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/appinfo/test"
+        ],
+        "labels": {
+          "check": "appinfo/test tests"
+        }
+      },
+      {
+        "name": "TestNewWithNilExtraInfo",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/appinfo/test"
+        ],
+        "labels": {
+          "check": "appinfo/test tests"
+        }
+      },
+      {
+        "name": "TestFuzzCorpus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/appinfo/test"
+        ],
+        "labels": {
+          "check": "appinfo/test tests"
+        }
+      },
+      {
+        "name": "TestFuzzCorpus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobContains/contains_wildcard",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobContains/contains_extension",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobContains/does_not_contain",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobContains/contains_path_separator",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobContains",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobSplit/split_by_slash",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobSplit/split_by_double_star",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobSplit/no_separator_found",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "TestGlobSplit",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobContains",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#0",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#1",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#2",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#3",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#4",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#5",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit/seed#6",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "FuzzGlobSplit",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/dtglob/test"
+        ],
+        "labels": {
+          "check": "dtglob/test tests"
+        }
+      },
+      {
+        "name": "every go.mod says go 1.27.0",
+        "status": "passed",
+        "duration": 18,
+        "labels": {
+          "check": "every go.mod says go 1.27.0"
+        }
+      },
+      {
+        "name": "there are nine modules, so the checks above saw them all",
+        "status": "passed",
+        "duration": 18,
+        "labels": {
+          "check": "there are nine modules, so the checks above saw them all"
+        }
+      },
+      {
+        "name": "every module is tidy, builds and vets with GOWORK=off",
+        "status": "passed",
+        "duration": 2929,
+        "labels": {
+          "check": "every module is tidy, builds and vets with GOWORK=off"
+        }
+      },
+      {
+        "name": "test.yml and release.yml set GO_VERSION to 1.27, and nothing older",
+        "status": "passed",
+        "duration": 6,
+        "labels": {
+          "check": "test.yml and release.yml set GO_VERSION to 1.27, and nothing older"
+        }
+      },
+      {
+        "name": "nothing in go-dt sets GOEXPERIMENT",
+        "status": "passed",
+        "duration": 11,
+        "labels": {
+          "check": "nothing in go-dt sets GOEXPERIMENT"
+        }
+      },
+      {
+        "name": "the justfile pins golangci-lint v2.15.0",
+        "status": "passed",
+        "duration": 5,
+        "labels": {
+          "check": "the justfile pins golangci-lint v2.15.0"
+        }
+      },
+      {
+        "name": "just lint reports 0 issues in every module",
+        "status": "passed",
+        "duration": 17511,
+        "labels": {
+          "check": "just lint reports 0 issues in every module"
+        }
+      },
+      {
+        "name": "release notes still leave out .endless commits",
+        "status": "passed",
+        "duration": 8,
+        "labels": {
+          "check": "release notes still leave out .endless commits"
+        }
+      },
+      {
+        "name": "/bin/ and Endless's per-checkout files are ignored, and nothing under bin/ is tracked",
+        "status": "passed",
+        "duration": 32,
+        "labels": {
+          "check": "/bin/ and Endless's per-checkout files are ignored, and nothing under bin/ is tracked"
+        }
+      }
+    ]
+  }
+}
