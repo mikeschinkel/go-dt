@@ -32,3 +32,7 @@ While planning go-jsonxtractr's E-2432 (2026-10-29) I proposed a verify.sh sourc
 ### [2026-10-29] Fold adjacent work into the open task instead of listing it out of scope; ED-1550
 While planning go-jsonxtractr's E-2432 (2026-10-29) I listed the repo's Makefile conversion, raising Go to 1.27, and main's uncommitted doterr.go and staged .endless/config.json as out of scope. Mike: 'Seriously? You want me file another task to do that? See ED-1550.' An exclusion with no owning task just creates a future filing. Under ED-1550, small adjacent work in the same repo goes into the task being planned; exclude only what an existing open task already owns, and name that task.
 - **Project**: go-dt
+
+### [2026-10-30] Write release descriptions in active voice
+While handing off E-2499's release tags for go-dt, I wrote release descriptions in passive or subjectless form ("Minimum Go version raised to 1.27"). Mike pointed out that this is passive voice, which he was taught is poor writing, especially in technical writing. Write release descriptions in active voice, with the release as the subject: "Raises the minimum Go version to 1.27." Whether this becomes a general writing rule is still open; Mike raised it as a possible mandate in his global Claude instructions.
+- **Project**: go-dt
