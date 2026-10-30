@@ -1,0 +1,5 @@
+- Q1 (Mike, 2026-10-30): E-2499 does the whole baseline now, including hand-editing GO_VERSION in the existing workflows, rather than leaving Go 1.27 to E-2471 or folding into it. That way go-dt doesn't wait on gomion's E-2454. E-2471's regeneration overwrites the two GO_VERSION lines.
+- Q2 (Mike, 2026-10-30): minor bumps for all four versioned modules, so the version says the minimum Go went up and `go get -u=patch` doesn't pull in a new Go requirement.
+- go-pkgs/CLAUDE.md's "Go Version and package baseline" section (Mike, 2026-10-30) defines the baseline and puts it in scope for any task that touches a package.
+- go-dt does not import encoding/json/v2, so GOEXPERIMENT is dead weight there, and under Go 1.27.3 every module already vets clean at go 1.25.3.
+- Lint under v2.15.0 at af010b3: only dtx (4 findings) and dtx/test (1) report issues.
