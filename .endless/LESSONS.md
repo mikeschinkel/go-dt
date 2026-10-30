@@ -36,3 +36,7 @@ While planning go-jsonxtractr's E-2432 (2026-10-29) I listed the repo's Makefile
 ### [2026-10-30] Write release descriptions in active voice
 While handing off E-2499's release tags for go-dt, I wrote release descriptions in passive or subjectless form ("Minimum Go version raised to 1.27"). Mike pointed out that this is passive voice, which he was taught is poor writing, especially in technical writing. Write release descriptions in active voice, with the release as the subject: "Raises the minimum Go version to 1.27." Whether this becomes a general writing rule is still open; Mike raised it as a possible mandate in his global Claude instructions.
 - **Project**: go-dt
+
+### [2026-10-30] Code-format literals in release descriptions
+While handing off E-2499's release descriptions for go-dt, I wrote version numbers, env settings and identifiers as plain text (1.27, GOEXPERIMENT=jsonv2, reflect.Pointer). Mike wants them code-formatted in release descriptions, because the description becomes the GitHub release body, which renders Markdown: `1.27`, `GOEXPERIMENT=jsonv2`, `reflect.Pointer`.
+- **Project**: go-dt
