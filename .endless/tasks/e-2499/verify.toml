@@ -59,7 +59,7 @@ equals = "9"
 
 [[check]]
 name = "every module is tidy, builds and vets with GOWORK=off"
-sh   = "set -e; export GOWORK=off; for d in $(find . -path ./.endless -prune -o -name go.mod -print | sed 's|/go.mod$||'); do (cd $d && go mod tidy -diff && go build -o \"$(mktemp -d)\" ./... && go vet ./...); done"
+sh   = "set -e; export GOWORK=off; for d in $(find . -path ./.endless -prune -o -name go.mod -print | sed 's|/go.mod$||'); do (cd $d && go mod tidy -diff && go build -o /dev/null ./... && go vet ./...); done"
 
 [[check]]
 name   = "test.yml and release.yml set GO_VERSION to 1.27, and nothing older"
