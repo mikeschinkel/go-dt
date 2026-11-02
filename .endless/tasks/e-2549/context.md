@@ -1,0 +1,1 @@
+Mike wrote this himself on 2026-11-02 in the go-dt main checkout while planning gomion E-2540, so that gomion RunCLI can be run in-process by tests with buffered streams. The change is moved onto this task branch as is; go-cliutil, go-cfgstore and gomion carry the consumers.
