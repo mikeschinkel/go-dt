@@ -1,0 +1,1 @@
+Mike's edit, moved onto the task branch unchanged: stdio.go adds the StdIO interface, the unexported stdIO struct, NewStdIO and NewDefaultStdIO.
