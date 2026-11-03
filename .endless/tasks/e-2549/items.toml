@@ -16,4 +16,4 @@ statement = "Does not change any consumer; go-cliutil, go-cfgstore and gomion ad
 [[item]]
 id = "P3"
 kind = "deliverable"
-statement = "Adds stdio_test.go covering NewStdIO, NewDefaultStdIO and the returned streams, so the StdIO behavior has a durable test beside the code"
+statement = "Adds test/stdio_test.go covering NewStdIO, NewDefaultStdIO and the returned streams through the exported API, so the StdIO behavior has a durable test in the test module (ED-1650)"
