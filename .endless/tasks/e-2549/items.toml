@@ -12,3 +12,8 @@ verify = "go build ./... and go vet ./... in go-dt"
 id = "P2"
 kind = "exclusion"
 statement = "Does not change any consumer; go-cliutil, go-cfgstore and gomion adopt StdIO in their own tasks"
+
+[[item]]
+id = "P3"
+kind = "deliverable"
+statement = "Adds stdio_test.go covering NewStdIO, NewDefaultStdIO and the returned streams, so the StdIO behavior has a durable test beside the code"
