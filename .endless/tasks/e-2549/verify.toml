@@ -3,18 +3,19 @@
 #
 # Every check sees go-dt as CI and a consumer do: without a go.work. The sh
 # checks say GOWORK=off; a gotest check cannot set it, so the first check
-# proves no go.work reaches the root module, which is the same thing.
+# proves no go.work reaches the root or test module, which is the same thing.
 schema = 1
 task   = "E-2549"
 
 [[check]]
-name   = "no go.work reaches the root module, so the gotest check runs as GOWORK=off"
-sh     = "go env GOWORK | grep -v '^off$' || true"
+name   = "no go.work reaches the root or test module, so the gotest checks run as GOWORK=off"
+sh     = "for d in . test; do (cd $d && go env GOWORK); done | grep -v '^off$' || true"
 equals = ""
 
 [[check]]
-name   = "StdIO unit tests"
+name   = "StdIO unit tests in the test module"
 runner = "gotest"
+dir    = "test"
 tests  = ["TestNewStdIO", "TestNewStdIOStreamsAreUsable", "TestNewDefaultStdIO"]
 paths  = ["."]
 
@@ -24,8 +25,18 @@ runner = "gotest"
 paths  = ["./..."]
 
 [[check]]
+name   = "test module tests"
+runner = "gotest"
+dir    = "test"
+paths  = ["./..."]
+
+[[check]]
 name = "P1: go build ./... and go vet ./... pass in go-dt with GOWORK=off"
 sh   = "GOWORK=off go build -o /dev/null ./... && GOWORK=off go vet ./..."
+
+[[check]]
+name = "P3: the StdIO test lives in the test module, not beside the code (ED-1650)"
+sh   = "test -f test/stdio_test.go && test ! -e stdio_test.go"
 
 [[check]]
 name     = "P1: dt.StdIO is an interface with Output(), ErrOut() and Input()"
@@ -43,11 +54,11 @@ sh       = "GOWORK=off go doc -short . NewDefaultStdIO"
 contains = "func NewDefaultStdIO() StdIO"
 
 [[check]]
-name   = "P2: this branch touches only stdio.go, its test and this suite"
+name   = "P2: this branch touches only stdio.go, its test in test/ and this suite"
 sh     = "git diff --name-only main...HEAD -- . ':(exclude).endless/db-ledger' ':(exclude).endless/verbs.jsonl' ':(exclude).endless/tasks/e-2549/*.md' ':(exclude).endless/tasks/e-2549/items.toml'"
-equals = ".endless/tasks/e-2549/verify.toml\nstdio.go\nstdio_test.go"
+equals = ".endless/tasks/e-2549/verify.toml\nstdio.go\ntest/stdio_test.go"
 
 [[check]]
 name   = "P2: no consumer in go-dt's own nested modules references StdIO yet"
-sh     = "git grep -l 'StdIO' -- dtx appinfo dtglob examples test || true"
+sh     = "git grep -l 'StdIO' -- dtx appinfo dtglob examples || true"
 equals = ""

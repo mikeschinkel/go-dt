@@ -1,4 +1,4 @@
-package dt
+package test
 
 import (
 	"bytes"
@@ -6,6 +6,8 @@ import (
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/mikeschinkel/go-dt"
 )
 
 func TestNewStdIO(t *testing.T) {
@@ -26,7 +28,7 @@ func TestNewStdIO(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := NewStdIO(out, errOut, tt.in...)
+			s := dt.NewStdIO(out, errOut, tt.in...)
 			if s.Output() != io.Writer(out) {
 				t.Fatalf("Output() = %v, want %v", s.Output(), out)
 			}
@@ -49,7 +51,7 @@ func TestNewStdIO(t *testing.T) {
 func TestNewStdIOStreamsAreUsable(t *testing.T) {
 	out := &bytes.Buffer{}
 	errOut := &bytes.Buffer{}
-	s := NewStdIO(out, errOut, strings.NewReader("hello"))
+	s := dt.NewStdIO(out, errOut, strings.NewReader("hello"))
 
 	if _, err := io.WriteString(s.Output(), "out"); err != nil {
 		t.Fatalf("Output() write error = %v", err)
@@ -74,7 +76,7 @@ func TestNewStdIOStreamsAreUsable(t *testing.T) {
 }
 
 func TestNewDefaultStdIO(t *testing.T) {
-	s := NewDefaultStdIO()
+	s := dt.NewDefaultStdIO()
 	if s.Output() != io.Writer(os.Stdout) {
 		t.Fatalf("Output() is not os.Stdout")
 	}
