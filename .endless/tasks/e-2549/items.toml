@@ -7,3 +7,8 @@ id = "P1"
 kind = "deliverable"
 statement = "dt.StdIO is an interface with Output(), ErrOut() and Input(); dt.NewStdIO(out, err, in...) and dt.NewDefaultStdIO() construct it"
 verify = "go build ./... and go vet ./... in go-dt"
+
+[[item]]
+id = "P2"
+kind = "exclusion"
+statement = "Does not change any consumer; go-cliutil, go-cfgstore and gomion adopt StdIO in their own tasks"
