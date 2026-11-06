@@ -40,3 +40,7 @@ While handing off E-2499's release tags for go-dt, I wrote release descriptions 
 ### [2026-10-30] Code-format literals in release descriptions
 While handing off E-2499's release descriptions for go-dt, I wrote version numbers, env settings and identifiers as plain text (1.27, GOEXPERIMENT=jsonv2, reflect.Pointer). Mike wants them code-formatted in release descriptions, because the description becomes the GitHub release body, which renders Markdown: `1.27`, `GOEXPERIMENT=jsonv2`, `reflect.Pointer`.
 - **Project**: go-dt
+
+### [2026-11-05] Name a parameterized variant of a function With<Thing>, with the thing as the last parameter
+While planning go-dt E-2562 (2026-11-05), Mike renamed dtx's unexported parsePathSegmentForOS(goos, s string) to the exported ParseOSPathSegmentWithOS(s, goos string). His reasons: 'With<Thing>' is the more common idiom than 'For<Thing>'; the extra thing is passed after the base function's own parameters, not before; and when a base function exists (ParseOSPathSegment), adding 'WithOS' to its name is the standard pattern he uses for the variant that takes the thing explicitly. Apply this when adding a variant of an existing function that takes one more input: keep the base name, append With<Thing>, and put the new parameter last.
+- **Project**: go-dt
