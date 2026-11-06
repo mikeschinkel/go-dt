@@ -41,3 +41,10 @@ statement = "Does not merge the moved dir_path_test.go into the existing test/di
 id = "P7"
 kind = "exclusion"
 statement = "Does not add coverage collection to the test modules; the justfile gains coverage flags when Mike starts using coverage"
+
+[[item]]
+id = "P8"
+kind = "deliverable"
+statement = "TestDirPath_EnsureExists calls dt.EnsureUserHomeDir itself, so it passes when run alone instead of relying on tilde_test.go's internal-package TestToTilde having run first (go compiles internal test files before external ones, which hid the dependency in the root module)"
+verify = "cd test && GOWORK=off go test -run 'TestDirPath_EnsureExists$' . passes"
+detail = "Found when the moved test module failed: on main the test also fails in isolation"
