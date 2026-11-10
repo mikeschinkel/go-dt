@@ -52,3 +52,7 @@ While planning E-2567 (EmailAddress/Mailbox in go-dt), I offered Q2 as a binary:
 ### [2026-11-10] go-dt must stay backward compatible with every release; 'no callers I can see' is not evidence
 While planning E-2567, I argued that tightening dt.InternetDomain was safe because nothing in go-pkgs used it. Mike replied that it breaks no callers I can see, and that go-dt should stay backward compatible with all releases unless there is a VERY STRONG reason to break. go-dt is meant for broad adoption, so unseen consumers count. Treat any change to an exported go-dt type's meaning or accepted values as a compatibility question, not one a local grep can settle.
 - **Project**: go-dt
+
+### [2026-11-10] Prefer the RFC's own term when naming go-dt types and concepts
+While planning E-2567, I coined working definitions for 'label' and 'address literal' and proposed type names of my own. Mike said that if an RFC defines a term, there is a 99% chance he wants THAT term, because it is standardized. The caveats are impossible-to-resolve conflicts between RFCs, or a term also used in other relevant contexts, where he probably wants <adjective><std_term>. Also check the RFCs that updated or are referenced by the one cited (e.g. RFC 952 behind RFC 1123), not just one.
+- **Project**: go-dt
