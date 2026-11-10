@@ -48,3 +48,7 @@ While planning go-dt E-2562 (2026-11-05), Mike renamed dtx's unexported parsePat
 ### [2026-11-10] go-dt types embrace constraints; never widen one to fit a new value
 While planning E-2567 (EmailAddress/Mailbox in go-dt), I offered Q2 as a binary: have EmailAddress.Domain() return dt.InternetDomain after widening InternetDomain's doc to cover localhost and IP literals, or return string. Mike called it a false binary: both options violate go-dt's purpose. A go-dt type exists to carry specific constraints, so widening it weakens its value. When a value falls outside a type's constraints, propose additional constrained types (e.g. IPv4Address, IPv6Address, LocalHostname, InternetDomain) plus a broader type that any of them can be cast to (e.g. Hostname). Mike's bar for go-dt: what almost everyone would accept as correct, as if it could live in golang.org/x.
 - **Project**: go-dt
+
+### [2026-11-10] go-dt must stay backward compatible with every release; 'no callers I can see' is not evidence
+While planning E-2567, I argued that tightening dt.InternetDomain was safe because nothing in go-pkgs used it. Mike replied that it breaks no callers I can see, and that go-dt should stay backward compatible with all releases unless there is a VERY STRONG reason to break. go-dt is meant for broad adoption, so unseen consumers count. Treat any change to an exported go-dt type's meaning or accepted values as a compatibility question, not one a local grep can settle.
+- **Project**: go-dt
