@@ -56,3 +56,7 @@ While planning E-2567, I argued that tightening dt.InternetDomain was safe becau
 ### [2026-11-10] Prefer the RFC's own term when naming go-dt types and concepts
 While planning E-2567, I coined working definitions for 'label' and 'address literal' and proposed type names of my own. Mike said that if an RFC defines a term, there is a 99% chance he wants THAT term, because it is standardized. The caveats are impossible-to-resolve conflicts between RFCs, or a term also used in other relevant contexts, where he probably wants <adjective><std_term>. Also check the RFCs that updated or are referenced by the one cited (e.g. RFC 952 behind RFC 1123), not just one.
 - **Project**: go-dt
+
+### [2026-11-10] During needs-plan discussion, flesh out the space before deciding
+While working through E-2567's open questions, after Mike reframed one question as a family of constrained types, I came back with seven sub-questions with recommendations plus a 'Decided without asking' list. Mike said I was jumping too quickly to locking in decisions before we had a chance to flesh out what should be decided. When Mike reopens a question's framing, explore and present the ground (terms, sources, constraints) first, and hold back recommendations and auto-decisions until he signals the space is mapped.
+- **Project**: go-dt
