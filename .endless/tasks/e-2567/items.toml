@@ -69,11 +69,6 @@ kind = "deliverable"
 statement = "Without an ASCIIToer, the host and email Parse functions reject a Unicode host name"
 
 [[item]]
-id = "P14"
-kind = "deliverable"
-statement = "dtx exports ClassifyPublicSuffix and ToASCII backed by golang.org/x/net, and ClassifyPublicSuffix reports foo.cromulent as unlisted and foo.github.io as private"
-
-[[item]]
 id = "P15"
 kind = "deliverable"
 statement = "go-dt exports EmailLocalPart and EmailAddress with ParseEmailAddress, where the part after the @ is a Hostname and a quoted local part keeps its quotes"
