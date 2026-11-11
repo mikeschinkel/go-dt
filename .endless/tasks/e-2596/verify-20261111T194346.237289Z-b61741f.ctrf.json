@@ -1,0 +1,297 @@
+{
+  "reportFormat": "CTRF",
+  "specVersion": "0.2.0",
+  "results": {
+    "tool": {
+      "name": "endless"
+    },
+    "summary": {
+      "tests": 30,
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "pending": 0,
+      "other": 0,
+      "start": 1794426223914,
+      "stop": 1794426226235
+    },
+    "tests": [
+      {
+        "name": "go.mod is tidy without go.work",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (appinfo)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (appinfo)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (appinfo/test)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (appinfo/test)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (dtglob)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (dtglob)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (dtglob/test)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (dtglob/test)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (dtx)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (dtx)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (dtx/test)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (dtx/test)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (examples/basic_usage)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (examples/basic_usage)"
+        }
+      },
+      {
+        "name": "go.mod is tidy without go.work (test)",
+        "status": "passed",
+        "duration": 0,
+        "labels": {
+          "check": "go.mod is tidy without go.work (test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsInvalidEntryStatus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsEntryError",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsMissingEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsFileEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsDirEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsSymlinkEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsSocketEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsPipeEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsDeviceEntry",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues/IsUnclassifiedEntryStatus",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusValues",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "TestEntryStatusFlagsValues",
+        "status": "passed",
+        "duration": 0,
+        "suite": [
+          "github.com/mikeschinkel/go-dt/test"
+        ],
+        "labels": {
+          "check": "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+        }
+      },
+      {
+        "name": "root and test module tests pass with GOWORK=off, as CI and a consumer see them",
+        "status": "passed",
+        "duration": 1836,
+        "labels": {
+          "check": "root and test module tests pass with GOWORK=off, as CI and a consumer see them"
+        }
+      },
+      {
+        "name": "go build ./... and go vet ./... pass in go-dt with GOWORK=off",
+        "status": "passed",
+        "duration": 370,
+        "labels": {
+          "check": "go build ./... and go vet ./... pass in go-dt with GOWORK=off"
+        }
+      },
+      {
+        "name": "P3: no Go file in any go-dt module uses iota",
+        "status": "passed",
+        "duration": 14,
+        "labels": {
+          "check": "P3: no Go file in any go-dt module uses iota"
+        }
+      },
+      {
+        "name": "P1: each EntryStatus constant has an explicit value, 0 through 9",
+        "status": "passed",
+        "duration": 5,
+        "labels": {
+          "check": "P1: each EntryStatus constant has an explicit value, 0 through 9"
+        }
+      },
+      {
+        "name": "P2: DontFollowSymlinks is declared as 1 \u003c\u003c 0",
+        "status": "passed",
+        "duration": 4,
+        "labels": {
+          "check": "P2: DontFollowSymlinks is declared as 1 \u003c\u003c 0"
+        }
+      },
+      {
+        "name": "P5: the IsUnclassifiedEntryStatus doc no longer names symlinks, sockets, devices or pipes",
+        "status": "passed",
+        "duration": 46,
+        "labels": {
+          "check": "P5: the IsUnclassifiedEntryStatus doc no longer names symlinks, sockets, devices or pipes"
+        }
+      },
+      {
+        "name": "P6: IsSymlinkEntry, IsSocketEntry, IsPipeEntry and IsDeviceEntry each have a doc comment",
+        "status": "passed",
+        "duration": 12,
+        "labels": {
+          "check": "P6: IsSymlinkEntry, IsSocketEntry, IsPipeEntry and IsDeviceEntry each have a doc comment"
+        }
+      },
+      {
+        "name": "P9: no Go file names the nonexistent FlagDontFollowSymlinks",
+        "status": "passed",
+        "duration": 8,
+        "labels": {
+          "check": "P9: no Go file names the nonexistent FlagDontFollowSymlinks"
+        }
+      },
+      {
+        "name": "P9: each of the five Status doc comments names DontFollowSymlinks",
+        "status": "passed",
+        "duration": 8,
+        "labels": {
+          "check": "P9: each of the five Status doc comments names DontFollowSymlinks"
+        }
+      }
+    ]
+  }
+}
