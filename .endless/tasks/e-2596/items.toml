@@ -45,3 +45,8 @@ statement = "Does not change the name or numeric value of any constant"
 id = "P8"
 kind = "exclusion"
 statement = "Does not change the behaviour of EntryStatus.String, GetEntryStatus or any Status method"
+
+[[item]]
+id = "P9"
+kind = "deliverable"
+statement = "The EntryPath.Status doc comment names the flag DontFollowSymlinks, not the nonexistent FlagDontFollowSymlinks"
