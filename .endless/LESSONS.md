@@ -84,3 +84,7 @@ While asking how a dt.Mailbox is built for E-2567, I listed 'nothing checks a st
 ### [2026-11-11] Mike's Go standards avoid iota for enum constants
 While planning E-2567, I sketched a PublicSuffixKind enum with iota. Mike said his standards avoid iota: if the values are ever stored in a database and the constants are accidentally reordered, the stored data becomes corrupt. Give each constant an explicit value.
 - **Project**: go-dt
+
+### [2026-11-11] Search for every occurrence before reporting a stale name fixed
+In E-2596 (go-dt), I found EntryPath.Status's doc comment naming the nonexistent FlagDontFollowSymlinks, fixed that one comment, and wrote 'fixes the doc comment' in the commit and reconcile note. When Mike asked how I fixed it, a git grep showed four more Status doc comments with the same stale name. Before claiming a stale identifier or wording is fixed, git grep the repo for every occurrence and fix or list them all, so the report doesn't overstate the fix.
+- **Project**: go-dt
