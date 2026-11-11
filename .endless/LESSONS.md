@@ -64,3 +64,7 @@ While working through E-2567's open questions, after Mike reframed one question 
 ### [2026-11-10] When Mike proposes a Go type alias, he means one constraint set under a context-specific name
 While planning E-2567's type family, Mike said he could accept EmailDomain if it were an alias of InternetDomain. I answered that an alias carries no constraint of its own. Mike said I missed the point: he believed the two types had exactly the same constraints, and an alias lets different contexts use the name that reads best for them. Address the question he is asking, which is whether the constraint sets are actually equal, before explaining Go alias semantics.
 - **Project**: go-dt
+
+### [2026-11-10] In Mike's Go standards a New*() constructor never returns an error
+While planning E-2567, I sketched dt.NewEmailAddress(local, host) for go-dt, which would have to fail on bad input. Mike said that in his Go standards New*() constructors should never generate an error. A constructor that can fail takes another name; Mike suggested Make*(), e.g. dt.MakeEmailAddress(EmailLocalPart, Hostname) (EmailAddress, error), and preferred deferring it because ParseEmailAddress covers the same need.
+- **Project**: go-dt
