@@ -80,3 +80,7 @@ While planning E-2567, I compared a go-dt interface (option B) with a function t
 ### [2026-11-11] A con shared by every option is not a con of one option
 While asking how a dt.Mailbox is built for E-2567, I listed 'nothing checks a struct literal' as a con of the ParseMailbox-plus-struct-literals option only. Mike pointed out that the same con applies to every option (MakeMailbox, NewMailbox+Initialize, and Validate if it isn't called), because Mailbox's fields are exported. The needs-plan rules already exclude cons that apply equally to every option; check each con against the other options before listing it.
 - **Project**: go-dt
+
+### [2026-11-11] Mike's Go standards avoid iota for enum constants
+While planning E-2567, I sketched a PublicSuffixKind enum with iota. Mike said his standards avoid iota: if the values are ever stored in a database and the constants are accidentally reordered, the stored data becomes corrupt. Give each constant an explicit value.
+- **Project**: go-dt
