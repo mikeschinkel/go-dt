@@ -76,3 +76,7 @@ While planning E-2567's HostPort type, I told Mike that Go methods can't take ty
 ### [2026-11-11] Attribute a trade-off to the actual cause, and check pros against Go's conversion rules
 While planning E-2567, I compared a go-dt interface (option B) with a function type (option C) for the public-suffix hook and gave B the con 'unknown TLDs still pass'. Mike asked why a method could not do what a closure can. He was right: the limit came from the method signature I had copied from cookiejar.PublicSuffixList, which returns no 'listed' flag, not from method versus closure. In the same message I claimed a typed DisplayName argument would guarantee a valid Mailbox; Mike showed NewMailbox(DisplayName("&^*&^A!@@"), ...) compiles, because any string converts to a go-dt string type. Name the real cause of each con, and do not claim a go-dt type guarantees validity, since conversion bypasses Parse.
 - **Project**: go-dt
+
+### [2026-11-11] A con shared by every option is not a con of one option
+While asking how a dt.Mailbox is built for E-2567, I listed 'nothing checks a struct literal' as a con of the ParseMailbox-plus-struct-literals option only. Mike pointed out that the same con applies to every option (MakeMailbox, NewMailbox+Initialize, and Validate if it isn't called), because Mailbox's fields are exported. The needs-plan rules already exclude cons that apply equally to every option; check each con against the other options before listing it.
+- **Project**: go-dt
