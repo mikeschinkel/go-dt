@@ -60,3 +60,7 @@ While planning E-2567, I coined working definitions for 'label' and 'address lit
 ### [2026-11-10] During needs-plan discussion, flesh out the space before deciding
 While working through E-2567's open questions, after Mike reframed one question as a family of constrained types, I came back with seven sub-questions with recommendations plus a 'Decided without asking' list. Mike said I was jumping too quickly to locking in decisions before we had a chance to flesh out what should be decided. When Mike reopens a question's framing, explore and present the ground (terms, sources, constraints) first, and hold back recommendations and auto-decisions until he signals the space is mapped.
 - **Project**: go-dt
+
+### [2026-11-10] When Mike proposes a Go type alias, he means one constraint set under a context-specific name
+While planning E-2567's type family, Mike said he could accept EmailDomain if it were an alias of InternetDomain. I answered that an alias carries no constraint of its own. Mike said I missed the point: he believed the two types had exactly the same constraints, and an alias lets different contexts use the name that reads best for them. Address the question he is asking, which is whether the constraint sets are actually equal, before explaining Go alias semantics.
+- **Project**: go-dt
