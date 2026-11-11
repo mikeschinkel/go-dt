@@ -68,3 +68,7 @@ While planning E-2567's type family, Mike said he could accept EmailDomain if it
 ### [2026-11-10] In Mike's Go standards a New*() constructor never returns an error
 While planning E-2567, I sketched dt.NewEmailAddress(local, host) for go-dt, which would have to fail on bad input. Mike said that in his Go standards New*() constructors should never generate an error. A constructor that can fail takes another name; Mike suggested Make*(), e.g. dt.MakeEmailAddress(EmailLocalPart, Hostname) (EmailAddress, error), and preferred deferring it because ParseEmailAddress covers the same need.
 - **Project**: go-dt
+
+### [2026-11-10] Go 1.27 has generic methods; check current Go docs before stating a language limit
+While planning E-2567's HostPort type, I told Mike that Go methods can't take type parameters, so HostPort.Port() couldn't be generic. Mike replied that my training is dated and pointed to https://go.dev/blog/generic-methods: Go 1.27 adds methods with their own type parameters, e.g. func (List[E]) Map[R any](f func(E) R) List[R]. Interface methods still cannot declare type parameters, and a generic method cannot help a type satisfy an interface. go-pkgs targets go 1.27.0, so generic methods are available. Verify a claimed Go language limitation against current go.dev docs before presenting it.
+- **Project**: go-dt
