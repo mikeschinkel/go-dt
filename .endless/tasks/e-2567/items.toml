@@ -204,3 +204,8 @@ statement = "Does not add a Hostname method to dt.URL or change any existing typ
 id = "P41"
 kind = "exclusion"
 statement = "Does not replace iota in EntryStatus; a separate task does"
+
+[[item]]
+id = "P42"
+kind = "deliverable"
+statement = "dtx's ClassifyPublicSuffix and ToASCII move to a follow-up task, because dtx requires a published go-dt and cannot see the new types until root is tagged"
