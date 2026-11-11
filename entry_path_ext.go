@@ -17,7 +17,7 @@ type EntryStatusFlags uint32
 const (
 	// DontFollowSymlinks causes Status to inspect the entry itself
 	// (os.Lstat) instead of following symlinks.
-	DontFollowSymlinks EntryStatusFlags = 1 << iota
+	DontFollowSymlinks EntryStatusFlags = 1 << 0
 
 	// (Reserved for future flags)
 	// TreatBrokenSymlinkAsMissing
@@ -30,7 +30,7 @@ const (
 // It returns IsMissingEntry when the entry does not exist (err == nil).
 // It returns IsEntryError for all other filesystem errors (err != nil).
 // By default it follows symlinks (like os.Stat). To inspect the entry
-// itself, pass FlagDontFollowSymlinks.
+// itself, pass DontFollowSymlinks.
 //
 // On platforms that don't support certain kinds (e.g., sockets/devices on
 // Windows), those statuses will never be returned.

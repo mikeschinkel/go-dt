@@ -1,0 +1,53 @@
+# Verification suite for E-2596 — replace iota with explicit values in go-dt constants.
+# DO NOT EDIT unless you ARE E-2596. See .endless/tasks/CLAUDE.md.
+schema = 1
+task   = "E-2596"
+
+[[check]]
+name   = "P4: the value-pinning tests in the test module (the module replaces go-dt with ../, so go.work cannot change what they test)"
+runner = "gotest"
+dir    = "test"
+tests  = ["TestEntryStatusValues", "TestEntryStatusFlagsValues"]
+paths  = ["."]
+
+[[check]]
+name = "root and test module tests pass with GOWORK=off, as CI and a consumer see them"
+sh   = "GOWORK=off go test ./... && cd test && GOWORK=off go test ./..."
+
+[[check]]
+name = "go build ./... and go vet ./... pass in go-dt with GOWORK=off"
+sh   = "GOWORK=off go build -o /dev/null ./... && GOWORK=off go vet ./..."
+
+[[check]]
+name   = "P3: no Go file in any go-dt module uses iota"
+sh     = "git grep -nw iota -- '*.go' || true"
+equals = ""
+
+[[check]]
+name     = "P1: each EntryStatus constant has an explicit value, 0 through 9"
+sh       = "grep -E '^\tIs[A-Za-z]+ EntryStatus = [0-9]+$' entry_status.go"
+equals   = "\tIsInvalidEntryStatus EntryStatus = 0\n\tIsEntryError EntryStatus = 1\n\tIsMissingEntry EntryStatus = 2\n\tIsFileEntry EntryStatus = 3\n\tIsDirEntry EntryStatus = 4\n\tIsSymlinkEntry EntryStatus = 5\n\tIsSocketEntry EntryStatus = 6\n\tIsPipeEntry EntryStatus = 7\n\tIsDeviceEntry EntryStatus = 8\n\tIsUnclassifiedEntryStatus EntryStatus = 9"
+
+[[check]]
+name     = "P2: DontFollowSymlinks is declared as 1 << 0"
+sh       = "grep -F 'DontFollowSymlinks EntryStatusFlags = 1 << 0' entry_path_ext.go"
+contains = "1 << 0"
+
+[[check]]
+name   = "P5: the IsUnclassifiedEntryStatus doc no longer names symlinks, sockets, devices or pipes"
+sh     = "GOWORK=off go doc . IsUnclassifiedEntryStatus | grep -A2 'IsUnclassifiedEntryStatus indicates' | grep -iE 'symlink|socket|device|pipe' || true"
+equals = ""
+
+[[check]]
+name = "P6: IsSymlinkEntry, IsSocketEntry, IsPipeEntry and IsDeviceEntry each have a doc comment"
+sh   = "for c in IsSymlinkEntry IsSocketEntry IsPipeEntry IsDeviceEntry; do grep -B1 \"^\t$c EntryStatus\" entry_status.go | head -1 | grep -q \"// $c \" || { echo \"missing: $c\"; exit 1; }; done"
+
+[[check]]
+name   = "P9: no Go file names the nonexistent FlagDontFollowSymlinks"
+sh     = "git grep -n FlagDontFollowSymlinks -- '*.go' || true"
+equals = ""
+
+[[check]]
+name   = "P9: each of the five Status doc comments names DontFollowSymlinks"
+sh     = "git grep -l '// itself, pass DontFollowSymlinks.' -- '*.go'"
+equals = "entry_path_ext.go\nfilepath_ext.go\npath_segment.go\nrel_filepath.go\nrel_path.go"

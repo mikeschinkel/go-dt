@@ -9,7 +9,7 @@ import (
 // It returns IsMissingEntry when the entry does not exist (err == nil).
 // It returns IsEntryError for all other filesystem errors (err != nil).
 // By default it follows symlinks (like os.Stat). To inspect the entry
-// itself, pass FlagDontFollowSymlinks.
+// itself, pass DontFollowSymlinks.
 //
 // On platforms that don't support certain kinds (e.g., sockets/devices on
 // Windows), those statuses will never be returned.

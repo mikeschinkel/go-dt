@@ -44,27 +44,34 @@ func (s EntryStatus) String() string {
 const (
 	// IsInvalidEntryStatus is the zero value and indicates an uninitialized
 	// or otherwise invalid EntryStatus.
-	IsInvalidEntryStatus EntryStatus = iota
+	IsInvalidEntryStatus EntryStatus = 0
 
 	// IsEntryError indicates a filesystem error occurred; the returned error
 	// from Status or LstatStatus will contain the details.
-	IsEntryError
+	IsEntryError EntryStatus = 1
 
 	// IsMissingEntry indicates the entry does not exist (fs.ErrNotExist).
-	IsMissingEntry
+	IsMissingEntry EntryStatus = 2
 
 	// IsFileEntry indicates a regular file.
-	IsFileEntry
+	IsFileEntry EntryStatus = 3
 
 	// IsDirEntry indicates a directory.
-	IsDirEntry
+	IsDirEntry EntryStatus = 4
 
-	IsSymlinkEntry
-	IsSocketEntry
-	IsPipeEntry
-	IsDeviceEntry
+	// IsSymlinkEntry indicates a symbolic link.
+	IsSymlinkEntry EntryStatus = 5
 
-	// IsUnclassifiedEntryStatus indicates some other kind of filesystem entry such as
-	// a symlink, socket, device, or named pipe.
-	IsUnclassifiedEntryStatus
+	// IsSocketEntry indicates a Unix domain socket.
+	IsSocketEntry EntryStatus = 6
+
+	// IsPipeEntry indicates a named pipe (FIFO).
+	IsPipeEntry EntryStatus = 7
+
+	// IsDeviceEntry indicates a device file.
+	IsDeviceEntry EntryStatus = 8
+
+	// IsUnclassifiedEntryStatus indicates a filesystem entry whose mode no
+	// other EntryStatus constant classifies.
+	IsUnclassifiedEntryStatus EntryStatus = 9
 )
