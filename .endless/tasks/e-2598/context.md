@@ -1,0 +1,1 @@
+Split from E-2567 on 2026-11-11 by Mike's choice. E-2567 added go-dt's PublicSuffixClassifier and ASCIIToer hooks and PublicSuffixKind in the root module. dtx requires a published go-dt (v0.6.1) and CI tests it with GOWORK=off, so dtx cannot reference the new types until root is tagged and dtx's require is bumped; landing both together would leave dtx's CI red on main.
