@@ -1,0 +1,71 @@
+# Verification suite for E-2567 — add host, IP, DNS and email address types to
+# go-dt.
+# DO NOT EDIT unless you ARE E-2567. See .endless/tasks/CLAUDE.md.
+schema = 1
+task   = "E-2567"
+
+[[check]]
+name   = "test module: every new Parse function, accessor and conversion"
+runner = "gotest"
+dir    = "test"
+paths  = ["./..."]
+
+[[check]]
+name   = "root module tests"
+runner = "gotest"
+paths  = ["./..."]
+
+[[check]]
+name   = "ParseIPv6Address(\"2001:DB8::0:1\") returns 2001:db8::1, and the quoted address round-trips"
+sh     = "cd test && GOWORK=off go test -count=1 -run 'TestParseIPv6Address/canonical_text|TestParseEmailAddress/quoted_round-trips' -v . 2>&1 | grep -c '^    --- PASS'"
+equals = "2"
+
+[[check]]
+name   = "NewHostname and NewIPAddress reject a plain string at compile time, and accept member types"
+sh     = "sh \"$ENDLESS_VERIFY_DIR/new-needs-member-type.sh\""
+equals = "2\nmember types compile"
+
+[[check]]
+name   = "no existing exported symbol of the root package is renamed, removed or re-signed"
+sh     = "sh \"$ENDLESS_VERIFY_DIR/api-kept.sh\""
+equals = ""
+
+[[check]]
+name   = "the root go.mod requires no module"
+sh     = "GOWORK=off go list -m -f '{{if not .Main}}{{.Path}}{{end}}' all"
+equals = ""
+
+[[check]]
+name     = "InternetDomain keeps its documented meaning"
+sh       = "GOWORK=off go doc . InternetDomain"
+contains = "InternetDomain is used for internet domains like google.com or\n    www.example.com"
+
+[[check]]
+name   = "url.go, entry_status.go and dtx are untouched (no URL.Hostname, no iota change, dtx deferred)"
+sh     = "git diff --stat $(git merge-base HEAD main) HEAD -- url.go entry_status.go dtx"
+equals = ""
+
+[[check]]
+name   = "MakeEmailAddress and MakeMailbox ship commented out"
+sh     = "grep -h '^//func Make' email_address.go mailbox.go; GOWORK=off go doc . MakeMailbox >/dev/null 2>&1 && echo exported || true"
+equals = "//func MakeEmailAddress(lp EmailLocalPart, h Hostname, args *ParseEmailAddressArgs) (ea EmailAddress, err error) {\n//func MakeMailbox(dn EmailDisplayName, ea EmailAddress) (mb Mailbox, err error) {"
+
+[[check]]
+name   = "Mailbox has no NewMailbox"
+sh     = "GOWORK=off go doc . NewMailbox >/dev/null 2>&1 && echo exported || true"
+equals = ""
+
+[[check]]
+name   = "README lists only InternetDomain methods the code has (no Valid or TLD)"
+sh     = "grep -nE 'TLD\\(\\)|`Valid\\(\\)` — Validate domain' README.md || true"
+equals = ""
+
+[[check]]
+name     = "AGENTS.md says tests live in test/ modules"
+sh       = "grep '^- Tests live in' AGENTS.md"
+contains = "Tests live in `test/` modules, not in `*_test.go` files beside the code"
+
+[[check]]
+name   = "just lint reports 0 issues in every module"
+sh     = "GOWORK=off just lint 2>&1 | grep -c '^0 issues\\.$'"
+equals = "9"

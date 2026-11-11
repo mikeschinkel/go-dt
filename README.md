@@ -238,13 +238,28 @@ Types
     │   └── RelFilepath (relative file path with traversal protection)
     │       └── Filename (filename without path)
     │           └── FileExt (file extension with leading period)
-    ├── InternetDomain (internet domain names)
-    └── URL (syntactically valid URLs)
-        ├── URLSegments (URL path components)
-        │   └── URLSegment (single URL path component)
-        └── Filename (when used in URL contexts)
-            └── FileExt
+    ├── Hostname (IP address or host domain name)
+    │   ├── IPAddress (IPv4 or IPv6 address, canonical text)
+    │   │   ├── IPv4Address
+    │   │   └── IPv6Address
+    │   └── HostDomainName (RFC 1123 host name)
+    │       ├── SingleLabelHostname (e.g. localhost)
+    │       └── InternetDomain (two or more labels, not special-use)
+    ├── DNSName (DNS record names: underscored labels, root dot)
+    ├── EmailAddress (local part @ hostname)
+    │   └── EmailLocalPart
+    ├── EmailDisplayName
+    ├── URL (syntactically valid URLs)
+    │   ├── URLSegments (URL path components)
+    │   │   └── URLSegment (single URL path component)
+    │   └── Filename (when used in URL contexts)
+    │       └── FileExt
+    └── Declared, not yet supported: ScopedIPv6Address, HostPort,
+        ServiceName (and PortNumber, a uint16)
 ```
+
+`Mailbox` is a struct, not a string type: an `EmailDisplayName` plus an
+`EmailAddress`.
 
 ---
 
@@ -769,15 +784,6 @@ Software version string following semantic versioning conventions.
 - `Major()`, `Minor()`, `Patch()` — Extract version components
 - `Valid()` — Check if version is valid
 
-#### InternetDomain
-
-Internet domain name (e.g., `example.com`).
-
-**Key Methods:**
-- `Valid()` — Validate domain format
-- `TLD()` — Extract top-level domain
-- `String()` — Get as string
-
 #### TimeFormat
 
 Time layout string for use with `time.Parse()` and `time.Format()`.
@@ -785,6 +791,115 @@ Time layout string for use with `time.Parse()` and `time.Format()`.
 #### VolumeName
 
 Mounted volume name, primarily for Windows support (e.g., `C:`).
+
+### Host, IP and DNS Types
+
+Each type takes its name from the RFC that defines the term, and its doc
+comment lists what it rejects and why. Converting up the family
+(`InternetDomain` → `HostDomainName` → `Hostname`) is a plain type conversion;
+converting sideways can fail, so it is a `To*` method returning an error.
+
+Input that some RFC allows but a type deliberately rejects (an IPv6 zone, a
+label such as `-bad-`, a trailing root dot on a host name) fails with the
+type's `ErrInvalid*` sentinel joined with `ErrUnsupportedSyntax`.
+
+#### Hostname
+
+The host part of a URL or email address without brackets: an `IPAddress` or a
+`HostDomainName`, as `url.URL.Hostname()` and `os.Hostname()` return it.
+
+```go
+h, err := dt.ParseHostname("example.com", nil)
+ip, ok := h.IPAddress()              // "", false
+d, ok := h.InternetDomain()          // "example.com", true
+dn, err := h.ToDNSName()             // fails for an IP address
+h = dt.NewHostname(dt.SingleLabelHostname("localhost")) // a plain string does not compile
+```
+
+**Key Methods:** `IPAddress()`, `HostDomainName()`, `SingleLabelHostname()`,
+`InternetDomain()` (each returns the narrower type and a bool), `ToDNSName()`
+
+#### IPAddress, IPv4Address, IPv6Address
+
+IP addresses stored as `net/netip`'s canonical text, so `==` works across
+spellings: `ParseIPv6Address("2001:DB8::0:1")` returns `"2001:db8::1"`. Zones
+(`fe80::1%en0`) are rejected. An IPv4-mapped address is an `IPv6Address`.
+
+**Key Methods:** `IPAddress.IPv4Address()`, `IPAddress.IPv6Address()`;
+`NewIPAddress` converts either member.
+
+#### HostDomainName and SingleLabelHostname
+
+`HostDomainName` is RFC 1123's "host domain name": letters, digits and
+interior hyphens, digit-first labels allowed, final label not all digits, no
+trailing dot. `SingleLabelHostname` (RFC 6762) holds one label, such as
+`localhost`.
+
+#### InternetDomain
+
+A host domain name of two or more labels, such as `example.com`, that is not
+under a special-use suffix (`test`, `localhost`, `invalid`, `local`,
+`home.arpa`).
+
+```go
+d, err := dt.ParseInternetDomain("example.com", nil)
+d, err = dt.ParseInternetDomain("foo.cromulent", &dt.ParseInternetDomainArgs{
+    PublicSuffixClassifier: classifier, // rejects unlisted and bare public suffixes
+    ASCIIToer:              idna.Lookup, // converts Unicode names to A-labels
+    RejectedSuffixes:       []string{"lan", "corp"},
+})
+```
+
+`dt` stays dependency-free: it declares the `PublicSuffixClassifier` and
+`ASCIIToer` hooks (with `ClassifyPublicSuffixFunc` and `ToASCIIFunc` adapters)
+and leaves the implementation, such as `golang.org/x/net/publicsuffix` and
+`golang.org/x/net/idna`, to the caller.
+
+#### DNSName
+
+The name of a DNS record or zone, such as `_dmarc.example.com` or
+`example.com.`: `HostDomainName`'s syntax plus underscored labels (RFC 8552) and
+a trailing root dot. **Key Method:** `ToHostname()`, which fails for either.
+
+#### Declared, not yet supported
+
+`ScopedIPv6Address`, `HostPort`, `PortNumber` and `ServiceName` are declared so
+they show in godoc; their `Parse*` functions return `ErrNotYetSupported`, and
+their doc comments record the open questions.
+
+### Email Types
+
+#### EmailAddress and EmailLocalPart
+
+RFC 5322's addr-spec: an `EmailLocalPart` (dot-atom, or quoted-string with its
+quotes kept), `@`, and a `Hostname`. An IP host is bracketed, and a bare IP
+after the `@` is stored bracketed.
+
+```go
+ea, err := dt.ParseEmailAddress(`"john doe"@example.com`, nil) // round-trips unchanged
+ea, err = dt.ParseEmailAddress("user@192.0.2.1", nil)          // "user@[192.0.2.1]"
+ea.LocalPart()                                                // EmailLocalPart
+ea.Hostname()                                                 // "192.0.2.1"
+```
+
+A UTF-8 local part fails with `ErrSMTPUTF8NotAllowed` unless
+`ParseEmailAddressArgs.AllowSMTPUTF8` is set.
+
+**Key Methods:** `LocalPart()`, `Hostname()`, `Equals()` (host compared
+case-insensitively), `RequiresSMTPUTF8()`, `Validate()`
+
+#### Mailbox and EmailDisplayName
+
+RFC 5322's mailbox: a struct of `DisplayName EmailDisplayName` and
+`Email EmailAddress`. Build one with `ParseMailbox` or a struct literal, and
+check a literal with `Validate()`.
+
+```go
+mb, err := dt.ParseMailbox("John Doe <john@example.com>", nil)
+mb = dt.Mailbox{DisplayName: "John Doe", Email: "john@example.com"}
+err = mb.Validate()
+mb.String() // "John Doe <john@example.com>", unquoted, as git wants it
+```
 
 ### Directory Entry and Status
 

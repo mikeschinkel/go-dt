@@ -23,7 +23,7 @@
 - Use `context.Context` as the first arg when applicable; avoid stutter (`dt.DirPath`, not `dt.PathDirPath`).
 
 ## Testing Guidelines
-- Add `*_test.go` next to the code under test; integration-style tests belong in `test/` (or `<module>/test/`).
+- Tests live in `test/` modules, not in `*_test.go` files beside the code (Endless decision ED-1650). The root `test/` module tests the root package's exported API; each nested module tests through `<module>/test/`. An unexported function that genuinely needs a test gets an exported wrapper in a build-tagged file, never an in-package test, so test dependencies stay out of the library's `go.mod`.
 - Include race detection and coverage locally (`just test`); keep fuzz corpora current when adding fuzzers.
 - Prefer table-driven tests; use temporary dirs via helpers in `dtx` when available.
 

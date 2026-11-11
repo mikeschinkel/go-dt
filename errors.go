@@ -107,3 +107,58 @@ var ErrNotTildePath = errors.New("not a tilde-prefixed path")
 var ErrInvalidPathSeparator = errors.New("invalid path separator")
 var ErrFailedToUnmarshalJSON = errors.New("failed to unmarshal JSON")
 var ErrFailedToMarshalJSON = errors.New("failed to marshal JSON")
+
+// Sentinels for the host, IP, DNS and email address types. Each type has an
+// ErrInvalid<Type> sentinel; the detail sentinels below say which rule failed.
+var (
+	ErrInvalidIPAddress           = errors.New("invalid IP address")
+	ErrInvalidIPv4Address         = errors.New("invalid IPv4 address")
+	ErrInvalidIPv6Address         = errors.New("invalid IPv6 address")
+	ErrInvalidScopedIPv6Address   = errors.New("invalid scoped IPv6 address")
+	ErrInvalidHostDomainName      = errors.New("invalid host domain name")
+	ErrInvalidSingleLabelHostname = errors.New("invalid single-label host name")
+	ErrInvalidInternetDomain      = errors.New("invalid internet domain")
+	ErrInvalidHostname            = errors.New("invalid hostname")
+	ErrInvalidDNSName             = errors.New("invalid DNS name")
+	ErrInvalidHostPort            = errors.New("invalid host and port")
+	ErrInvalidPortNumber          = errors.New("invalid port number")
+	ErrInvalidServiceName         = errors.New("invalid service name")
+	ErrInvalidEmailLocalPart      = errors.New("invalid email local part")
+	ErrInvalidEmailAddress        = errors.New("invalid email address")
+	ErrInvalidEmailDisplayName    = errors.New("invalid email display name")
+	ErrInvalidMailbox             = errors.New("invalid mailbox")
+
+	// ErrUnsupportedSyntax marks input that some RFC allows but the type
+	// deliberately rejects. The type's doc comment says what and why.
+	ErrUnsupportedSyntax = errors.New("allowed by an RFC but not supported by this type; see the type's doc comment")
+
+	// ErrNotYetSupported is returned by the Parse functions of types that
+	// are declared but not yet implemented. The type's doc comment records
+	// the open questions.
+	ErrNotYetSupported = errors.New("not yet supported; see the type's doc comment")
+
+	// ErrSMTPUTF8NotAllowed is returned when an email address has a UTF-8
+	// local part (RFC 6531, RFC 6532) and the caller did not set
+	// AllowSMTPUTF8.
+	ErrSMTPUTF8NotAllowed = errors.New("UTF-8 local part requires SMTPUTF8, which AllowSMTPUTF8 did not allow")
+
+	ErrIPv6Zone              = errors.New("IPv6 zone index")
+	ErrNotIPv4Address        = errors.New("not an IPv4 address")
+	ErrNotIPv6Address        = errors.New("not an IPv6 address")
+	ErrEmptyLabel            = errors.New("empty label")
+	ErrLabelTooLong          = errors.New("label longer than 63 octets")
+	ErrNonLDHLabel           = errors.New("label is not letters, digits and interior hyphens")
+	ErrNumericFinalLabel     = errors.New("final label is all digits")
+	ErrRootDot               = errors.New("trailing root dot")
+	ErrUnicodeHostname       = errors.New("non-ASCII host name needs an ASCIIToer to convert it to A-labels")
+	ErrSingleLabel           = errors.New("single label")
+	ErrSpecialUseDomain      = errors.New("under a special-use domain suffix")
+	ErrRejectedSuffix        = errors.New("under a rejected suffix")
+	ErrUnlistedPublicSuffix  = errors.New("under an unlisted public suffix")
+	ErrIsPublicSuffix        = errors.New("is itself a public suffix")
+	ErrIsIPAddress           = errors.New("is an IP address")
+	ErrMissingAtSign         = errors.New("missing '@'")
+	ErrGeneralAddressLiteral = errors.New("general address literal")
+	ErrInvalidUTF8           = errors.New("invalid UTF-8")
+	ErrAngleBracket          = errors.New("angle bracket")
+)

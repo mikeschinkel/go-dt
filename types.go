@@ -16,9 +16,6 @@ type (
 	// "C:" or "\\server\share". On other platforms it is always an empty string.
 	VolumeName string
 
-	// InternetDomain is used for internet domains like google.com or www.example.com.
-	InternetDomain string
-
 	// TimeFormat controls how timestamps are rendered: e.g. "2006-01-02".
 	TimeFormat string
 )
