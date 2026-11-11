@@ -49,4 +49,5 @@ statement = "Does not change the behaviour of EntryStatus.String, GetEntryStatus
 [[item]]
 id = "P9"
 kind = "deliverable"
-statement = "The EntryPath.Status doc comment names the flag DontFollowSymlinks, not the nonexistent FlagDontFollowSymlinks"
+statement = "No doc comment in go-dt names the nonexistent FlagDontFollowSymlinks; the five Status doc comments that did now name DontFollowSymlinks"
+verify = "git grep FlagDontFollowSymlinks prints nothing"
