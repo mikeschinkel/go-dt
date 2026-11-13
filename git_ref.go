@@ -18,7 +18,9 @@ import (
 //   - '..' and '@{' anywhere
 //   - control characters, space, '~', '^', ':', '?', '*', '[' and '\'
 //   - a trailing '.'
-//   - the name '@'
+//
+// git also rejects the refname '@', which cannot begin with refs/ and so is
+// already rejected as ErrNotUnderRefs.
 //
 // Every GitRef is also a valid GitRevision, so a plain cast converts upward.
 type GitRef string
@@ -128,15 +130,18 @@ end:
 
 // checkGitRefFormat returns the sentinel of the first git-check-ref-format(1)
 // rule that ref breaks, with metadata naming the component or character, or a
-// nil rule when ref passes them all. It follows git's own order: the whole
-// name '@', then each '/'-separated component left to right, then a trailing
-// '.'. It does not check that ref has two components; the callers' prefixes
-// guarantee that.
+// nil rule when ref passes them all. It follows git's own order: each
+// '/'-separated component left to right, then a trailing '.'. It does not
+// check that ref has two components; the callers' prefixes guarantee that.
 func checkGitRefFormat(ref string) (kvs []ErrKV, rule error) {
-	if ref == "@" {
-		rule = ErrLoneAt
-		goto end
-	}
+	// git checks for a refname of exactly '@' first (rule 9). The callers'
+	// prefixes mean ref is never '@', so the check and its sentinel are
+	// commented out; see ErrLoneAt in errors.go before uncommenting.
+	//
+	// if ref == "@" {
+	// 	rule = ErrLoneAt
+	// 	goto end
+	// }
 	for component := range strings.SplitSeq(ref, "/") {
 		kvs, rule = checkGitRefComponent(component)
 		if rule != nil {

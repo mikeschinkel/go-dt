@@ -68,8 +68,15 @@ var (
 	ErrDoubleDot = errors.New("contains '..'")
 	// ErrAtBrace breaks git-check-ref-format(1) rule 8: no '@{' anywhere.
 	ErrAtBrace = errors.New("contains '@{'")
+	// ErrLoneAt is commented out, with its check in checkGitRefFormat, because
+	// no git type can reach it. git-check-ref-format(1) rule 9 rejects a refname
+	// that is exactly '@', but every refname these types check begins with
+	// refs/ (GitRef) or is built under refs/heads/, refs/tags/ or refs/remotes/,
+	// so it is never '@'. Uncomment both if a type ever checks a refname that
+	// need not begin with refs/.
+	//
 	// ErrLoneAt breaks git-check-ref-format(1) rule 9: the name is not the single character '@'.
-	ErrLoneAt = errors.New("is '@'")
+	// ErrLoneAt = errors.New("is '@'")
 	// ErrLeadingDash marks a value git would read as an option; check-ref-format(1) --branch refuses it.
 	ErrLeadingDash = errors.New("begins with '-'")
 	// ErrIsHEAD marks a branch or tag name of HEAD, which git-check-ref-format(1) --branch refuses.

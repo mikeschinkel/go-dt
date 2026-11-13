@@ -944,7 +944,7 @@ Types for the names git uses, following the terms in [gitrevisions(7)](https://g
 | `GitObjectID` | A full object name | Exactly 40 (SHA-1) or 64 (SHA-256) lowercase hex digits. |
 | `GitShortObjectID` | A full or shortened object name, as `git rev-parse --short` prints | 4 to 64 lowercase hex digits. |
 
-The ref rules `GitRef`, `GitBranchName`, `GitTagName` and `GitRemoteName` apply: no path component is empty (a leading, trailing or doubled `/`), begins with `.` or ends with `.lock`; no `..` or `@{` anywhere; no control characters, space, `~`, `^`, `:`, `?`, `*`, `[` or `\`; no trailing `.`; and not the name `@`.
+The ref rules `GitRef`, `GitBranchName`, `GitTagName` and `GitRemoteName` apply: no path component is empty (a leading, trailing or doubled `/`), begins with `.` or ends with `.lock`; no `..` or `@{` anywhere; no control characters, space, `~`, `^`, `:`, `?`, `*`, `[` or `\`; and no trailing `.`. (git also rejects a refname of exactly `@`, which no name these types check can be.)
 
 `ParseGitObjectID` and `ParseGitShortObjectID` take a pointer to an args struct (`nil` means the defaults). git accepts uppercase hex but always prints lowercase, so both reject uppercase unless `AllowUppercaseHex` is set, and then store the value in lowercase, so `==` compares IDs reliably.
 
