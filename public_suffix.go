@@ -45,15 +45,16 @@ const (
 type PublicSuffixClassifier interface {
 	// ClassifyPublicSuffix returns domain's public suffix and its kind. For
 	// an unlisted suffix it returns the domain's top-level label and
-	// UnlistedPublicSuffix.
-	ClassifyPublicSuffix(domain string) (suffix string, kind PublicSuffixKind)
+	// UnlistedPublicSuffix. ParseInternetDomain passes a domain that has
+	// passed HostDomainName's syntax check, in lower case and A-label form.
+	ClassifyPublicSuffix(domain HostDomainName) (suffix HostDomainName, kind PublicSuffixKind)
 }
 
 // ClassifyPublicSuffixFunc adapts a function to PublicSuffixClassifier, as
 // http.HandlerFunc adapts a function to http.Handler.
-type ClassifyPublicSuffixFunc func(domain string) (suffix string, kind PublicSuffixKind)
+type ClassifyPublicSuffixFunc func(domain HostDomainName) (suffix HostDomainName, kind PublicSuffixKind)
 
 // ClassifyPublicSuffix calls f(domain).
-func (f ClassifyPublicSuffixFunc) ClassifyPublicSuffix(domain string) (suffix string, kind PublicSuffixKind) {
+func (f ClassifyPublicSuffixFunc) ClassifyPublicSuffix(domain HostDomainName) (suffix HostDomainName, kind PublicSuffixKind) {
 	return f(domain)
 }

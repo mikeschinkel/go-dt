@@ -91,9 +91,9 @@ func TestParseHostname(t *testing.T) {
 		{name: "special-use", input: "repo.test", want: "repo.test"},
 		{name: "bracketed IPv6 rejected", input: "[::1]", wantErr: true, unsupported: true},
 		{name: "zone rejected", input: "fe80::1%en0", wantErr: true, unsupported: true},
-		{name: "unicode without ASCIIToer", input: "bücher.example", wantErr: true, unsupported: true},
-		{name: "unicode with ASCIIToer", input: "bücher.example", args: &dt.ParseHostnameArgs{ASCIIToer: fakeToASCII}, want: "xn--bcher-kva.example"},
-		{name: "ASCIIToer error", input: "badé.example", args: &dt.ParseHostnameArgs{ASCIIToer: fakeToASCII}, wantErr: true},
+		{name: "unicode without IDNAConverter", input: "bücher.example", wantErr: true, unsupported: true},
+		{name: "unicode with IDNAConverter", input: "bücher.example", args: &dt.ParseHostnameArgs{IDNAConverter: fakeIDNA}, want: "xn--bcher-kva.example"},
+		{name: "IDNAConverter error", input: "badé.example", args: &dt.ParseHostnameArgs{IDNAConverter: fakeIDNA}, wantErr: true},
 		{name: "empty", input: "", wantErr: true},
 	}
 	for _, tt := range tests {
@@ -231,17 +231,17 @@ func TestHostErrKV(t *testing.T) {
 	checkErrKV(t, dt.DNSName("a").ErrKV(), "dns_name")
 }
 
-// fakeToASCII stands in for golang.org/x/net/idna, which go-dt's test module
+// fakeIDNA stands in for golang.org/x/net/idna, which go-dt's test module
 // does not require. It knows one U-label and fails on anything else
 // non-ASCII.
-var fakeToASCII = dt.ToASCIIFunc(func(s string) (string, error) {
-	out := strings.ReplaceAll(s, "bücher", "xn--bcher-kva")
+var fakeIDNA = dt.ToASCIIHostDomainNameFunc(func(name string) (dt.HostDomainName, error) {
+	out := strings.ReplaceAll(name, "bücher", "xn--bcher-kva")
 	for _, r := range out {
 		if r >= 0x80 {
 			return "", errors.New("fake idna: unknown U-label")
 		}
 	}
-	return out, nil
+	return dt.HostDomainName(out), nil
 })
 
 // checkCause asserts err matches cause, when cause is set.

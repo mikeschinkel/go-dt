@@ -222,8 +222,8 @@ var (
 	ErrRootDot = errors.New("trailing root dot")
 
 	// ErrUnicodeHostname means a host name holds non-ASCII text (RFC 5890
-	// U-labels) and no ASCIIToer was given to convert it to A-labels.
-	ErrUnicodeHostname = errors.New("non-ASCII host name needs an ASCIIToer to convert it to A-labels")
+	// U-labels) and no IDNAConverter was given to convert it to A-labels.
+	ErrUnicodeHostname = errors.New("non-ASCII host name needs an IDNAConverter to convert it to A-labels")
 
 	// ErrSingleLabel means a name has one label where InternetDomain needs
 	// two or more.

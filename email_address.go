@@ -75,9 +75,10 @@ type EmailAddress string
 // *ParseEmailAddressArgs, or a zero value, rejects a UTF-8 local part and a
 // Unicode host name.
 type ParseEmailAddressArgs struct {
-	// ASCIIToer, when set, converts a Unicode host name to A-labels; the
-	// parsed value holds the A-label form.
-	ASCIIToer ASCIIToer
+	// IDNAConverter, when set, uses IDNA (Internationalized Domain Names in
+	// Applications; see IDNAConverter) to convert a Unicode host name to
+	// A-labels; the parsed value holds the A-label form.
+	IDNAConverter IDNAConverter
 
 	// AllowSMTPUTF8 accepts a UTF-8 local part (RFC 6531, RFC 6532).
 	AllowSMTPUTF8 bool
@@ -125,7 +126,7 @@ func ParseEmailAddress(s string, args *ParseEmailAddressArgs) (ea EmailAddress, 
 		err = NewErr(ErrInvalidEmailAddress, ErrSMTPUTF8NotAllowed, "input", s)
 		goto end
 	}
-	host, err = emailHostText(s[at+1:], args.ASCIIToer)
+	host, err = emailHostText(s[at+1:], args.IDNAConverter)
 	if err != nil {
 		err = NewErr(ErrInvalidEmailAddress, "input", s, err)
 		goto end
@@ -301,7 +302,7 @@ func isAText(r rune) bool {
 // emailHostText returns the host part of an email address in its stored
 // form: an IP bracketed as an RFC 5321 address literal, a host domain name as
 // given or converted to A-labels.
-func emailHostText(host string, toer ASCIIToer) (text string, err error) {
+func emailHostText(host string, conv IDNAConverter) (text string, err error) {
 	var ip4 IPv4Address
 	var ip6 IPv6Address
 	var name, inner string
@@ -339,7 +340,7 @@ func emailHostText(host string, toer ASCIIToer) (text string, err error) {
 		text = "[" + ipv6LiteralTag + string(ip6) + "]"
 		goto end
 	}
-	name, err = hostToASCII(host, toer)
+	name, err = hostToASCII(host, conv)
 	if err != nil {
 		err = NewErr(ErrInvalidHostname, "input", host, err)
 		goto end

@@ -845,15 +845,21 @@ under a special-use suffix (`test`, `localhost`, `invalid`, `local`,
 d, err := dt.ParseInternetDomain("example.com", nil)
 d, err = dt.ParseInternetDomain("foo.cromulent", &dt.ParseInternetDomainArgs{
     PublicSuffixClassifier: classifier, // rejects unlisted and bare public suffixes
-    ASCIIToer:              idna.Lookup, // converts Unicode names to A-labels
+    IDNAConverter:          converter,  // converts Unicode names to A-labels
     RejectedSuffixes:       []dt.HostDomainName{"lan", "corp"},
 })
 ```
 
 `dt` stays dependency-free: it declares the `PublicSuffixClassifier` and
-`ASCIIToer` hooks (with `ClassifyPublicSuffixFunc` and `ToASCIIFunc` adapters)
-and leaves the implementation, such as `golang.org/x/net/publicsuffix` and
-`golang.org/x/net/idna`, to the caller.
+`IDNAConverter` hooks (with `ClassifyPublicSuffixFunc` and
+`ToASCIIHostDomainNameFunc` adapters) and leaves the implementation, such as
+`golang.org/x/net/publicsuffix` and `golang.org/x/net/idna`, to the caller.
+
+IDNA stands for "Internationalized Domain Names in Applications" (RFC 5890
+through RFC 5894): the standard that lets a domain name hold non-ASCII
+letters, as in `bücher.example`. DNS carries only ASCII, so IDNA encodes each
+such label as an ASCII "A-label" beginning `xn--`: `xn--bcher-kva.example`.
+Without an `IDNAConverter`, the Parse functions reject a non-ASCII host name.
 
 #### DNSName
 

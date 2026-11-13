@@ -77,9 +77,9 @@ func TestParseEmailAddress(t *testing.T) {
 		{name: "angle brackets", input: "<user@example.com>", wantErr: true},
 		{name: "UTF-8 local part refused", input: "jöhn@example.com", wantErr: true, cause: dt.ErrSMTPUTF8NotAllowed},
 		{name: "UTF-8 local part allowed", input: "jöhn@example.com", args: utf8OK, want: "jöhn@example.com"},
-		{name: "unicode host without ASCIIToer", input: "john@bücher.example", args: utf8OK, wantErr: true, unsupported: true, cause: dt.ErrUnicodeHostname},
-		{name: "unicode host with ASCIIToer", input: "john@bücher.example", args: &dt.ParseEmailAddressArgs{ASCIIToer: fakeToASCII}, want: "john@xn--bcher-kva.example"},
-		{name: "ASCIIToer error", input: "john@badé.example", args: &dt.ParseEmailAddressArgs{ASCIIToer: fakeToASCII}, wantErr: true},
+		{name: "unicode host without IDNAConverter", input: "john@bücher.example", args: utf8OK, wantErr: true, unsupported: true, cause: dt.ErrUnicodeHostname},
+		{name: "unicode host with IDNAConverter", input: "john@bücher.example", args: &dt.ParseEmailAddressArgs{IDNAConverter: fakeIDNA}, want: "john@xn--bcher-kva.example"},
+		{name: "IDNAConverter error", input: "john@badé.example", args: &dt.ParseEmailAddressArgs{IDNAConverter: fakeIDNA}, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -10,9 +10,9 @@ import (
 // fakePSL stands in for golang.org/x/net/publicsuffix, which go-dt's test
 // module does not require. It knows a few suffixes and reports any other
 // top-level label as unlisted.
-var fakePSL = dt.ClassifyPublicSuffixFunc(func(domain string) (string, dt.PublicSuffixKind) {
+var fakePSL = dt.ClassifyPublicSuffixFunc(func(domain dt.HostDomainName) (dt.HostDomainName, dt.PublicSuffixKind) {
 	for _, s := range []struct {
-		suffix string
+		suffix dt.HostDomainName
 		kind   dt.PublicSuffixKind
 	}{
 		{"github.io", dt.PrivatePublicSuffix},
@@ -21,11 +21,11 @@ var fakePSL = dt.ClassifyPublicSuffixFunc(func(domain string) (string, dt.Public
 		{"uk", dt.ICANNPublicSuffix},
 		{"io", dt.ICANNPublicSuffix},
 	} {
-		if domain == s.suffix || strings.HasSuffix(domain, "."+s.suffix) {
+		if domain == s.suffix || strings.HasSuffix(string(domain), "."+string(s.suffix)) {
 			return s.suffix, s.kind
 		}
 	}
-	return domain[strings.LastIndexByte(domain, '.')+1:], dt.UnlistedPublicSuffix
+	return domain[strings.LastIndexByte(string(domain), '.')+1:], dt.UnlistedPublicSuffix
 })
 
 func TestParseInternetDomain(t *testing.T) {
@@ -53,9 +53,9 @@ func TestParseInternetDomain(t *testing.T) {
 		{name: "home.arpa itself", input: "home.arpa", wantErr: true, cause: dt.ErrSpecialUseDomain},
 		{name: "arpa is not home.arpa", input: "in-addr.arpa", want: "in-addr.arpa"},
 		{name: "syntax", input: "-bad-.com", wantErr: true, unsupported: true, cause: dt.ErrNonLDHLabel},
-		{name: "unicode without ASCIIToer", input: "bücher.example", wantErr: true, unsupported: true, cause: dt.ErrUnicodeHostname},
-		{name: "unicode with ASCIIToer", input: "bücher.example", args: &dt.ParseInternetDomainArgs{ASCIIToer: fakeToASCII}, want: "xn--bcher-kva.example"},
-		{name: "ASCIIToer error", input: "badé.example", args: &dt.ParseInternetDomainArgs{ASCIIToer: fakeToASCII}, wantErr: true},
+		{name: "unicode without IDNAConverter", input: "bücher.example", wantErr: true, unsupported: true, cause: dt.ErrUnicodeHostname},
+		{name: "unicode with IDNAConverter", input: "bücher.example", args: &dt.ParseInternetDomainArgs{IDNAConverter: fakeIDNA}, want: "xn--bcher-kva.example"},
+		{name: "IDNAConverter error", input: "badé.example", args: &dt.ParseInternetDomainArgs{IDNAConverter: fakeIDNA}, wantErr: true},
 		{name: "PSL listed", input: "example.com", args: withPSL, want: "example.com"},
 		{name: "PSL under private suffix", input: "foo.github.io", args: withPSL, want: "foo.github.io"},
 		{name: "PSL unlisted", input: "foo.cromulent", args: withPSL, wantErr: true, cause: dt.ErrUnlistedPublicSuffix},
@@ -66,7 +66,7 @@ func TestParseInternetDomain(t *testing.T) {
 			name:  "unspecified kind is unlisted",
 			input: "example.com",
 			args: &dt.ParseInternetDomainArgs{PublicSuffixClassifier: dt.ClassifyPublicSuffixFunc(
-				func(string) (string, dt.PublicSuffixKind) { return "com", dt.UnspecifiedPublicSuffixKind },
+				func(dt.HostDomainName) (dt.HostDomainName, dt.PublicSuffixKind) { return "com", dt.UnspecifiedPublicSuffixKind },
 			)},
 			wantErr: true,
 			cause:   dt.ErrUnlistedPublicSuffix,
@@ -133,8 +133,8 @@ func TestHookAdapters(t *testing.T) {
 	if suffix, kind := classifier.ClassifyPublicSuffix("foo.github.io"); suffix != "github.io" || kind != dt.PrivatePublicSuffix {
 		t.Errorf("ClassifyPublicSuffix() = %q, %v", suffix, kind)
 	}
-	var toer dt.ASCIIToer = fakeToASCII
-	if got, err := toer.ToASCII("bücher.example"); err != nil || got != "xn--bcher-kva.example" {
-		t.Errorf("ToASCII() = %q, %v", got, err)
+	var conv dt.IDNAConverter = fakeIDNA
+	if got, err := conv.ToASCIIHostDomainName("bücher.example"); err != nil || got != "xn--bcher-kva.example" {
+		t.Errorf("ToASCIIHostDomainName() = %q, %v", got, err)
 	}
 }

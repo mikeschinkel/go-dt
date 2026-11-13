@@ -50,9 +50,10 @@ type Mailbox struct {
 // *ParseMailboxArgs, or a zero value, rejects a UTF-8 local part and a
 // Unicode host name.
 type ParseMailboxArgs struct {
-	// ASCIIToer, when set, converts a Unicode host name to A-labels; the
-	// parsed address holds the A-label form.
-	ASCIIToer ASCIIToer
+	// IDNAConverter, when set, uses IDNA (Internationalized Domain Names in
+	// Applications; see IDNAConverter) to convert a Unicode host name to
+	// A-labels; the parsed address holds the A-label form.
+	IDNAConverter IDNAConverter
 
 	// AllowSMTPUTF8 accepts a UTF-8 local part (RFC 6531, RFC 6532).
 	AllowSMTPUTF8 bool
@@ -113,7 +114,7 @@ func ParseMailbox(s string, args *ParseMailboxArgs) (mb Mailbox, err error) {
 		}
 	}
 	mb.Email, err = ParseEmailAddress(addr, &ParseEmailAddressArgs{
-		ASCIIToer:     args.ASCIIToer,
+		IDNAConverter: args.IDNAConverter,
 		AllowSMTPUTF8: args.AllowSMTPUTF8,
 	})
 	if err != nil {

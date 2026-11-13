@@ -37,9 +37,10 @@ type ParseInternetDomainArgs struct {
 	// suffix and a name that is itself a public suffix.
 	PublicSuffixClassifier PublicSuffixClassifier
 
-	// ASCIIToer, when set, converts a Unicode name to A-labels before the
-	// checks run; the parsed value holds the A-label form.
-	ASCIIToer ASCIIToer
+	// IDNAConverter, when set, uses IDNA (Internationalized Domain Names in
+	// Applications; see IDNAConverter) to convert a Unicode name to A-labels
+	// before the checks run; the parsed value holds the A-label form.
+	IDNAConverter IDNAConverter
 
 	// RejectedSuffixes rejects names at or under these suffixes, such as
 	// "lan" or "corp", which no RFC reserves but a caller may not want.
@@ -67,13 +68,14 @@ var specialUseSuffixes = []HostDomainName{
 // ErrUnsupportedSyntax for a name some RFC allows but InternetDomain rejects;
 // see InternetDomain.
 func ParseInternetDomain(s string, args *ParseInternetDomainArgs) (d InternetDomain, err error) {
-	var name, lower, suffix string
+	var name, lower string
+	var suffix HostDomainName
 	var kind PublicSuffixKind
 
 	if args == nil {
 		args = &ParseInternetDomainArgs{}
 	}
-	name, err = hostToASCII(s, args.ASCIIToer)
+	name, err = hostToASCII(s, args.IDNAConverter)
 	if err != nil {
 		err = NewErr(ErrInvalidInternetDomain, "input", s, err)
 		goto end
@@ -98,12 +100,12 @@ func ParseInternetDomain(s string, args *ParseInternetDomainArgs) (d InternetDom
 	if args.PublicSuffixClassifier == nil || hasAnySuffix(lower, args.AcceptedSuffixes) {
 		goto done
 	}
-	suffix, kind = args.PublicSuffixClassifier.ClassifyPublicSuffix(lower)
+	suffix, kind = args.PublicSuffixClassifier.ClassifyPublicSuffix(HostDomainName(lower))
 	switch {
 	case kind == UnspecifiedPublicSuffixKind, kind == UnlistedPublicSuffix:
 		err = NewErr(ErrInvalidInternetDomain, ErrUnlistedPublicSuffix, "input", s, "suffix", suffix)
 		goto end
-	case strings.EqualFold(suffix, lower):
+	case strings.EqualFold(string(suffix), lower):
 		err = NewErr(ErrInvalidInternetDomain, ErrIsPublicSuffix, "input", s)
 		goto end
 	}

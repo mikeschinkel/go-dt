@@ -31,7 +31,7 @@ import (
 //
 // Hostname rejects everything IPAddress and HostDomainName reject, including
 // a bracketed IP such as "[::1]" and an IPv6 zone. ParseHostname accepts a
-// Unicode name only through an ASCIIToer, and stores the A-label form.
+// Unicode name only through an IDNAConverter, and stores the A-label form.
 //
 // If you need a type that accepts what Hostname rejects, define your own type,
 // or open an issue at https://github.com/mikeschinkel/go-dt/issues to propose
@@ -41,9 +41,10 @@ type Hostname string
 // ParseHostnameArgs holds the options for ParseHostname. A nil
 // *ParseHostnameArgs, or a zero value, rejects Unicode host names.
 type ParseHostnameArgs struct {
-	// ASCIIToer, when set, converts a Unicode name to A-labels; the parsed
-	// value holds the A-label form.
-	ASCIIToer ASCIIToer
+	// IDNAConverter, when set, uses IDNA (Internationalized Domain Names in
+	// Applications; see IDNAConverter) to convert a Unicode name to A-labels;
+	// the parsed value holds the A-label form.
+	IDNAConverter IDNAConverter
 }
 
 // ParseHostname parses s as an IP address or a host domain name. An IP
@@ -67,7 +68,7 @@ func ParseHostname(s string, args *ParseHostnameArgs) (h Hostname, err error) {
 		h = Hostname(ip)
 		goto end
 	}
-	name, err = hostToASCII(s, args.ASCIIToer)
+	name, err = hostToASCII(s, args.IDNAConverter)
 	if err != nil {
 		err = NewErr(ErrInvalidHostname, "input", s, err)
 		goto end

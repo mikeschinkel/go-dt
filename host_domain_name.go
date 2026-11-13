@@ -37,7 +37,7 @@ const (
 //     in DNS (RFC 1034 section 3.1) but is not part of a host name in email or
 //     URLs. DNSName keeps it.
 //   - Unicode, as in "bücher.example" (RFC 5890 U-labels). Write the name as
-//     A-labels ("xn--bcher-kva.example"), or convert it with an ASCIIToer
+//     A-labels ("xn--bcher-kva.example"), or convert it with an IDNAConverter
 //     through a Parse function that takes one. Without IDNA tables go-dt
 //     cannot tell a real A-label from an RFC 5890 Fake A-label, so it accepts
 //     any LDH label beginning "xn--".
