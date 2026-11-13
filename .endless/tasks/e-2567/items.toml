@@ -26,7 +26,7 @@ statement = "ParseInternetDomain requires two or more labels and rejects names u
 [[item]]
 id = "P5"
 kind = "deliverable"
-statement = "ParseInternetDomainArgs has PublicSuffixClassifier, ASCIIToer, RejectedSuffixes and AcceptedSuffixes fields, and a nil args value means syntax plus the built-in special-use list"
+statement = "ParseInternetDomainArgs has PublicSuffixClassifier, IDNAConverter, RejectedSuffixes and AcceptedSuffixes fields, the suffix lists typed []HostDomainName, and a nil args value means syntax plus the built-in special-use list"
 
 [[item]]
 id = "P6"
