@@ -96,3 +96,7 @@ Working on E-2567 (go-dt host/email types), I made ParseInternetDomainArgs.Rejec
 ### [2026-11-12] Go stdlib/x signatures are not a precedent for go-dt types
 Working on E-2567, I kept PublicSuffixClassifier.ClassifyPublicSuffix(domain string) untyped because x/net's publicsuffix uses string, and my previous lesson said signatures mirroring an external API could stay string. Mike corrected this: the Go team's code does not use domain types, so citing it as the standard to emulate does not apply to go-dt. This supersedes that part of the lesson 'Type go-dt Args fields that hold domain values'. Mike's rule: Parse* functions (almost) always take a string, because parsing by definition starts from a string. Anything that is not a parser takes and returns go-dt types where one fits. If a non-parser overlaps a parser enough, consider whether it should be a parser instead.
 - **Project**: go-dt
+
+### [2026-11-12] A method's name must match its return type out of context
+Working on E-2567, I proposed having ASCIIToer.ToASCII return HostDomainName. Mike rejected it: read with no other context, ToASCII() converts a value to an ASCII string, so it should never return a HostDomainName. If a method returns a domain type, its name should say so (Mike suggested ToASCIIHostDomainName). Applies to go-dt hook and conversion method names.
+- **Project**: go-dt
