@@ -1,0 +1,7 @@
+Settled with Mike on 2026-11-13.
+
+- No adapter code ships in go-dt or dtx (Mike: Q1 option C). golang.org/x/net/publicsuffix imports net/http/cookiejar for one line (`var List cookiejar.PublicSuffixList`), which pulls net/http and crypto/tls into every importer; x/net/idna depends on golang.org/x/text's normalization and bidi tables. dtx's README promises standard-library-only. Go proverb, cited by Mike: "A little copying is better than a little dependency." The adapters are each under twenty lines, so callers copy them from go-dt's README.
+- Copying x/net's publicsuffix table into dtx was considered: about 200 lines plus about 89 KB of embedded generated data, refreshed by re-copying. Rejected in favour of the README.
+- IDNA profile (Q2): moot with no shipped code; the README uses idna.Lookup (RFC 5891 section 5, for names that already exist) and names idna.Registration (section 4) as the strict choice.
+- Release (Q3) and exports (Q4): moot, since dtx does not change and nothing requires a new go-dt tag. For the record, Mike's pre-v1.0 rule is a patch bump unless something breaks; the next go-dt release after E-2567 is v0.7.2.
+- examples/hook_adapters keeps the README's code honest: examples/**/go.mod may carry a replace, is not versioned, and is built by `just examples` and the Release workflow.
