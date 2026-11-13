@@ -111,22 +111,68 @@ var ErrFailedToMarshalJSON = errors.New("failed to marshal JSON")
 // Sentinels for the host, IP, DNS and email address types. Each type has an
 // ErrInvalid<Type> sentinel; the detail sentinels below say which rule failed.
 var (
-	ErrInvalidIPAddress           = errors.New("invalid IP address")
-	ErrInvalidIPv4Address         = errors.New("invalid IPv4 address")
-	ErrInvalidIPv6Address         = errors.New("invalid IPv6 address")
-	ErrInvalidScopedIPv6Address   = errors.New("invalid scoped IPv6 address")
-	ErrInvalidHostDomainName      = errors.New("invalid host domain name")
+	// ErrInvalidIPAddress is returned when input is not an IPAddress.
+	ErrInvalidIPAddress = errors.New("invalid IP address")
+
+	// ErrInvalidIPv4Address is returned when input is not an IPv4Address
+	// (RFC 3986 IPv4address).
+	ErrInvalidIPv4Address = errors.New("invalid IPv4 address")
+
+	// ErrInvalidIPv6Address is returned when input is not an IPv6Address
+	// (RFC 4291).
+	ErrInvalidIPv6Address = errors.New("invalid IPv6 address")
+
+	// ErrInvalidScopedIPv6Address is returned when input is not a
+	// ScopedIPv6Address (RFC 4007, RFC 6874).
+	ErrInvalidScopedIPv6Address = errors.New("invalid scoped IPv6 address")
+
+	// ErrInvalidHostDomainName is returned when input is not a
+	// HostDomainName (RFC 1123 section 2.1).
+	ErrInvalidHostDomainName = errors.New("invalid host domain name")
+
+	// ErrInvalidSingleLabelHostname is returned when input is not a
+	// SingleLabelHostname (RFC 6762).
 	ErrInvalidSingleLabelHostname = errors.New("invalid single-label host name")
-	ErrInvalidInternetDomain      = errors.New("invalid internet domain")
-	ErrInvalidHostname            = errors.New("invalid hostname")
-	ErrInvalidDNSName             = errors.New("invalid DNS name")
-	ErrInvalidHostPort            = errors.New("invalid host and port")
-	ErrInvalidPortNumber          = errors.New("invalid port number")
-	ErrInvalidServiceName         = errors.New("invalid service name")
-	ErrInvalidEmailLocalPart      = errors.New("invalid email local part")
-	ErrInvalidEmailAddress        = errors.New("invalid email address")
-	ErrInvalidEmailDisplayName    = errors.New("invalid email display name")
-	ErrInvalidMailbox             = errors.New("invalid mailbox")
+
+	// ErrInvalidInternetDomain is returned when input is not an
+	// InternetDomain.
+	ErrInvalidInternetDomain = errors.New("invalid internet domain")
+
+	// ErrInvalidHostname is returned when input is not a Hostname (RFC 3986
+	// host without brackets).
+	ErrInvalidHostname = errors.New("invalid hostname")
+
+	// ErrInvalidDNSName is returned when input is not a DNSName (RFC 9499
+	// domain name).
+	ErrInvalidDNSName = errors.New("invalid DNS name")
+
+	// ErrInvalidHostPort is returned when input is not a HostPort
+	// (net.SplitHostPort's hostport).
+	ErrInvalidHostPort = errors.New("invalid host and port")
+
+	// ErrInvalidPortNumber is returned when input is not a PortNumber
+	// (RFC 6335 port number).
+	ErrInvalidPortNumber = errors.New("invalid port number")
+
+	// ErrInvalidServiceName is returned when input is not a ServiceName
+	// (RFC 6335 service name).
+	ErrInvalidServiceName = errors.New("invalid service name")
+
+	// ErrInvalidEmailLocalPart is returned when input is not an
+	// EmailLocalPart (RFC 5322 local-part).
+	ErrInvalidEmailLocalPart = errors.New("invalid email local part")
+
+	// ErrInvalidEmailAddress is returned when input is not an EmailAddress
+	// (RFC 5322 addr-spec).
+	ErrInvalidEmailAddress = errors.New("invalid email address")
+
+	// ErrInvalidEmailDisplayName is returned when input is not an
+	// EmailDisplayName (RFC 5322 display-name).
+	ErrInvalidEmailDisplayName = errors.New("invalid email display name")
+
+	// ErrInvalidMailbox is returned when input is not a Mailbox (RFC 5322
+	// mailbox).
+	ErrInvalidMailbox = errors.New("invalid mailbox")
 
 	// ErrUnsupportedSyntax marks input that some RFC allows but the type
 	// deliberately rejects. The type's doc comment says what and why.
@@ -142,23 +188,81 @@ var (
 	// AllowSMTPUTF8.
 	ErrSMTPUTF8NotAllowed = errors.New("UTF-8 local part requires SMTPUTF8, which AllowSMTPUTF8 did not allow")
 
-	ErrIPv6Zone              = errors.New("IPv6 zone index")
-	ErrNotIPv4Address        = errors.New("not an IPv4 address")
-	ErrNotIPv6Address        = errors.New("not an IPv6 address")
-	ErrEmptyLabel            = errors.New("empty label")
-	ErrLabelTooLong          = errors.New("label longer than 63 octets")
-	ErrNonLDHLabel           = errors.New("label is not letters, digits and interior hyphens")
-	ErrNumericFinalLabel     = errors.New("final label is all digits")
-	ErrRootDot               = errors.New("trailing root dot")
-	ErrUnicodeHostname       = errors.New("non-ASCII host name needs an ASCIIToer to convert it to A-labels")
-	ErrSingleLabel           = errors.New("single label")
-	ErrSpecialUseDomain      = errors.New("under a special-use domain suffix")
-	ErrRejectedSuffix        = errors.New("under a rejected suffix")
-	ErrUnlistedPublicSuffix  = errors.New("under an unlisted public suffix")
-	ErrIsPublicSuffix        = errors.New("is itself a public suffix")
-	ErrIsIPAddress           = errors.New("is an IP address")
-	ErrMissingAtSign         = errors.New("missing '@'")
+	// ErrIPv6Zone means the address carries a zone index (RFC 4007 section
+	// 11), as in "fe80::1%en0".
+	ErrIPv6Zone = errors.New("IPv6 zone index")
+
+	// ErrNotIPv4Address means an IP address parsed but is IPv6.
+	ErrNotIPv4Address = errors.New("not an IPv4 address")
+
+	// ErrNotIPv6Address means an IP address parsed but is IPv4.
+	ErrNotIPv6Address = errors.New("not an IPv6 address")
+
+	// ErrEmptyLabel means a name has an empty label, as in "a..com" (RFC
+	// 1034 section 3.1), or a dot-atom has an empty atom (RFC 5322 section
+	// 3.2.3).
+	ErrEmptyLabel = errors.New("empty label")
+
+	// ErrLabelTooLong means a label exceeds 63 octets (RFC 1035 section
+	// 2.3.4).
+	ErrLabelTooLong = errors.New("label longer than 63 octets")
+
+	// ErrNonLDHLabel means a label holds a character other than a letter,
+	// digit or hyphen, or begins or ends with a hyphen (RFC 1034 section 3.5
+	// as amended by RFC 1123 section 2.1).
+	ErrNonLDHLabel = errors.New("label is not letters, digits and interior hyphens")
+
+	// ErrNumericFinalLabel means a name's final label is all digits, which
+	// RFC 1123 section 2.1 rules out so a name cannot pass for an IPv4
+	// address.
+	ErrNumericFinalLabel = errors.New("final label is all digits")
+
+	// ErrRootDot means a name ends with the root label's dot (RFC 1034
+	// section 3.1), which a host name does not carry.
+	ErrRootDot = errors.New("trailing root dot")
+
+	// ErrUnicodeHostname means a host name holds non-ASCII text (RFC 5890
+	// U-labels) and no ASCIIToer was given to convert it to A-labels.
+	ErrUnicodeHostname = errors.New("non-ASCII host name needs an ASCIIToer to convert it to A-labels")
+
+	// ErrSingleLabel means a name has one label where InternetDomain needs
+	// two or more.
+	ErrSingleLabel = errors.New("single label")
+
+	// ErrSpecialUseDomain means a name is under a suffix reserved from the
+	// public DNS (RFC 6761, RFC 6762, RFC 8375).
+	ErrSpecialUseDomain = errors.New("under a special-use domain suffix")
+
+	// ErrRejectedSuffix means a name is under one of the caller's
+	// ParseInternetDomainArgs.RejectedSuffixes.
+	ErrRejectedSuffix = errors.New("under a rejected suffix")
+
+	// ErrUnlistedPublicSuffix means the PublicSuffixClassifier does not list
+	// the name's suffix, as with "foo.cromulent".
+	ErrUnlistedPublicSuffix = errors.New("under an unlisted public suffix")
+
+	// ErrIsPublicSuffix means the name is itself a public suffix, such as
+	// "co.uk" or "github.io".
+	ErrIsPublicSuffix = errors.New("is itself a public suffix")
+
+	// ErrIsIPAddress means a Hostname holds an IP address, which has no
+	// DNSName of its own.
+	ErrIsIPAddress = errors.New("is an IP address")
+
+	// ErrMissingAtSign means an email address has no "@" (RFC 5322
+	// addr-spec).
+	ErrMissingAtSign = errors.New("missing '@'")
+
+	// ErrGeneralAddressLiteral means an email host is RFC 5321 section
+	// 4.1.3's General-address-literal ("[tag:content]"), which EmailAddress
+	// does not support.
 	ErrGeneralAddressLiteral = errors.New("general address literal")
-	ErrInvalidUTF8           = errors.New("invalid UTF-8")
-	ErrAngleBracket          = errors.New("angle bracket")
+
+	// ErrInvalidUTF8 means text is not valid UTF-8 (RFC 3629), which RFC 6532
+	// requires of internationalized email.
+	ErrInvalidUTF8 = errors.New("invalid UTF-8")
+
+	// ErrAngleBracket means a display name holds "<" or ">", or a mailbox's
+	// angle brackets do not pair (RFC 5322 section 3.4 angle-addr).
+	ErrAngleBracket = errors.New("angle bracket")
 )
