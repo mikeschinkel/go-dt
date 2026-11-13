@@ -61,7 +61,7 @@ statement = "go-dt exports PublicSuffixKind with explicit constant values (Unspe
 [[item]]
 id = "P12"
 kind = "deliverable"
-statement = "go-dt exports the ASCIIToer interface and ToASCIIFunc, and ParseInternetDomain, ParseHostname, ParseEmailAddress and ParseMailbox accept one through their args to convert Unicode names to A-labels"
+statement = "go-dt exports the IDNAConverter interface, whose ToASCIIHostDomainName(name string) returns a HostDomainName, and ToASCIIHostDomainNameFunc, with doc comments explaining IDNA; ParseInternetDomain, ParseHostname, ParseEmailAddress and ParseMailbox accept one through their args to convert Unicode names to A-labels"
 
 [[item]]
 id = "P13"
