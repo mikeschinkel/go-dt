@@ -88,3 +88,7 @@ While planning E-2567, I sketched a PublicSuffixKind enum with iota. Mike said h
 ### [2026-11-11] Search for every occurrence before reporting a stale name fixed
 In E-2596 (go-dt), I found EntryPath.Status's doc comment naming the nonexistent FlagDontFollowSymlinks, fixed that one comment, and wrote 'fixes the doc comment' in the commit and reconcile note. When Mike asked how I fixed it, a git grep showed four more Status doc comments with the same stale name. Before claiming a stale identifier or wording is fixed, git grep the repo for every occurrence and fix or list them all, so the report doesn't overstate the fix.
 - **Project**: go-dt
+
+### [2026-11-12] Type go-dt Args fields that hold domain values
+Working on E-2567 (go-dt host/email types), I made ParseInternetDomainArgs.RejectedSuffixes and AcceptedSuffixes []string for caller convenience and to match the string-based PublicSuffixClassifier hook, without asking. Mike agreed they should be []HostDomainName: go-dt exists so domain values carry types, untyped literals convert anyway, and a field's type documents what belongs there even though nothing validates it. In go-dt, when a new exported field or parameter holds a value one of go-dt's types describes, use that type, or ask before picking string. Signatures that mirror an external API (like x/net's publicsuffix) can stay string.
+- **Project**: go-dt
