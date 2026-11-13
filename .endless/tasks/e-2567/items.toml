@@ -66,7 +66,7 @@ statement = "go-dt exports the IDNAConverter interface, whose ToASCIIHostDomainN
 [[item]]
 id = "P13"
 kind = "deliverable"
-statement = "Without an ASCIIToer, the host and email Parse functions reject a Unicode host name"
+statement = "Without an IDNAConverter, the host and email Parse functions reject a Unicode host name"
 
 [[item]]
 id = "P15"
