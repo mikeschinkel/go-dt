@@ -80,7 +80,8 @@ statement = "GitBranchName's and GitTagName's doc comments warn that casting a s
 [[item]]
 id = "P15"
 kind = "deliverable"
-statement = "Every parse error wraps a type sentinel (ErrInvalidGitRef and so on) and a sentinel naming the rule broken"
+statement = "errors.go defines the seven type sentinels and fifteen new rule sentinels named in the plan, and every Parse, Validate and To* error wraps one type sentinel and one rule sentinel"
+verify = "test/ module: each invalid table row asserts errors.Is for both its type sentinel and the sentinel of the rule it breaks"
 
 [[item]]
 id = "P16"
