@@ -117,3 +117,8 @@ statement = "Does not settle a naming convention for union constraints; that is 
 id = "P22"
 kind = "deliverable"
 statement = "GitRef.ToBranchName and ToTagName also validate the short name they return, returning the ParseGitBranchName or ParseGitTagName error (for example ErrInvalidGitBranchName with ErrIsHEAD for refs/heads/HEAD), so a To* result is always a valid value"
+
+[[item]]
+id = "P23"
+kind = "deliverable"
+statement = "Each git sentinel in errors.go has its own one-line doc comment, citing the git-check-ref-format(1) rule where one applies, following Mike's EQ-287 decision on E-2567"
