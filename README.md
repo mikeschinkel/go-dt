@@ -930,6 +930,44 @@ Enumeration classifying filesystem entries:
 - `SymlinkEntry` — Symbolic link
 - `UnknownEntry` — Other or unknown type
 
+### Git Types
+
+Types for the names git uses, following the terms in [gitrevisions(7)](https://git-scm.com/docs/gitrevisions) and [git-check-ref-format(1)](https://git-scm.com/docs/git-check-ref-format). Each has a `ParseGit<Type>` function and a `Validate()` method that apply the same rules. Every error wraps the type's `ErrInvalidGit<Type>` sentinel and the sentinel of the rule that failed. The rules are written in Go: `dt` never runs git.
+
+| Type | Holds | Rules |
+|---|---|---|
+| `GitRef` | A full refname: `refs/heads/main`, `refs/tags/v1.0.0` | Begins with `refs/` and passes `git check-ref-format`. `HEAD`, `FETCH_HEAD`, `ORIG_HEAD` and `MERGE_HEAD` are revisions, not refs. |
+| `GitBranchName` | A short branch name: `main`, `feature/login` | `refs/heads/<name>` is a valid `GitRef`, and the name does not begin with `-` and is not `HEAD` (as `git check-ref-format --branch`). |
+| `GitTagName` | A short tag name: `v1.0.0` | `refs/tags/<name>` is a valid `GitRef`, and the name does not begin with `-` and is not `HEAD`. |
+| `GitRemoteName` | A remote's name: `origin` | `refs/remotes/<name>/test` is a valid `GitRef`, as git checks it. |
+| `GitRevision` | Any expression naming one object: `HEAD~1`, `main^{tree}`, `v1:path`, `@{upstream}` | Not empty, no control characters, no leading or trailing space, does not begin with `-`. The gitrevisions(7) grammar is left to git, which reports a malformed revision when it uses one. |
+| `GitObjectID` | A full object name | Exactly 40 (SHA-1) or 64 (SHA-256) lowercase hex digits. |
+| `GitShortObjectID` | A full or shortened object name, as `git rev-parse --short` prints | 4 to 64 lowercase hex digits. |
+
+The ref rules `GitRef`, `GitBranchName`, `GitTagName` and `GitRemoteName` apply: no path component is empty (a leading, trailing or doubled `/`), begins with `.` or ends with `.lock`; no `..` or `@{` anywhere; no control characters, space, `~`, `^`, `:`, `?`, `*`, `[` or `\`; no trailing `.`; and not the name `@`.
+
+`ParseGitObjectID` and `ParseGitShortObjectID` take a pointer to an args struct (`nil` means the defaults). git accepts uppercase hex but always prints lowercase, so both reject uppercase unless `AllowUppercaseHex` is set, and then store the value in lowercase, so `==` compares IDs reliably.
+
+**Conversions:**
+- Upward, by plain cast, since every value is valid in the wider type: `GitObjectID` → `GitShortObjectID` → `GitRevision`, and `GitRef` → `GitRevision`.
+- `GitBranchName.ToRef()` and `GitTagName.ToRef()` return the full ref (`refs/heads/<name>`, `refs/tags/<name>`) and never fail.
+- `GitRef.ToBranchName()` and `GitRef.ToTagName()` return the short name, or an error wrapping `ErrNotBranchRef` or `ErrNotTagRef` when the ref is under another namespace.
+
+Casting a short branch or tag name straight to `GitRevision` can resolve to a different ref: git looks a short name up in a fixed order, and with a tag and a branch both named `main`, the tag wins. Use `ToRef()` to name exactly one ref.
+
+`GitRevisionTypes` is the union constraint `GitRevision | GitObjectID | GitShortObjectID | GitRef | GitBranchName | GitTagName`, so a generic function can accept any of them and convert each as it needs (a branch name to its full ref, for example). Its name is provisional.
+
+```go
+branch, err := dt.ParseGitBranchName("feature/login")
+if err != nil {
+    return err
+}
+ref := branch.ToRef()          // refs/heads/feature/login
+rev := dt.GitRevision(ref)     // safe: a full ref is unambiguous
+
+id, err := dt.ParseGitObjectID(s, &dt.ParseGitObjectIDArgs{AllowUppercaseHex: true})
+```
+
 ---
 
 ## Generic Segment Operations

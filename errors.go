@@ -32,6 +32,57 @@ var (
 	// ErrInvalidForOpen is used when ValidPath()==false
 	ErrInvalidForOpen = errors.New("invalid for open")
 )
+
+// Sentinels for the git types. Each type has an ErrInvalidGit<Type> sentinel;
+// the rule sentinels below say which rule failed. The ref rules come from
+// git-check-ref-format(1); every Parse, Validate and To* error wraps one type
+// sentinel and one rule sentinel.
+var (
+	// ErrInvalidGitRef marks a value that is not a full git refname under refs/.
+	ErrInvalidGitRef = errors.New("invalid git ref")
+	// ErrInvalidGitBranchName marks a value git-check-ref-format(1) --branch refuses.
+	ErrInvalidGitBranchName = errors.New("invalid git branch name")
+	// ErrInvalidGitTagName marks a value git refuses as a tag name.
+	ErrInvalidGitTagName = errors.New("invalid git tag name")
+	// ErrInvalidGitRemoteName marks a value git refuses as a remote name.
+	ErrInvalidGitRemoteName = errors.New("invalid git remote name")
+	// ErrInvalidGitRevision marks a value that fails GitRevision's basic checks.
+	ErrInvalidGitRevision = errors.New("invalid git revision")
+	// ErrInvalidGitObjectID marks a value that is not a full SHA-1 or SHA-256 object name.
+	ErrInvalidGitObjectID = errors.New("invalid git object ID")
+	// ErrInvalidGitShortObjectID marks a value that is not 4 to 64 lowercase hex digits.
+	ErrInvalidGitShortObjectID = errors.New("invalid git short object ID")
+	// ErrNotUnderRefs marks a GitRef that does not begin with refs/, such as HEAD.
+	ErrNotUnderRefs = errors.New("not under refs/")
+	// ErrNotBranchRef marks a ref GitRef.ToBranchName cannot convert: it is not under refs/heads/.
+	ErrNotBranchRef = errors.New("not under refs/heads/")
+	// ErrNotTagRef marks a ref GitRef.ToTagName cannot convert: it is not under refs/tags/.
+	ErrNotTagRef = errors.New("not under refs/tags/")
+	// ErrEmptyRefComponent breaks git-check-ref-format(1) rule 6: no leading or trailing '/', and no '//'.
+	ErrEmptyRefComponent = errors.New("empty path component: leading, trailing or doubled '/'")
+	// ErrRefComponentLeadingDot breaks git-check-ref-format(1) rule 1: no component begins with '.'.
+	ErrRefComponentLeadingDot = errors.New("path component begins with '.'")
+	// ErrRefComponentLockSuffix breaks git-check-ref-format(1) rule 1: no component ends with '.lock'.
+	ErrRefComponentLockSuffix = errors.New("path component ends with '.lock'")
+	// ErrDoubleDot breaks git-check-ref-format(1) rule 3: no '..' anywhere.
+	ErrDoubleDot = errors.New("contains '..'")
+	// ErrAtBrace breaks git-check-ref-format(1) rule 8: no '@{' anywhere.
+	ErrAtBrace = errors.New("contains '@{'")
+	// ErrLoneAt breaks git-check-ref-format(1) rule 9: the name is not the single character '@'.
+	ErrLoneAt = errors.New("is '@'")
+	// ErrLeadingDash marks a value git would read as an option; check-ref-format(1) --branch refuses it.
+	ErrLeadingDash = errors.New("begins with '-'")
+	// ErrIsHEAD marks a branch or tag name of HEAD, which git-check-ref-format(1) --branch refuses.
+	ErrIsHEAD = errors.New("is 'HEAD'")
+	// ErrSurroundingWhitespace marks a revision with a leading or trailing space.
+	ErrSurroundingWhitespace = errors.New("leading or trailing whitespace")
+	// ErrNonHexDigit marks an object name with a character that is not a hex digit.
+	ErrNonHexDigit = errors.New("contains a non-hex digit")
+	// ErrUppercaseHex marks an object name with uppercase hex, which git accepts but never prints.
+	ErrUppercaseHex = errors.New("uppercase hex digit; set AllowUppercaseHex to accept it")
+	// ErrObjectIDLength marks an object name that is neither 40 (SHA-1) nor 64 (SHA-256) hex digits.
+	ErrObjectIDLength = errors.New("not 40 or 64 hex digits")
+)
 var (
 	ErrFileSystem                      = errors.New("file system error")
 	ErrFileStat                        = errors.New("file stat error")

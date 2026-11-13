@@ -1,0 +1,72 @@
+# Verification suite for E-2599 — git domain types in go-dt's root package.
+# DO NOT EDIT unless you ARE E-2599. See .endless/tasks/CLAUDE.md.
+#
+# The test/ module's Git tests hold the tables (P3-P15); they were
+# cross-checked by hand against git check-ref-format on git 2.52 and never run
+# git themselves. The sh checks cover what no test can: the exported surface,
+# go.mod staying dependency-free, no git invocation, and the README.
+schema = 1
+task   = "E-2599"
+
+[[check]]
+name   = "git type tests in the test/ module"
+runner = "gotest"
+dir    = "test"
+paths  = ["./..."]
+
+[[check]]
+name   = "root module tests still pass"
+runner = "gotest"
+paths  = ["./..."]
+
+[[check]]
+name   = "the exported git API is exactly the planned types, Parse functions, args structs, Validate and To* methods, and the union"
+sh     = "GOWORK=off go doc -all . | grep -E '^(type (Git|ParseGit)[A-Za-z]* |func ParseGit|func \\([a-z]+ Git)'"
+equals = """
+type GitBranchName string
+func ParseGitBranchName(s string) (name GitBranchName, err error)
+func (b GitBranchName) ToRef() GitRef
+func (b GitBranchName) Validate() error
+type GitObjectID string
+func ParseGitObjectID(s string, args *ParseGitObjectIDArgs) (id GitObjectID, err error)
+func (id GitObjectID) Validate() (err error)
+type GitRef string
+func ParseGitRef(s string) (ref GitRef, err error)
+func (r GitRef) ToBranchName() (name GitBranchName, err error)
+func (r GitRef) ToTagName() (name GitTagName, err error)
+func (r GitRef) Validate() (err error)
+type GitRemoteName string
+func ParseGitRemoteName(s string) (name GitRemoteName, err error)
+func (r GitRemoteName) Validate() error
+type GitRevision string
+func ParseGitRevision(s string) (rev GitRevision, err error)
+func (r GitRevision) Validate() (err error)
+type GitRevisionTypes interface {
+type GitShortObjectID string
+func ParseGitShortObjectID(s string, args *ParseGitShortObjectIDArgs) (id GitShortObjectID, err error)
+func (id GitShortObjectID) Validate() (err error)
+type GitTagName string
+func ParseGitTagName(s string) (name GitTagName, err error)
+func (t GitTagName) ToRef() GitRef
+func (t GitTagName) Validate() error
+type ParseGitObjectIDArgs struct {
+type ParseGitShortObjectIDArgs struct {"""
+
+[[check]]
+name   = "the root go.mod requires nothing"
+sh     = "grep -c require go.mod || true"
+equals = "0"
+
+[[check]]
+name   = "the git types never run git"
+sh     = "grep -lE 'os/exec|exec\\.Command' git_*.go || true"
+equals = ""
+
+[[check]]
+name   = "README documents the git types, their rules and the conversions"
+sh     = "for p in '^### Git Types$' 'check-ref-format' 'GitRevisionTypes' 'ToBranchName' 'AllowUppercaseHex'; do grep -qE \"$p\" README.md || echo \"missing $p\"; done"
+equals = ""
+
+[[check]]
+name = "the root module lints clean"
+sh   = "GOWORK=off go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0 run ./... --timeout=5m"
