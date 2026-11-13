@@ -56,7 +56,7 @@ statement = "Hostname.ToDNSName and DNSName.ToHostname convert sideways and retu
 [[item]]
 id = "P11"
 kind = "deliverable"
-statement = "go-dt exports PublicSuffixKind with explicit constant values (Unspecified 0, Unlisted 1, ICANN 2, Private 3), the PublicSuffixClassifier interface and ClassifyPublicSuffixFunc"
+statement = "go-dt exports PublicSuffixKind with explicit constant values (Unspecified 0, Unlisted 1, ICANN 2, Private 3), the PublicSuffixClassifier interface and ClassifyPublicSuffixFunc, whose domain and suffix are HostDomainName"
 
 [[item]]
 id = "P12"
