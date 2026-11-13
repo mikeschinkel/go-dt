@@ -846,7 +846,7 @@ d, err := dt.ParseInternetDomain("example.com", nil)
 d, err = dt.ParseInternetDomain("foo.cromulent", &dt.ParseInternetDomainArgs{
     PublicSuffixClassifier: classifier, // rejects unlisted and bare public suffixes
     ASCIIToer:              idna.Lookup, // converts Unicode names to A-labels
-    RejectedSuffixes:       []string{"lan", "corp"},
+    RejectedSuffixes:       []dt.HostDomainName{"lan", "corp"},
 })
 ```
 

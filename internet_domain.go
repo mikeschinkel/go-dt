@@ -44,17 +44,17 @@ type ParseInternetDomainArgs struct {
 	// RejectedSuffixes rejects names at or under these suffixes, such as
 	// "lan" or "corp", which no RFC reserves but a caller may not want.
 	// Matching ignores ASCII case.
-	RejectedSuffixes []string
+	RejectedSuffixes []HostDomainName
 
 	// AcceptedSuffixes accepts names at or under these suffixes without
 	// asking the PublicSuffixClassifier, for a suffix the classifier's list
 	// does not know yet. It does not override the special-use list or
 	// RejectedSuffixes. Matching ignores ASCII case.
-	AcceptedSuffixes []string
+	AcceptedSuffixes []HostDomainName
 }
 
 // specialUseSuffixes are the suffixes RFCs reserve from the public DNS.
-var specialUseSuffixes = []string{
+var specialUseSuffixes = []HostDomainName{
 	"test",      // RFC 6761 section 6.2
 	"localhost", // RFC 6761 section 6.3
 	"invalid",   // RFC 6761 section 6.4
@@ -120,9 +120,9 @@ func (d InternetDomain) ErrKV() ErrKV {
 
 // hasAnySuffix reports whether lowerName equals, or is under, any of
 // suffixes, ignoring ASCII case in the suffixes.
-func hasAnySuffix(lowerName string, suffixes []string) bool {
-	for _, suffix := range suffixes {
-		suffix = strings.ToLower(strings.Trim(suffix, "."))
+func hasAnySuffix(lowerName string, suffixes []HostDomainName) bool {
+	for _, s := range suffixes {
+		suffix := strings.ToLower(strings.Trim(string(s), "."))
 		if suffix == "" {
 			continue
 		}
