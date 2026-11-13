@@ -100,3 +100,7 @@ Working on E-2567, I kept PublicSuffixClassifier.ClassifyPublicSuffix(domain str
 ### [2026-11-12] A method's name must match its return type out of context
 Working on E-2567, I proposed having ASCIIToer.ToASCII return HostDomainName. Mike rejected it: read with no other context, ToASCII() converts a value to an ASCII string, so it should never return a HostDomainName. If a method returns a domain type, its name should say so (Mike suggested ToASCIIHostDomainName). Applies to go-dt hook and conversion method names.
 - **Project**: go-dt
+
+### [2026-11-12] go-dt pre-v1 versioning: patch bump unless breaking
+While planning E-2598 I said go-dt's next release should be v0.8.0 because E-2567 added new API, citing Go's convention of a minor bump for new API. Mike corrected this: his standard for pre-v1.0 packages is a patch bump (v0.7.1 to v0.7.2) when nothing breaks, and a minor bump only for breaking changes. Otherwise almost every change becomes a minor bump and versions run to v0.161.0. Check for breaking changes (the exported API diff against the last tag) before proposing a version.
+- **Project**: go-dt
