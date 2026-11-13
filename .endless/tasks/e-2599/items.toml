@@ -112,3 +112,8 @@ statement = "Does not change go-gitutil; moving its GitRef and RemoteName onto t
 id = "P21"
 kind = "exclusion"
 statement = "Does not settle a naming convention for union constraints; that is decided in gomion"
+
+[[item]]
+id = "P22"
+kind = "deliverable"
+statement = "GitRef.ToBranchName and ToTagName also validate the short name they return, returning the ParseGitBranchName or ParseGitTagName error (for example ErrInvalidGitBranchName with ErrIsHEAD for refs/heads/HEAD), so a To* result is always a valid value"
